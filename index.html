@@ -1,0 +1,1502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="BIO 323 Exam 2 study site: notes, slide figures, study plan, practice quizzes and flashcards for Lectures 9-18.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%233b379a'/%3E%3Cellipse cx='16' cy='16' rx='9' ry='5' fill='none' stroke='%23ff86b6' stroke-width='2.5'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>BIO 323 Exam 2 Prep</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: lab-notebook study console. Sticky tab bar, one working view at a time; stain palette (hematoxylin indigo + eosin pink). */
+:root{
+  --bg:#f3f4f9; --surface:#ffffff; --surface-2:#eceef6; --ink:#1a1c2c; --muted:#565b74; --line:#d9dcea;
+  --accent:#3b379a; --accent-ink:#ffffff; --accent-soft:#e6e5f7;
+  --pink:#b8306f; --pink-soft:#fbe5ef;
+  --good:#1d7a4b; --good-soft:#e1f3e9; --bad:#b3261e; --bad-soft:#fbe7e5; --warn:#9a5800; --warn-soft:#fdf0dc;
+  --figbg:#ffffff;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#10111a; --surface:#191b28; --surface-2:#222537; --ink:#e7e8f3; --muted:#a3a7c2; --line:#2e3149;
+  --accent:#aaa6ff; --accent-ink:#14132e; --accent-soft:#2a2852;
+  --pink:#ff86b6; --pink-soft:#3b1f2d;
+  --good:#63d49c; --good-soft:#163527; --bad:#ff8f86; --bad-soft:#3d1d1b; --warn:#f1b65e; --warn-soft:#3a2b12;
+  --figbg:#ffffff; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#10111a; --surface:#191b28; --surface-2:#222537; --ink:#e7e8f3; --muted:#a3a7c2; --line:#2e3149;
+  --accent:#aaa6ff; --accent-ink:#14132e; --accent-soft:#2a2852;
+  --pink:#ff86b6; --pink-soft:#3b1f2d;
+  --good:#63d49c; --good-soft:#163527; --bad:#ff8f86; --bad-soft:#3d1d1b; --warn:#f1b65e; --warn-soft:#3a2b12;
+  --figbg:#ffffff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.45rem;font-weight:700}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px;border-radius:6px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* header */
+header.top{background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between;padding-block:22px 18px}
+.titleblock{display:grid;gap:6px;min-width:0}
+.titleblock p{color:var(--muted);max-width:60ch}
+.countdown{display:flex;gap:14px;align-items:center;background:var(--accent-soft);border-radius:var(--r);padding:10px 16px}
+.countdown .big{font-family:var(--f-display);font-weight:800;font-size:2.4rem;line-height:1;color:var(--accent)}
+.countdown .lbl{font-size:.9rem;line-height:1.3}
+.countdown .lbl b{display:block}
+
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs button{background:none;border:0;padding:13px 14px 11px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;font-weight:700;color:var(--muted)}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--pink)}
+nav.tabs button:hover{color:var(--ink)}
+
+main{padding-block:26px 60px}
+.view{display:grid;gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.muted{color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:700;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.small{padding:5px 10px;font-size:.88rem}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;background:var(--surface);font-size:.92rem;user-select:none}
+.chip input{accent-color:var(--accent);margin:0}
+.chip.on{background:var(--accent-soft);border-color:var(--accent)}
+.pill{font-family:var(--f-mono);font-size:.72rem;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.pill.weak{background:var(--bad-soft);color:var(--bad)}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.flag{display:block;margin-top:6px;padding:8px 10px;border-radius:8px;background:var(--warn-soft);color:var(--warn);font-size:.92rem}
+
+/* plan */
+.plan-grid{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.plan-grid{grid-template-columns:1fr}}
+.settings{display:grid;gap:18px;position:sticky;top:72px}
+@media (max-width:860px){.settings{position:static;order:2}}
+.only-mobile{display:none}@media (max-width:860px){.only-mobile{display:inline}}
+.field{display:grid;gap:6px}
+.field label,.field .lab{font-weight:700;font-size:.95rem}
+.field input[type=date],.field select{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px;width:100%}
+.dow{display:flex;gap:6px;flex-wrap:wrap}
+.dow .chip{padding:5px 10px;font-family:var(--f-mono);font-size:.8rem}
+.conf{display:grid;gap:6px}
+.conf-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;font-size:.92rem}
+.conf-row .nm{display:flex;gap:8px;align-items:center;min-width:0}
+.conf-row .nm input{accent-color:var(--accent)}
+.conf-row .nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--surface);padding:3px 8px;font-size:.78rem;cursor:pointer;font-family:var(--f-mono)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on[data-v="1"]{background:var(--bad-soft);color:var(--bad)}
+.seg button.on[data-v="2"]{background:var(--warn-soft);color:var(--warn)}
+.seg button.on[data-v="3"]{background:var(--good-soft);color:var(--good)}
+.seg button:disabled{opacity:.4;cursor:default}
+.days{display:grid;gap:12px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);display:grid;grid-template-columns:92px minmax(0,1fr)}
+.day .date{padding:16px 12px;border-right:1px solid var(--line);display:grid;align-content:start;gap:2px;text-align:center}
+.day .date .d{font-family:var(--f-display);font-size:2rem;font-weight:800;line-height:1}
+.day .date .w{font-family:var(--f-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.day.today{border-color:var(--accent)}
+.day.today .date{background:var(--accent-soft)}
+.day.exam{border-color:var(--pink)}
+.day.exam .date{background:var(--pink-soft)}
+.day.exam .date .d{color:var(--pink)}
+.day .body{padding:14px 16px;display:grid;gap:10px;min-width:0}
+.day .head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.task{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:start}
+.task input{width:18px;height:18px;margin-top:3px;accent-color:var(--good)}
+.task.done .tx{text-decoration:line-through;color:var(--muted)}
+.task .go{font-size:.85rem}
+.summary-bar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.meter{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;min-width:140px;flex:1}
+.meter i{display:block;height:100%;background:var(--good);width:0}
+
+/* units */
+.units-grid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.units-grid{grid-template-columns:1fr}}
+.unit-nav{display:grid;gap:4px;position:sticky;top:72px}
+.unit-nav button{display:grid;grid-template-columns:28px minmax(0,1fr);gap:6px;text-align:left;background:none;border:0;border-radius:8px;padding:8px 10px;cursor:pointer;align-items:start}
+.unit-nav button .n{font-family:var(--f-mono);color:var(--muted);font-size:.85rem;padding-top:2px}
+.unit-nav button .t{font-weight:700;line-height:1.3}
+.unit-nav button .l{display:block;font-size:.78rem;color:var(--muted);font-weight:400}
+.unit-nav button[aria-current="true"]{background:var(--accent-soft)}
+.unit-nav button[aria-current="true"] .n{color:var(--accent)}
+.unit-select{display:none}
+@media (max-width:860px){.unit-nav{display:none}.unit-select{display:block;width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}}
+.unit-body{display:grid;gap:22px;min-width:0}
+.points{margin:0;padding:0;list-style:none;display:grid;gap:10px;max-width:75ch}
+.points li{padding-left:18px;position:relative}
+.points li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:2px;background:var(--pink)}
+.figs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.fig{margin:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface);display:grid;grid-template-rows:auto 1fr}
+.fig button{border:0;padding:0;cursor:zoom-in;background:var(--figbg);display:block;aspect-ratio:4/3;width:100%}
+.fig img{width:100%;height:100%;object-fit:contain;display:block}
+.fig figcaption{padding:10px 12px;font-size:.88rem;color:var(--muted);border-top:1px solid var(--line)}
+.fig figcaption .src{display:block;font-family:var(--f-mono);font-size:.7rem;margin-top:4px}
+details.q{border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+details.q summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::before{content:"Q";font-family:var(--f-mono);color:var(--pink);font-weight:600}
+details.q[open] summary{border-bottom:1px solid var(--line)}
+details.q .ans{padding:12px 14px 14px 38px}
+.qs{display:grid;gap:8px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;min-width:620px;background:var(--surface);font-size:.93rem}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{background:var(--surface-2);font-family:var(--f-mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+tbody th{font-family:var(--f-display)}
+tr:last-child td,tr:last-child th{border-bottom:0}
+.drill{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:center}
+@media (max-width:700px){.drill{grid-template-columns:1fr}}
+.drill svg{width:100%;height:auto;display:block}
+.drill .slots{display:grid;gap:8px}
+.drill .slot{display:grid;grid-template-columns:28px minmax(0,1fr) 22px;gap:8px;align-items:center}
+.drill .slot .num{font-family:var(--f-mono);font-weight:600;background:var(--pink);color:#fff;border-radius:50%;width:26px;height:26px;display:grid;place-items:center;font-size:.85rem}
+.drill select{border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--surface);width:100%}
+.drill .mark{font-weight:700}
+.ok{color:var(--good)} .no{color:var(--bad)}
+
+/* quiz */
+.quiz-setup{display:grid;gap:16px}
+.qcard{display:grid;gap:16px;max-width:780px}
+.qtop{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.qtext{font-family:var(--f-display);font-size:1.3rem;font-weight:700;line-height:1.3}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px 14px;cursor:pointer;align-items:start}
+.opt .k{font-family:var(--f-mono);font-weight:600;color:var(--muted)}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.feedback{border-radius:10px;padding:12px 14px;background:var(--surface-2)}
+.feedback b{display:block;margin-bottom:2px}
+.progress{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.score{font-family:var(--f-display);font-size:3rem;font-weight:800;color:var(--accent);line-height:1}
+.breakdown{display:grid;gap:8px}
+.bd-row{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:.92rem}
+.bd-row .bar{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.bd-row .bar i{display:block;height:100%}
+.missed{display:grid;gap:10px}
+.missed .m{border-left:3px solid var(--bad);padding:6px 12px;background:var(--surface)}
+
+/* flashcards */
+.fc-wrap{display:grid;gap:16px;justify-items:center}
+.flash{width:min(100%,620px);aspect-ratio:5/3;perspective:1200px;cursor:pointer;border:0;background:none;padding:0}
+.flash .inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.flash.flipped .inner{transform:rotateY(180deg)}
+.flash .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;padding:24px;text-align:center;box-shadow:0 1px 0 var(--line), 0 10px 30px -18px rgba(20,20,60,.35)}
+.flash .face .tag{position:absolute;top:12px;left:16px}
+.flash .front .term{font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,4vw,2rem)}
+.flash .back{transform:rotateY(180deg);background:var(--accent-soft)}
+.flash .back .def{font-size:clamp(1rem,2.6vw,1.25rem);max-width:46ch}
+@media (prefers-reduced-motion:reduce){.flash .inner,.progress i{transition:none}}
+/* ruled index card for notecard */
+.index-card{aspect-ratio:5/3;width:min(100%,640px);background:var(--figbg);color:#22223a;border-radius:6px;box-shadow:0 12px 30px -20px rgba(0,0,0,.5);padding:14px 16px 12px;background-image:linear-gradient(#fff 0 28px, transparent 28px),repeating-linear-gradient(#fff 0 14px,#b9d2ee 14px 15px);position:relative;overflow:hidden;font-family:var(--f-mono);font-size:7.2px;line-height:15px}
+.index-card::before{content:"";position:absolute;left:0;right:0;top:27px;height:2px;background:#e48aa8}
+.index-card h4{margin:0 0 6px;font-family:var(--f-display);font-size:13px;line-height:14px;color:#22223a}
+.index-card .cols{column-count:2;column-gap:14px}
+.index-card .it{break-inside:avoid}
+.index-card .it b{color:#3b379a}
+.nc-list{display:grid;gap:8px}
+.nc-item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.nc-item input{accent-color:var(--accent);margin-top:4px}
+
+/* guide */
+.guide-sec{display:grid;gap:8px}
+.gi{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);align-items:start}
+.gi input{width:18px;height:18px;margin-top:3px;accent-color:var(--good)}
+.gi .ga{margin-top:6px;color:var(--ink);background:var(--surface-2);padding:8px 10px;border-radius:8px}
+.gi .tools{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
+.linkbtn{background:none;border:0;padding:0;color:var(--accent);cursor:pointer;font-weight:700;font-size:.9rem;text-decoration:underline;text-underline-offset:3px}
+
+/* resources */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.res{display:grid;gap:10px;align-content:start}
+.res ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.res li a{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;text-decoration:none;color:var(--ink);padding:6px 8px;border-radius:6px}
+.res li a:hover{background:var(--surface-2)}
+.res .ic{font-family:var(--f-mono);font-size:.7rem;padding:2px 6px;border-radius:4px;margin-top:3px;height:fit-content}
+.res .ic.v{background:var(--pink-soft);color:var(--pink)}
+.res .ic.r{background:var(--accent-soft);color:var(--accent)}
+
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(8,8,20,.86);z-index:50;display:grid;grid-template-rows:minmax(0,1fr) auto;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));gap:12px}
+.lb img{max-width:100%;max-height:100%;margin:auto;background:#fff;border-radius:6px;object-fit:contain;min-height:0}
+.lb .cap{color:#f0f0f8;text-align:center;max-width:70ch;margin:0 auto}
+.lb .x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));background:#fff;color:#111;border:0;border-radius:99px;padding:6px 14px;font-weight:700;cursor:pointer}
+.section-head{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <div class="titleblock">
+      <span class="eyebrow">BIO 323 · Molecular &amp; Cell Biology · Lectures 9–18</span>
+      <h1>Exam 2 Prep</h1>
+      <p>Notes, figures and lecture questions from your slides, a study plan built around your exam date, and practice quizzes that track your weak spots.</p>
+    </div>
+    <div class="countdown" id="countdown" aria-live="polite"></div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap" role="tablist">
+    <button role="tab" data-tab="plan">Study plan</button>
+    <button role="tab" data-tab="units">Topics</button>
+    <button role="tab" data-tab="guide">Study guide</button>
+    <button role="tab" data-tab="quiz">Practice quiz</button>
+    <button role="tab" data-tab="cards">Flashcards</button>
+    <button role="tab" data-tab="notecard">Notecard</button>
+    <button role="tab" data-tab="resources">Videos &amp; reading</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- PLAN -->
+  <section class="view" id="v-plan" hidden>
+    <div class="plan-grid">
+      <aside class="card settings" aria-label="Plan settings">
+        <div><span class="eyebrow">Customize</span><h2>Your plan</h2></div>
+        <div class="field"><label for="examDate">Exam date</label><input type="date" id="examDate"><span class="muted" style="font-size:.85rem">Lecture 17 announced Exam 2 for Wed Oct 28. Change it if that moves.</span></div>
+        <div class="field"><label for="startDate">Start studying</label><input type="date" id="startDate"></div>
+        <div class="field"><label for="daily">Time per day</label>
+          <select id="daily"><option value="30">30 min</option><option value="45">45 min</option><option value="60">1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option><option value="180">3 hours</option></select></div>
+        <div class="field"><span class="lab">Days off</span><div class="dow" id="dow"></div></div>
+        <div class="field"><span class="lab">Topics on the exam &amp; how confident you feel</span>
+          <span class="muted" style="font-size:.85rem">Shaky topics get more time and an extra review pass.</span>
+          <div class="conf" id="conf"></div></div>
+        <button class="btn" id="resetPlan" type="button">Reset plan checkmarks</button>
+      </aside>
+      <div class="view" style="gap:16px">
+        <div class="card summary-bar" id="planSummary"></div>
+        <div class="days" id="days"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNITS -->
+  <section class="view" id="v-units" hidden>
+    <div class="units-grid">
+      <nav class="unit-nav" id="unitNav" aria-label="Topics"></nav>
+      <div class="unit-body">
+        <label class="unit-select-wrap"><span class="sr" hidden>Choose topic</span><select class="unit-select" id="unitSelect" aria-label="Choose topic"></select></label>
+        <div id="unitContent" class="unit-body"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDE -->
+  <section class="view" id="v-guide" hidden>
+    <div class="card" style="display:grid;gap:10px">
+      <span class="eyebrow">From your Ch 13/14 study guide + Lecture 14 cytoskeleton list</span>
+      <h2>Can you answer every item?</h2>
+      <p class="muted">Try each one out loud first, then reveal the answer. Check it off once you can explain it without looking.</p>
+      <div class="summary-bar"><span class="mono" id="guideCount"></span><div class="meter"><i id="guideMeter"></i></div><button class="btn small" id="guideRevealAll" type="button">Show all answers</button></div>
+    </div>
+    <div id="guideList" class="view"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="view" id="v-quiz" hidden>
+    <div id="quizArea"></div>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="view" id="v-cards" hidden>
+    <div class="card row" style="justify-content:space-between">
+      <div class="row"><label for="fcUnit" class="mono" style="font-size:.85rem">Deck</label><select id="fcUnit" class="btn" style="font-weight:400"></select></div>
+      <div class="row"><button class="btn small" id="fcShuffle" type="button">Shuffle</button><button class="btn small" id="fcRestart" type="button">Start over</button></div>
+    </div>
+    <div class="fc-wrap" id="fcArea"></div>
+  </section>
+
+  <!-- NOTECARD -->
+  <section class="view" id="v-notecard" hidden>
+    <div class="card" style="display:grid;gap:8px">
+      <span class="eyebrow">Allowed: one handwritten 3″ × 5″ card (Lecture 17)</span>
+      <h2>Plan your notecard</h2>
+      <p class="muted">Pick what you'd lose points blanking on. Writing it by hand is studying too, so do it the night before. The preview is drawn at the card's real 5:3 shape.</p>
+    </div>
+    <div class="drill" style="align-items:start">
+      <div class="nc-list" id="ncList"></div>
+      <div style="display:grid;gap:10px;justify-items:center;position:sticky;top:72px"><div class="index-card" id="ncCard"></div><span class="muted mono" style="font-size:.8rem" id="ncCount"></span></div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="view" id="v-resources" hidden>
+    <div class="card" style="display:grid;gap:8px">
+      <span class="eyebrow">Extra help</span>
+      <h2>Videos &amp; reading by topic</h2>
+      <p class="muted">Video links open a YouTube search for that exact topic and channel, so you can pick the most recent or best-rated version. Reading links go straight to free textbook sections.</p>
+    </div>
+    <div class="res-grid" id="resGrid"></div>
+  </section>
+</main>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Figure">
+  <button class="x" id="lbClose" type="button">Close</button>
+  <img id="lbImg" alt="">
+  <p class="cap" id="lbCap"></p>
+</div>
+
+<script>
+// Content drawn from BIO 323 Lectures 9-18 and the Ch 13/14 study guide.
+const YT = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+
+const UNITS = [
+{
+ id:"u1", lec:"Lecture 9", title:"Endosymbiosis & the mitochondrion", short:"Endosymbiosis", mins:40,
+ points:[
+  "<b>Endosymbiosis</b>: <i>endo</i> = inside, <i>symbiosis</i> = close, long-term interaction between two species. One cell lives inside another.",
+  "<b>Endosymbiotic theory</b>: mitochondria came from an engulfed aerobic bacterium; chloroplasts came from an engulfed photosynthetic cyanobacterium (primary endosymbiosis). Secondary endosymbiosis = a eukaryote that already had a chloroplast gets engulfed, giving chloroplasts with <b>four</b> membranes.",
+  "<b>Bacteria-like traits</b> of mitochondria/chloroplasts: their own genome (DNA), their own ribosomes + transcription machinery, they reproduce by <b>binary fission</b> (divide in 2 like bacteria), and they have a double membrane.",
+  "<b>Who has what</b>: animals and fungi have mitochondria only. Plants (and algae) have <b>both</b> mitochondria and chloroplasts.",
+  "It keeps happening: the <b>nitroplast</b> (2024) is a nitrogen-fixing organelle in a marine alga. Some sea slugs (\"leaf sheep\") keep chloroplasts stolen from algae and become photosynthetic animals.",
+  "<b>Mitochondrion structure</b>: <b>outer membrane</b> (permeable to small molecules via porins) → <b>intermembrane space</b> (similar to cytosol) → <b>inner membrane</b> (site of electron transport and proton pumping; folded into <b>cristae</b>) → <b>matrix</b> (large internal space with DNA, ribosomes, citric acid cycle enzymes).",
+  "<b>Why cristae?</b> Folds increase inner-membrane surface area → more room for ETC complexes and ATP synthase → more energy production.",
+  "<b>Mitochondria per cell</b> track energy demand: liver 1,000–2,000; brain, skeletal and eye muscle up to 10,000; skin cells hundreds; red blood cells <b>none</b>."
+ ],
+ figs:[
+  ["L9_s3_0","Primary vs. secondary endosymbiosis. Count the membranes around each chloroplast."],
+  ["L9_s5_0","Mitochondria entered before eukaryotes split; chloroplasts entered only the plant lineage."],
+  ["L9_s2_0","Model of the archaeal host engulfing the bacterial ancestor of the mitochondrion."],
+  ["L9_s12_0","Labeled mitochondrion: matrix, inner membrane (cristae), outer membrane, intermembrane space."],
+  ["L11_s20_0","Mitochondrion vs. chloroplast side by side. Both have DNA and ribosomes."],
+  ["L9_s6_0","\"Leaf sheep\" sea slug: a photosynthetic animal that keeps algal chloroplasts."]
+ ],
+ qs:[
+  ["Come up with a hypothesis for why mitochondria have cristae.","Folding the inner membrane increases its surface area, so more ETC complexes and ATP synthases fit, which means more ATP production in the same volume."],
+  ["Which cell types do you think have the most mitochondria?","Cells with the highest energy demand: brain, skeletal muscle and eye muscle (up to ~10,000). Liver has 1,000–2,000, skin has hundreds, and mature red blood cells have none."]
+ ],
+ cards:[
+  ["Endosymbiotic theory","Mitochondria and chloroplasts descend from free-living bacteria engulfed by an ancestral host cell."],
+  ["Evidence for endosymbiosis","Own DNA, own ribosomes and transcription machinery, binary fission, double membrane."],
+  ["Cristae","Folds of the inner mitochondrial membrane that increase surface area for the ETC and ATP synthase."],
+  ["Matrix","Innermost space of the mitochondrion; holds mtDNA, ribosomes, pyruvate-processing and Krebs cycle enzymes."],
+  ["Intermembrane space","Space between outer and inner mitochondrial membranes; similar to cytosol; where H+ builds up."],
+  ["Outer mitochondrial membrane","Permeable to small molecules (porins)."],
+  ["Nitroplast","Nitrogen-fixing organelle described in 2024 in a marine alga; evidence endosymbiosis is ongoing."]
+ ],
+ quiz:[
+  {q:"Which is NOT evidence that mitochondria were once free-living bacteria?",o:["They have their own circular genome","They divide by binary fission","They have their own ribosomes","They are assembled from vesicles budding off the ER"],a:3,w:"Mitochondria are never made from scratch by the ER. They grow and split by binary fission, like bacteria."},
+  {q:"A plant leaf cell contains which organelles of endosymbiotic origin?",o:["Chloroplasts only","Mitochondria only","Both mitochondria and chloroplasts","Neither"],a:2,w:"Plants have both. Animals have mitochondria only."},
+  {q:"Where are the proteins of the electron transport chain located?",o:["Outer mitochondrial membrane","Inner mitochondrial membrane","Intermembrane space","Matrix"],a:1,w:"The inner membrane (including the cristae) holds the ETC complexes and ATP synthase."},
+  {q:"Which mitochondrial compartment contains mitochondrial DNA and ribosomes?",o:["Matrix","Intermembrane space","Outer membrane","Cristae lumen"],a:0,w:"The matrix is the large internal space with DNA, ribosomes and the citric acid cycle enzymes."},
+  {q:"Which compartment's contents are most similar to the cytosol?",o:["Matrix","Intermembrane space","Thylakoid lumen","Stroma"],a:1,w:"The outer membrane is permeable to small molecules, so the intermembrane space resembles the cytosol."},
+  {q:"Why do cristae increase ATP output?",o:["They store glucose","They increase inner-membrane surface area for ETC complexes and ATP synthase","They make the outer membrane impermeable","They hold the mitochondrial DNA"],a:1,w:"More membrane = more room for the machinery that makes ATP."},
+  {q:"A chloroplast surrounded by FOUR membranes most likely came from:",o:["Primary endosymbiosis","Secondary endosymbiosis","Binary fission","Phagocytosis of a mitochondrion"],a:1,w:"Secondary endosymbiosis: a eukaryote engulfs another eukaryote that already has a chloroplast."},
+  {q:"Which human cell has no mitochondria?",o:["Skeletal muscle","Liver","Mature red blood cell","Neuron"],a:2,w:"Mature red blood cells have none. Brain and muscle have the most."}
+ ]
+},
+{
+ id:"u2", lec:"Lectures 9–10", title:"Activated carriers, glycolysis & fermentation", short:"Glycolysis", mins:50,
+ points:[
+  "Breaking sugars breaks <b>covalent bonds</b> (C–C, C–H). Breaking big molecules down to release energy is <b>catabolism</b>. Cells do it as a series of small oxidation steps so energy is stored in <b>activated carriers</b> instead of lost as heat.",
+  "<b>ATP</b>: energy is stored in its <b>phosphoanhydride bonds</b>. Hydrolysis of the terminal phosphate (ATP → ADP + P<sub>i</sub>, ΔG ≈ −30.6 kJ/mol) releases free energy that drives unfavorable reactions.",
+  "<b>NADH</b> (and NADPH in plants): carries high-energy electrons as a <b>hydride ion</b> (H<sup>−</sup> = H<sup>+</sup> + 2e<sup>−</sup>). NAD<sup>+</sup> is the oxidized form; NADH is reduced. <b>FADH<sub>2</sub></b> also carries 2 electrons (+2 H<sup>+</sup>).",
+  "Three stages of respiration: <b>glycolysis</b> (cytosol) → <b>citric acid (Krebs) cycle</b> (matrix) → <b>oxidative phosphorylation / ETC</b> (inner membrane).",
+  "<b>Glycolysis</b> happens in the <b>cytosol</b> and is <b>anaerobic</b> (no O<sub>2</sub> used). Input: 1 glucose (6C), 2 ATP, 2 NAD<sup>+</sup>. Output: 2 pyruvate (3C), 4 ATP made (<b>net 2 ATP</b>), 2 NADH.",
+  "<b>Energy investment (steps 1–3)</b>: spend 2 ATP. Step 1 (hexokinase) phosphorylates glucose; the negative charge <b>traps it in the cell</b>. Step 3 (phosphofructokinase, the key regulated step) makes fructose 1,6-bisphosphate, primed to split.",
+  "<b>Cleavage (steps 4–5)</b>: the 6C sugar splits into two 3C sugars (glyceraldehyde 3-phosphate). Everything after this happens twice per glucose.",
+  "<b>Energy generation (steps 6–10)</b>: step 6 oxidizes G3P, makes NADH and adds a phosphate with a <b>high-energy phosphate bond</b>. Steps 7 and 10 transfer those phosphates to ADP (<b>substrate-level phosphorylation</b>). Intermediates like 1,3-bisphosphoglycerate (−49 kJ/mol) and phosphoenolpyruvate (−61.9) have <b>higher</b> phosphate-transfer energy than ATP, so the transfer is favorable.",
+  "<b>Why must the donor be higher than ATP, not equal?</b> ΔG must be negative for the transfer to go, and some energy is always lost as heat (2nd law).",
+  "<b>Fermentation</b> (no O<sub>2</sub> for the ETC): pyruvate is converted to waste to <b>regenerate NAD<sup>+</sup></b> so glycolysis can keep going. Muscle → lactate. Yeast → ethanol + CO<sub>2</sub>.",
+  "Thermodynamics review: 1st law, energy is conserved; 2nd law, entropy increases. A reaction happens only if <b>ΔG &lt; 0</b>; otherwise it must be <b>coupled</b> to a favorable one (like ATP hydrolysis)."
+ ],
+ figs:[
+  ["L9_s15_0","Burning sugar releases everything as heat. Cells oxidize it stepwise and store energy in carriers."],
+  ["L9_s17_0","ATP: the energy is in the phosphoanhydride bonds."],
+  ["L9_s17_1","NAD⁺ vs NADH: the circled H is where the hydride is carried."],
+  ["L10_s21_1","NADH donates a hydride ion (H⁺ + 2e⁻) to the electron transport chain."],
+  ["L9_s19_0","The three stages of catabolism and where each one happens."],
+  ["L9_s26_0","Energy investment: 2 ATP spent in steps 1 and 3."],
+  ["L9_s28_0","Steps 4–5: fructose 1,6-bisphosphate splits into two glyceraldehyde 3-phosphates."],
+  ["L9_s32_0","Energy generation: each 3C sugar yields 1 NADH and 2 ATP."],
+  ["L10_s5_1","Phosphate-transfer energies. PEP and 1,3-BPG sit above ATP, so they can make ATP."],
+  ["L9_s33_0","Net result of glycolysis: 2 pyruvate, 2 ATP, 2 NADH."],
+  ["L10_s6_0","Fermentation regenerates NAD⁺. Muscle makes lactate; yeast makes ethanol + CO₂."],
+  ["L11_s6_0","Favorable reactions (ΔG < 0) go spontaneously; unfavorable ones need coupling."]
+ ],
+ qs:[
+  ["If we are breaking apart sugars, what types of bonds are we breaking? What type of metabolism is this?","Covalent bonds (C–C and C–H). Breaking molecules down to release energy is catabolism; it is also an oxidation of the sugar."],
+  ["How do we get useful free energy out of ATP?","By hydrolyzing the terminal phosphoanhydride bond (ATP → ADP + Pᵢ). That release of free energy (ΔG < 0) is coupled to an unfavorable reaction."],
+  ["How are ATP molecules made in glycolysis?","Substrate-level phosphorylation: a phosphate on a high-energy intermediate (1,3-bisphosphoglycerate in step 7, phosphoenolpyruvate in step 10) is transferred directly to ADP."],
+  ["What is the net result of glycolysis?","1 glucose → 2 pyruvate + net 2 ATP + 2 NADH (4 ATP made − 2 spent)."],
+  ["To make ATP, why must the reactant have HIGHER potential free energy than ATP, not equal?","The transfer needs a negative ΔG to occur, and some energy is always lost as heat, so the donor must be above ATP."]
+ ],
+ cards:[
+  ["Activated carriers","ATP (phosphate groups), NADH/NADPH (hydride, high-energy electrons), FADH₂ (2 electrons)."],
+  ["Phosphoanhydride bond","High-energy bond between phosphates in ATP; hydrolysis releases ~30.6 kJ/mol."],
+  ["Hydride ion","H⁻ = one proton + two electrons; how NADH carries electrons."],
+  ["Glycolysis location / O₂","Cytosol; anaerobic."],
+  ["Glycolysis net yield","2 pyruvate, 2 ATP (net), 2 NADH per glucose."],
+  ["Hexokinase (step 1)","Phosphorylates glucose using ATP; the charge traps glucose in the cell."],
+  ["Phosphofructokinase (step 3)","Second ATP investment; makes fructose 1,6-bisphosphate; main regulated step."],
+  ["Substrate-level phosphorylation","Making ATP by transferring a phosphate directly from a high-energy intermediate to ADP."],
+  ["Fermentation","Converts pyruvate to lactate (muscle) or ethanol + CO₂ (yeast) to regenerate NAD⁺."],
+  ["ΔG","Free-energy change; must be negative for a reaction to proceed, or the reaction must be coupled."],
+  ["Oxidation vs reduction","Oxidation = lose e⁻ (add O / remove H from C). Reduction = gain e⁻ (add H / remove O)."]
+ ],
+ quiz:[
+  {q:"Where does glycolysis occur?",o:["Mitochondrial matrix","Cytosol","Inner mitochondrial membrane","Intermembrane space"],a:1,w:"Glycolysis is cytosolic. Pyruvate is then moved into the matrix."},
+  {q:"What is the net yield of glycolysis per glucose?",o:["4 ATP, 2 NADH, 2 pyruvate","2 ATP, 2 NADH, 2 pyruvate","2 ATP, 2 FADH₂, 2 acetyl CoA","36 ATP"],a:1,w:"4 ATP are made but 2 are spent, so net 2 ATP, plus 2 NADH and 2 pyruvate."},
+  {q:"Why does glycolysis spend ATP in steps 1 and 3?",o:["To oxidize glucose to CO₂","To phosphorylate the sugar, trapping it in the cell and priming it to split into two 3C sugars","To pump H⁺ into the intermembrane space","To regenerate NAD⁺"],a:1,w:"Energy investment: the phosphorylated sugar can't leave the cell and is set up for cleavage, with payback later."},
+  {q:"Is glycolysis aerobic or anaerobic?",o:["Aerobic: O₂ is the final electron acceptor","Anaerobic: no O₂ is used","Aerobic: O₂ is used in step 6","It requires CO₂"],a:1,w:"No O₂ is used in glycolysis."},
+  {q:"What kind of bond is made on the broken-down glucose so that ATP can be made?",o:["Hydrogen bonds","High-energy phosphate bonds","Peptide bonds","Disulfide bonds"],a:1,w:"Steps like step 6 create high-energy phosphate linkages (e.g., 1,3-bisphosphoglycerate) that are transferred to ADP."},
+  {q:"Phosphoenolpyruvate can make ATP from ADP because:",o:["Its phosphate-transfer free energy (−61.9 kJ/mol) is more negative than ATP's (−30.6)","It is lower in energy than ATP","It binds O₂","It is an electron carrier"],a:0,w:"A donor must sit above ATP on the energy scale for the transfer to have ΔG < 0."},
+  {q:"What is the main purpose of fermentation?",o:["Make lots of ATP","Regenerate NAD⁺ so glycolysis can continue without O₂","Produce acetyl CoA","Fix CO₂"],a:1,w:"Without the ETC, NADH piles up. Fermentation re-oxidizes it to NAD⁺."},
+  {q:"NADH carries electrons in the form of:",o:["A phosphate group","A hydride ion (H⁺ + 2e⁻)","An oxygen atom","A single proton"],a:1,w:"NAD⁺ picks up a hydride ion; NADH donates it to the ETC."},
+  {q:"Adding hydrogen to a carbon atom is an example of:",o:["Oxidation","Reduction","Hydrolysis","Phosphorylation"],a:1,w:"Reduction = gain electrons: add H or remove O."},
+  {q:"A reaction with ΔG > 0 can only proceed if:",o:["It is coupled to an energetically favorable reaction","Temperature is lowered","It happens in the matrix","Entropy decreases"],a:0,w:"Unfavorable reactions run when coupled to a favorable one, often ATP hydrolysis."},
+  {q:"In which step of glycolysis does the 6-carbon sugar split into two 3-carbon sugars?",o:["Step 1","Step 4","Step 7","Step 10"],a:1,w:"Aldolase (step 4) cleaves fructose 1,6-bisphosphate; step 5 converts DHAP to a second G3P."}
+ ]
+},
+{
+ id:"u3", lec:"Lectures 10–11", title:"Pre-Krebs, Krebs cycle & the electron transport chain", short:"Krebs + ETC", mins:60,
+ points:[
+  "<b>Pre-Krebs (pyruvate oxidation)</b>: pyruvate is moved into the <b>mitochondrial matrix</b> and converted: 3C pyruvate → <b>2C acetyl CoA + CO<sub>2</sub></b>. 1 NADH per pyruvate = <b>2 NADH per glucose</b>. Fats (triacylglycerols) can also be broken into acetyl CoA.",
+  "<b>Krebs / citric acid cycle</b> occurs in the <b>matrix</b>. The 2 carbons of acetyl CoA leave as <b>2 CO<sub>2</sub></b> (waste). The O in that CO<sub>2</sub> comes from <b>water</b>, not O<sub>2</sub>.",
+  "<b>4 of the 8 steps are oxidations</b> done by <b>dehydrogenases</b>. Per pyruvate (one turn): <b>3 NADH, 1 FADH<sub>2</sub>, 1 GTP</b>. Per glucose: 6 NADH, 2 FADH<sub>2</sub>, 2 GTP, 4 CO<sub>2</sub>.",
+  "<b>Why it's a cycle</b>: the last step remakes <b>oxaloacetate</b> (4C), which combines with the next acetyl CoA (2C) to make citrate (6C).",
+  "<b>Running total before the ETC (per glucose)</b>: 4 ATP/GTP (2 glycolysis + 2 Krebs), 10 NADH (2 + 2 + 6), 2 FADH<sub>2</sub>. <b>No O<sub>2</sub> used yet.</b>",
+  "<b>ETC</b> is in the <b>inner mitochondrial membrane</b> and is <b>aerobic</b>. This is where NADH/FADH<sub>2</sub> and O<sub>2</sub> come in. NADH gives its electrons to <b>NADH dehydrogenase complex</b> → ubiquinone → <b>cytochrome c reductase complex</b> → cytochrome c → <b>cytochrome c oxidase complex</b> → <b>O<sub>2</sub></b> (final electron acceptor) → H<sub>2</sub>O.",
+  "Electrons flow from <b>low electron affinity → high electron affinity</b>. Redox potential goes from negative (NADH ≈ −320 mV) to positive (O<sub>2</sub>/H<sub>2</sub>O ≈ +820 mV). Energy released = Δ redox potential. Whatever accepts e⁻ is reduced; whatever donates is oxidized.",
+  "Each component must want the electron more than the one before it, but still give it up to the next one. If O<sub>2</sub> replaced ubiquinone, the chain would stop there: O<sub>2</sub> makes water and won't pass electrons on.",
+  "The complexes use the energy (charge difference) from passing electrons to <b>pump H<sup>+</sup></b> from the matrix into the <b>intermembrane space</b>. This is active transport (against the gradient).",
+  "The H<sup>+</sup> buildup creates an <b>electrochemical gradient</b> (proton-motive force) = <b>pH gradient</b> (matrix ≈ 7.9, IMS ≈ 7.2) + <b>membrane potential</b> (IMS +, matrix −). Very favorable for H<sup>+</sup> to flow back into the matrix.",
+  "<b>ATP synthase</b>: multi-subunit protein with a hydrophilic pore. H<sup>+</sup> flow through the F<sub>0</sub> rotor ring, spinning the central stalk inside the F<sub>1</sub> head. The energy of H<sup>+</sup> flow becomes <b>mechanical energy</b>, used to phosphorylate ADP → ATP. This is <b>oxidative phosphorylation</b>.",
+  "<b>Net yield ≈ 30 ATP per glucose</b>. Each NADH ≈ 2.5 ATP, each FADH<sub>2</sub> ≈ 1.5 ATP. Cytosolic NADH from glycolysis yields less because it must be shuttled in.",
+  "Generalized formula: <b>glucose</b> is used in glycolysis (cytosol); <b>O<sub>2</sub></b> is used at the end of the ETC (inner membrane); <b>CO<sub>2</sub></b> is made in pre-Krebs and Krebs (matrix); <b>H<sub>2</sub>O</b> is made by the ETC; <b>ATP</b> comes mostly from ATP synthase, a little from glycolysis and Krebs."
+ ],
+ figs:[
+  ["L10_s10_1","Pre-Krebs: pyruvate → acetyl CoA + CO₂, making 1 NADH."],
+  ["L10_s14_0","The citric acid cycle. Track where the NADH, FADH₂, GTP and CO₂ come off."],
+  ["L10_s13_0","FAD picks up 2 H⁺ and 2 e⁻ to become FADH₂."],
+  ["L10_s12_0","Oxidation and reduction of carbon, from methane to CO₂."],
+  ["L10_s20_0","Big picture inside the mitochondrion: Krebs in the matrix, ETC + ATP synthase in the inner membrane."],
+  ["L10_s22_1","The three respiratory complexes and the mobile carriers ubiquinone (Q) and cytochrome c."],
+  ["L10_s23_1","Free energy drops as electrons move to higher redox potential, ending at O₂."],
+  ["L10_s25_1","How passing an electron lets a carrier pick up H⁺ on one side and release it on the other."],
+  ["L10_s19_0","Proton-motive force = membrane potential (ΔV) + pH gradient (ΔpH)."],
+  ["L10_s28_0","ATP synthase: H⁺ turn the rotor and central stalk; the F₁ head makes ATP."],
+  ["L10_s29_0","Table 14-2: product yields from one glucose, about 30 ATP total."],
+  ["L10_s11_0","Fatty acids from triacylglycerols are also cut into acetyl CoA."]
+ ],
+ qs:[
+  ["Where is the mitochondrial matrix? The inner membrane? The intermembrane space?","Matrix = innermost space (Krebs). Inner membrane = folded into cristae, holds ETC + ATP synthase. Intermembrane space = between outer and inner membranes, where H⁺ accumulate."],
+  ["How much net ATP/GTP, NADH and FADH₂ do we have before the ETC? Have we used O₂ yet?","Per glucose: 4 ATP/GTP, 10 NADH, 2 FADH₂. No O₂ has been used yet."],
+  ["What type of transport builds up H⁺ in the intermembrane space?","Active transport. Protons are pumped against their gradient using energy from electron transfer."],
+  ["Which ETC component has the highest affinity for electrons? Which is most likely to give one up?","O₂ has the highest affinity (most positive redox potential). NADH is most likely to give electrons up."],
+  ["What happens if O₂ replaces ubiquinone?","The chain stops there. O₂ takes the electrons and forms water but won't pass them on, so the later complexes do nothing and less H⁺ is pumped."],
+  ["Glucose + O₂ → CO₂ + H₂O + ATP: where is each input used and each output made?","Glucose: glycolysis (cytosol). O₂: end of ETC (inner membrane). CO₂: pre-Krebs + Krebs (matrix). H₂O: ETC, when O₂ is reduced. ATP: mostly ATP synthase (inner membrane), some in glycolysis and Krebs."]
+ ],
+ cards:[
+  ["Pre-Krebs inputs/outputs","Per pyruvate: pyruvate + CoA + NAD⁺ → acetyl CoA + CO₂ + NADH. Matrix."],
+  ["Krebs per turn","3 NADH, 1 FADH₂, 1 GTP, 2 CO₂ (×2 per glucose)."],
+  ["Why Krebs is a cycle","The last step regenerates oxaloacetate, which joins the next acetyl CoA."],
+  ["Source of O in Krebs CO₂","Water, not O₂."],
+  ["Dehydrogenase","Enzyme that oxidizes a substrate by removing H/electrons, producing NADH or FADH₂."],
+  ["NADH dehydrogenase complex","First ETC complex; accepts electrons from NADH; pumps H⁺."],
+  ["Ubiquinone","Small lipid-soluble mobile carrier between complex I and cytochrome c reductase."],
+  ["Cytochrome c","Small mobile protein carrier in the IMS between cytochrome c reductase and oxidase."],
+  ["Cytochrome c oxidase","Last complex; hands electrons to O₂, forming H₂O; pumps H⁺."],
+  ["Redox potential","Tendency of a redox pair to accept (more +) or donate (more −) electrons."],
+  ["Proton-motive force","Electrochemical H⁺ gradient = membrane potential + pH gradient."],
+  ["ATP synthase","Uses H⁺ flow back into the matrix to spin a rotor; mechanical energy phosphorylates ADP."],
+  ["Oxidative phosphorylation","ATP made using the H⁺ gradient generated by electron transport."],
+  ["Total ATP per glucose","About 30."]
+ ],
+ quiz:[
+  {q:"Where does the pre-Krebs reaction (pyruvate → acetyl CoA) occur?",o:["Cytosol","Mitochondrial matrix","Intermembrane space","Thylakoid"],a:1,w:"Pyruvate is moved into the matrix first."},
+  {q:"Per GLUCOSE, the pre-Krebs reaction produces:",o:["1 NADH and 1 CO₂","2 NADH and 2 CO₂","2 ATP","2 FADH₂"],a:1,w:"1 NADH + 1 CO₂ per pyruvate, and there are 2 pyruvates."},
+  {q:"Per pyruvate (one turn), the Krebs cycle makes:",o:["3 NADH, 1 FADH₂, 1 GTP","2 NADH, 2 FADH₂, 2 ATP","1 NADH, 1 ATP","6 NADH, 2 FADH₂, 2 GTP"],a:0,w:"Double those numbers for one glucose."},
+  {q:"What makes the citric acid cycle a cycle?",o:["CO₂ is recycled","Its last step regenerates oxaloacetate, which accepts the next acetyl CoA","NADH is converted back to NAD⁺ in the cycle","It runs in both directions"],a:1,w:"Oxaloacetate (4C) + acetyl CoA (2C) → citrate (6C), and the cycle ends by remaking oxaloacetate."},
+  {q:"The oxygen atoms in CO₂ released by the Krebs cycle come from:",o:["O₂","Water","Glucose only","ATP"],a:1,w:"The slides stress this: O comes from water, not O₂."},
+  {q:"How many NADH per glucose have been made by the end of the Krebs cycle?",o:["2","6","8","10"],a:3,w:"2 (glycolysis) + 2 (pre-Krebs) + 6 (Krebs) = 10."},
+  {q:"What is the final electron acceptor of the mitochondrial ETC?",o:["NAD⁺","Ubiquinone","O₂","Cytochrome c"],a:2,w:"O₂ is reduced to H₂O by cytochrome c oxidase."},
+  {q:"As electrons move down the ETC, electron affinity (redox potential):",o:["Decreases","Increases","Stays the same","Oscillates"],a:1,w:"Low affinity → high affinity: from NADH (≈ −320 mV) to O₂ (≈ +820 mV)."},
+  {q:"Where do H⁺ accumulate during mitochondrial electron transport?",o:["Matrix","Intermembrane space","Cytosol","Thylakoid space"],a:1,w:"Complexes pump H⁺ from the matrix into the intermembrane space."},
+  {q:"The electrochemical gradient across the inner membrane consists of:",o:["A glucose gradient only","A pH gradient plus a membrane potential","A Na⁺ gradient","An ATP gradient"],a:1,w:"Proton-motive force = ΔpH + ΔV."},
+  {q:"ATP synthase gets the energy to add phosphate to ADP from:",o:["Hydrolyzing GTP","H⁺ flowing down their gradient into the matrix, turning a rotor (mechanical energy)","Directly from NADH","Light"],a:1,w:"H⁺ flow spins the stalk inside the head, and that mechanical energy drives ATP synthesis."},
+  {q:"The ETC complexes use the energy released by passing electrons to:",o:["Make glucose","Pump H⁺ across the inner membrane","Split water","Make NADH"],a:1,w:"Energy = Δ redox potential, used to pump protons."},
+  {q:"If O₂ replaced ubiquinone in the chain, what would happen?",o:["ATP production would increase","The chain would stop at that point because O₂ would form water and not pass electrons on","Electrons would flow backward","Nothing would change"],a:1,w:"A carrier must give electrons to the next component. O₂ won't."},
+  {q:"Approximately how many ATP does complete oxidation of one glucose yield?",o:["2","4","~30","~100"],a:2,w:"Table 14-2 gives about 30."},
+  {q:"Which is the correct order of mitochondrial electron flow?",o:["NADH → cytochrome c → ubiquinone → O₂","NADH → NADH dehydrogenase → ubiquinone → cytochrome c reductase → cytochrome c → cytochrome c oxidase → O₂","O₂ → cytochrome c oxidase → NADH","FADH₂ → ATP synthase → O₂"],a:1,w:"Memorize this order with the two mobile carriers (Q and cyt c) between complexes."},
+  {q:"Pumping H⁺ into the intermembrane space is what type of transport?",o:["Passive diffusion","Facilitated diffusion","Active transport","Osmosis"],a:2,w:"It moves H⁺ against their gradient using energy."}
+ ]
+},
+{
+ id:"u4", lec:"Lectures 11–12", title:"Photosynthesis", short:"Photosynthesis", mins:60,
+ points:[
+  "CO<sub>2</sub> + H<sub>2</sub>O + light → sugar + O<sub>2</sub>. Occurs in plants, algae and cyanobacteria, in <b>chloroplasts</b>. Also uses proton gradients.",
+  "<b>Chloroplast structure</b>: <b>outer membrane</b> (highly permeable) and <b>inner membrane</b> (less permeable), like mitochondria. <b>Stroma</b> = space inside the inner membrane but outside thylakoids (analogous to the matrix). <b>Thylakoids</b> = stacked membrane sacs (a stack = <b>granum</b>); the site of light reactions, ETC and ATP synthase. H<sup>+</sup> builds up <b>inside the thylakoid space (lumen)</b>.",
+  "Order is <b>opposite</b> to respiration: ETC + ATP/NADPH production happen <b>first</b> (light reactions, thylakoid membrane), <b>then</b> carbon fixation (dark reactions / Calvin cycle, stroma).",
+  "<b>Chlorophyll</b>: a <b>porphyrin ring</b> (with Mg in the center) whose electrons are <b>delocalized</b> in a cloud. Light excites those electrons; the excited state is unstable, and the high-energy electron gets kicked out. Absorbs blue (~430 nm) and red (~660 nm), reflects green. Hydrophobic tail anchors it in the membrane.",
+  "<b>Photosystem</b> = multiprotein complex with 2 parts. <b>Antenna complex</b>: hundreds of chlorophylls arranged to pass excitation energy around until it reaches the reaction center. <b>Reaction center</b>: the <b>special pair</b> (chlorophyll dimer) holds electrons at lower energy, doesn't pass them to other chlorophyll, and gives the excited e<sup>−</sup> to a <b>mobile electron carrier</b>. This creates <b>charge separation</b> (special pair +, carrier −).",
+  "<b>Photosystem II comes FIRST</b> (names are confusing). Special pair gives 2 e<sup>−</sup> to <b>plastoquinone</b>. It replaces lost electrons by <b>splitting water</b> (water-splitting enzyme with a manganese cluster): 2 H<sub>2</sub>O → O<sub>2</sub> + 4 H<sup>+</sup>, released into the thylakoid space. <b>O<sub>2</sub> is a waste product.</b>",
+  "Plastoquinone carries electrons to the <b>cytochrome b<sub>6</sub>-f complex</b>, the H<sup>+</sup> pump, which uses the energy to move H<sup>+</sup> from the stroma <b>into the thylakoid space</b>. H<sup>+</sup> flows back out through <b>ATP synthase</b>, making ATP in the stroma. So the PSII side \"makes ATP\" and the H<sup>+</sup> gradient.",
+  "<b>Photosystem I comes SECOND</b>. It receives electrons from PSII (via plastocyanin), re-excites them with light, and passes them through <b>ferredoxin</b> to <b>ferredoxin-NADP<sup>+</sup> reductase (FNR)</b>, which makes <b>NADPH</b>. PSI replaces its special-pair electrons with electrons from PSII, <b>not</b> by splitting water. PSI is the final electron acceptor for the PSII chain.",
+  "<b>Redox potential, respiration vs. photosynthesis</b>: in respiration electrons flow only downhill (NADH, low affinity → O<sub>2</sub>, high affinity). In photosynthesis electrons start on water (very high affinity) and get boosted uphill <b>twice</b> by light (Z-scheme) so they can reduce NADP<sup>+</sup>. Light energy is what makes the difference.",
+  "Compare proton buildup: mitochondria pump H<sup>+</sup> into the <b>intermembrane space</b>, and ATP synthase (inner membrane) makes ATP in the <b>matrix</b>. Chloroplasts pump H<sup>+</sup> into the <b>thylakoid space</b>, and ATP synthase (thylakoid membrane) makes ATP in the <b>stroma</b>.",
+  "<b>Dark reactions</b> (stroma): taking inorganic CO<sub>2</sub> to sugar = <b>carbon fixation</b>. <b>Rubisco</b> attaches CO<sub>2</sub> to the 5C sugar <b>ribulose 1,5-bisphosphate</b>, giving an unstable intermediate that splits into 2 × 3-phosphoglycerate.",
+  "<b>Calvin cycle</b>: for every 3 CO<sub>2</sub>, uses <b>9 ATP and 6 NADPH</b> to make <b>1 glyceraldehyde 3-phosphate</b> that leaves to make food (sugars, fats, amino acids). The other 5 G3P regenerate 3 RuBP, which is why it's a cycle.",
+  "<b>Why plants still do cellular respiration</b>: at night there's no light for the light reactions, and non-green tissues (roots, stems, seeds) have no chloroplasts. Sugar made in chloroplasts is exported and burned in mitochondria for ATP. That's why net CO<sub>2</sub> uptake is positive by day and slightly negative at night, and why atmospheric CO<sub>2</sub> drops in summer and rises in winter."
+ ],
+ figs:[
+  ["L11_s17_0","Chloroplast: inner and outer membranes, stroma, thylakoids."],
+  ["L12_s2_0","Detailed chloroplast: granum, granal vs stromal thylakoids, thylakoid lumen."],
+  ["L11_s21_0","Two stages: light reactions in the thylakoid make ATP + NADPH, used by carbon fixation in the stroma."],
+  ["L11_s22_0","Chlorophyll: porphyrin ring with Mg and a hydrophobic tail."],
+  ["L11_s23_0","Chlorophyll absorbs blue and red light and reflects green."],
+  ["L11_s26_0","A photosystem: antenna complexes funnel energy to the reaction center's special pair."],
+  ["L11_s28_0","Charge separation: the special pair hands a high-energy electron to a mobile carrier."],
+  ["L11_s30_0","Photosystem II reaction center: the water-splitting enzyme refills the special pair and releases O₂ + H⁺."],
+  ["L11_s31_0","PSII → plastoquinone → cytochrome b₆-f (H⁺ pump) → ATP synthase."],
+  ["L11_s33_0","Photosystem I → ferredoxin → FNR → NADPH."],
+  ["L11_s34_0","The whole thylakoid chain in one view."],
+  ["L11_s35_0","The Z-scheme: two light boosts send electrons uphill in redox potential."],
+  ["L11_s39_0","Rubisco fixes CO₂ onto ribulose 1,5-bisphosphate."],
+  ["L11_s40_0","The Calvin cycle: 3 CO₂ + 9 ATP + 6 NADPH → 1 G3P leaves; RuBP is regenerated."],
+  ["L11_s42_0","Chloroplasts make sugar; mitochondria burn it. Plants need both."],
+  ["L11_s41_0","Atmospheric CO₂ over a year: drops in summer, rises in winter."],
+  ["L12_s18_0","Net CO₂ uptake over several days: up in daylight, below zero at night."]
+ ],
+ qs:[
+  ["Where are the protons built up in each organelle? Where is ATP synthase in each?","Mitochondria: H⁺ in the intermembrane space; ATP synthase in the inner membrane makes ATP in the matrix. Chloroplasts: H⁺ in the thylakoid space; ATP synthase in the thylakoid membrane makes ATP in the stroma."],
+  ["What happens to atmospheric CO₂ in winter vs summer? Why?","Winter: CO₂ rises because photosynthesis drops while respiration and decay continue. Summer: CO₂ falls because photosynthesis outpaces respiration."],
+  ["What happens to plant CO₂ uptake during the day vs at night? Why?","Day: positive net uptake, because photosynthesis fixes more CO₂ than respiration releases. Night: slightly negative, because there are no light reactions and respiration releases CO₂."],
+  ["Where's the CO₂ made in respiration? Where is it used in photosynthesis, and by what enzyme?","Made in the mitochondrial matrix (pre-Krebs + Krebs). Used in the chloroplast stroma by rubisco in the Calvin cycle."],
+  ["How and why is O₂ produced in photosynthesis?","PSII's special pair loses electrons to plastoquinone, and the water-splitting enzyme replaces them by taking electrons from water: 2H₂O → 4H⁺ + O₂ + 4e⁻. O₂ is the waste product."],
+  ["Sort and order: Calvin cycle, Krebs cycle, oxidative phosphorylation, light reactions, glycolysis.","Respiration: glycolysis (cytosol) → Krebs (matrix) → oxidative phosphorylation (inner membrane). Photosynthesis: light reactions (thylakoid membrane) → Calvin cycle (stroma)."]
+ ],
+ cards:[
+  ["Stroma","Fluid inside the chloroplast inner membrane, outside thylakoids; site of the Calvin cycle; analogous to the matrix."],
+  ["Thylakoid","Stacked internal membrane sacs; light reactions, ETC and ATP synthase; H⁺ builds up in the lumen."],
+  ["Granum","A stack of thylakoids."],
+  ["Porphyrin ring","Chlorophyll's ring with delocalized electrons that absorb light."],
+  ["Antenna complex","Hundreds of chlorophylls that pass absorbed energy to the reaction center."],
+  ["Special pair","Chlorophyll dimer in the reaction center that donates an excited electron to a mobile carrier."],
+  ["Charge separation","After the special pair loses an e⁻: special pair +, carrier −."],
+  ["Photosystem II","First in chain; splits water (makes O₂); passes e⁻ to plastoquinone; drives the H⁺ gradient → ATP."],
+  ["Photosystem I","Second in chain; re-excites e⁻ from PSII; ferredoxin → FNR makes NADPH."],
+  ["Cytochrome b₆-f complex","Thylakoid H⁺ pump between PSII and PSI."],
+  ["Plastoquinone / plastocyanin","Mobile carriers: PSII → b₆-f / b₆-f → PSI."],
+  ["Rubisco","Enzyme that fixes CO₂ onto ribulose 1,5-bisphosphate."],
+  ["Calvin cycle cost","3 CO₂ + 9 ATP + 6 NADPH → 1 G3P exported; 5 G3P regenerate 3 RuBP."],
+  ["Z-scheme","Electrons from water are boosted twice by light, at PSII and PSI, to reach NADP⁺."]
+ ],
+ quiz:[
+  {q:"Where do the light reactions occur?",o:["Stroma","Thylakoid membrane","Outer chloroplast membrane","Cytosol"],a:1,w:"Photosystems, the ETC and ATP synthase are all in the thylakoid membrane."},
+  {q:"Where does the Calvin cycle occur?",o:["Thylakoid lumen","Stroma","Intermembrane space","Mitochondrial matrix"],a:1,w:"Carbon fixation happens in the stroma."},
+  {q:"In chloroplasts, H⁺ ions accumulate in the:",o:["Stroma","Thylakoid space (lumen)","Cytosol","Intermembrane space"],a:1,w:"H⁺ is pumped in by cytochrome b₆-f and released there by water splitting."},
+  {q:"Which photosystem comes first in the electron transport chain?",o:["Photosystem I","Photosystem II","They work in parallel","Neither; the Calvin cycle comes first"],a:1,w:"PSII first, PSI second. The numbers reflect the order they were discovered."},
+  {q:"How does Photosystem II replace electrons lost from its special pair?",o:["From Photosystem I","By splitting water, which releases O₂ and H⁺","From NADPH","From ATP"],a:1,w:"The water-splitting enzyme (manganese cluster) takes electrons from H₂O."},
+  {q:"How does Photosystem I replace electrons lost from its special pair?",o:["By splitting water","With electrons coming from Photosystem II","From ferredoxin","From rubisco"],a:1,w:"PSI gets its electrons from PSII (via plastocyanin), not from water."},
+  {q:"Which photosystem's pathway produces NADPH?",o:["Photosystem II","Photosystem I","Both equally","Neither"],a:1,w:"PSI → ferredoxin → ferredoxin-NADP⁺ reductase → NADPH."},
+  {q:"What property of chlorophyll lets it harness light energy?",o:["Its hydrophobic tail","A porphyrin ring with delocalized electrons that light can excite","Its iron atom","Its peptide bonds"],a:1,w:"The study guide says it directly: a ring structure with delocalized electrons."},
+  {q:"What does the antenna complex do?",o:["Splits water","Hundreds of chlorophylls pass absorbed light energy around until it reaches the reaction center","Makes NADPH","Fixes CO₂"],a:1,w:"It collects energy and funnels it to the special pair."},
+  {q:"What does the reaction center's special pair do with its excited electron?",o:["Passes it to other antenna chlorophylls","Gives it to a mobile electron carrier, creating charge separation","Gives it to O₂","Stores it as heat"],a:1,w:"The special pair holds electrons at lower energy and transfers them to a carrier (e.g., plastoquinone)."},
+  {q:"Which enzyme fixes CO₂ in the Calvin cycle?",o:["ATP synthase","Rubisco","Hexokinase","FNR"],a:1,w:"Rubisco attaches CO₂ to ribulose 1,5-bisphosphate (5C)."},
+  {q:"To export one glyceraldehyde 3-phosphate, the Calvin cycle consumes:",o:["3 CO₂, 9 ATP, 6 NADPH","1 CO₂, 3 ATP, 2 NADPH","6 CO₂, 18 ATP, 12 NADH","3 CO₂, 6 ATP, 9 NADPH"],a:0,w:"Numbers straight from the slide: 9 ATP and 6 NADPH per 3 CO₂."},
+  {q:"Why is the Calvin cycle a cycle?",o:["CO₂ is regenerated","5 of 6 G3P are used to remake the starting 5C sugar ribulose 1,5-bisphosphate","ATP is regenerated","O₂ is recycled"],a:1,w:"Regenerating RuBP lets it accept more CO₂."},
+  {q:"Compared with respiration, how is the redox path in photosynthesis different?",o:["Electrons flow only downhill","Electrons start on water (high affinity) and light boosts them uphill twice so they can reduce NADP⁺","Electrons end on O₂","There is no change in redox potential"],a:1,w:"Respiration runs downhill to O₂. Photosynthesis needs light input to push electrons uphill (Z-scheme)."},
+  {q:"Why do plants still need cellular respiration?",o:["They don't","At night there are no light reactions, and non-green tissues like roots have no chloroplasts but need ATP","To make O₂","To fix CO₂"],a:1,w:"Time of day and different tissues: the two reasons on the study guide."},
+  {q:"Plant net CO₂ uptake at night is slightly negative because:",o:["Rubisco runs in reverse","Respiration releases CO₂ while photosynthesis has stopped","Stomata pump CO₂ out","Water splitting releases CO₂"],a:1,w:"No light means no ATP/NADPH for fixation, while respiration continues."},
+  {q:"In the light reactions, O₂ is:",o:["The final electron acceptor","A waste product of water splitting at PSII","Used by rubisco","Made by PSI"],a:1,w:"O₂ comes from splitting water to refill PSII's special pair."}
+ ]
+},
+{
+ id:"u5", lec:"Lectures 13–15", title:"The cytoskeleton", short:"Cytoskeleton", mins:70,
+ points:[
+  "Functions: cell shape, movement, internal organization, and getting things where they need to go. Three components: <b>intermediate filaments</b>, <b>microtubules</b>, <b>actin filaments</b>.",
+  "<b>Polymerization</b> = joining subunits into a long polymer. For folded protein subunits these are <b>non-covalent</b> bonds, and the assembly is <b>quaternary structure</b>. N-terminus = the start of a protein; C-terminus = the end.",
+  "<b>Intermediate filaments (IF)</b>, ~10 nm: <b>strongest tensile strength</b>; let cells withstand mechanical stress; network in the cytoplasm of animal cells; form the <b>nuclear lamina</b> (mesh supporting the nuclear envelope), which connects to the cytosolic cytoskeleton. Types: keratins (epithelia), vimentin (connective tissue, muscle, glia), neurofilaments (nerve), nuclear lamins (all animal cells).",
+  "<b>IF assembly</b>: α-helical monomer (globular N and C ends) → <b>coiled-coil dimer</b> (parallel, ~48 nm) → <b>staggered antiparallel tetramer</b> → 8 tetramers associate laterally → ropelike filament. <b>No structural polarity</b>: both ends of the tetramer are the same. All non-covalent bonds; tons of overlapping lateral interactions = tensile strength. <b>No motor proteins.</b>",
+  "<b>Linker proteins</b> such as <b>plectin</b> cross-link filaments into bundles and connect IFs to microtubules and actin.",
+  "<b>Microtubules (MT)</b>, ~25 nm: stiff hollow tubes that disassemble/reassemble quickly. Subunit = <b>tubulin heterodimer</b> (α + β). Dimers stack into a <b>protofilament</b>; 13 protofilaments form a hollow cylinder, all oriented the same way, so the MT keeps a <b>(+) and (−) end</b>. (+) doesn't mean charge; it's the end where dimers add faster. <span class=\"flag\">Check with your professor: the slide says α-tubulin is at the (+) end, but the textbook figure (and most references) put β-tubulin at the (+) end and α at the (−) end.</span>",
+  "<b>Nucleation</b>: MTs need a <b>γ-tubulin ring</b> to start, which makes building them energetically favorable. Rings sit in <b>organizing centers</b>; in animals, the <b>centrosome</b> (a pair of centrioles in a protein gel matrix with embedded γ-tubulin rings). Minus ends stay embedded; plus ends grow out into the cytosol.",
+  "<b>Dynamic instability</b>: free tubulin dimers have <b>GTP bound to β-tubulin</b> and bind each other well. Shortly after a dimer joins, GTP is hydrolyzed to GDP and the tubulin binds poorly. Add tubulin faster than GTP is hydrolyzed → <b>GTP cap</b> → growth. Hydrolysis outpaces addition → cap lost → protofilaments peel away → rapid shrinking.",
+  "The centrosome is constantly \"<b>fishing</b>\": sending out MTs and reeling them back. If an MT binds a target it won't disassemble. <b>Microtubule-associated proteins (MAPs)</b> stabilize, sever, cap or link them.",
+  "<b>MT functions</b>: keep cells <b>polarized</b> and position organelles (ER stretched out toward the PM, Golgi near the centrosome); intracellular transport; mitotic spindle; cilia/flagella.",
+  "<b>Motor proteins on MTs</b> move organelles and vesicles in jerky \"<b>saltatory</b>\" movements powered by ATP-driven conformation changes. Polarity matters: <b>kinesins → (+) end</b> (outward), <b>dyneins → (−) end</b> (toward the centrosome).",
+  "<b>Cilia</b> (small, hairlike, move fluid, e.g., mucus in the respiratory epithelium) and <b>flagella</b> (sperm) share the <b>9 + 2</b> arrangement of stabilized MTs. <b>Dynein</b> arms connect neighboring doublets; because the doublets are linked together, dynein's sliding force makes them <b>bend</b>.",
+  "<b>Actin filaments</b>, ~7 nm: thin and flexible; most concentrated in the <b>cell cortex</b> under the PM. Permanent structures (microvilli, contractile bundles) and temporary ones (lamellipodia and filopodia for crawling).",
+  "<b>Actin structure</b>: globular monomers with polarity (+/− ends) that polymerize like MTs. Actin binds <b>ATP</b> (MT uses GTP), hydrolyzed after joining. <b>Treadmilling</b>: at an intermediate monomer concentration, subunits add to (+) and leave (−) at the same rate, so the filament stays the same length but moves toward the (+) end.",
+  "<b>Cell crawling</b>: actin polymerization at (+) ends pushes out the lamellipodium → attachment via focal contacts (integrins) → myosin contraction pulls the rear forward.",
+  "<b>Myosin</b> = actin motor protein; moves toward the <b>(+) end</b>. Myosin I (one head) carries vesicles and moves membranes; myosin II forms thick filaments for contraction."
+ ],
+ figs:[
+  ["L13_s1_0","Fluorescent cell: microtubules (green) and actin (red)."],
+  ["L13_s21_0","Classes of intermediate filaments and where they're found."],
+  ["L13_s9_0","Nuclear lamina: an IF mesh lining the inner nuclear membrane."],
+  ["L13_s16_0","IF coiled-coil dimer: the N- and C-termini line up (parallel)."],
+  ["L13_s18_0","Staggered antiparallel tetramer, the reason IFs have no polarity."],
+  ["L13_s19_0","Tetramers pack laterally into a ropelike filament."],
+  ["L13_s22_0","Plectin (orange) linking IFs to other filaments."],
+  ["L13_s29_0","Tubulin dimer → protofilament → 13-protofilament hollow microtubule with + and − ends."],
+  ["L13_s32_0","Centrosome: γ-tubulin rings nucleate MTs, and plus ends grow outward."],
+  ["L13_s34_0","MT arrangements in different cell types."],
+  ["L13_s38_0","Growing MT: GTP cap forms when addition outpaces hydrolysis."],
+  ["L13_s39_0","Shrinking MT: cap lost, protofilaments peel away."],
+  ["L13_s41_0","Microtubule-associated proteins nucleate, stabilize, sever, cap and link MTs."],
+  ["L13_s42_0","MTs position the ER and keep the Golgi near the centrosome."],
+  ["L14_s21_0","Kinesin walks to the + end; cytoplasmic dynein walks to the − end."],
+  ["L14_s20_0","How a kinesin head steps: ATP binding and hydrolysis swing one head past the other."],
+  ["L14_s23_0","Motor proteins carry cargo via adaptor proteins."],
+  ["L14_s26_0","Cilia in the respiratory epithelium sweep mucus up to the pharynx."],
+  ["L14_s28_0","9 + 2 axoneme cross-section with dynein arms."],
+  ["L14_s29_0","Dynein + linking proteins turn sliding into bending."],
+  ["L14_s34_0","Actin filament: polar, helical, ~7 nm."],
+  ["L14_s37_0","Treadmilling: add at +, lose at −, same length."],
+  ["L14_s33_0","Cell crawling: protrude, attach, contract."],
+  ["L14_s40_0","Actin-binding proteins control where and how actin is built."],
+  ["L14_s42_0","Myosin I moves vesicles or the membrane along actin."]
+ ],
+ qs:[
+  ["What is polymerization? What bonds join folded protein subunits, and what level of structure is it?","Joining many subunits into a long chain. Folded subunits are held by non-covalent bonds, and that is quaternary structure."],
+  ["Where is the C-terminus of a protein? The N-terminus?","N-terminus = start (made first); C-terminus = end (made last)."],
+  ["What would be the intermediate-filament equivalent of a tubulin dimer?","The IF monomer / coiled-coil dimer is the building block. Unlike tubulin, IF subunits are fibrous α-helices, not globular."],
+  ["Why do dimers add so that the minus end is in the centrosome and the plus end faces the cytosol?","The plus end is the fast-growing, dynamic end, so pointing it outward lets MTs grow and search the cytoplasm while the minus end stays anchored and protected by the γ-tubulin ring."],
+  ["Which cytoskeleton components have polarity?","Microtubules and actin filaments. Intermediate filaments don't, because of the antiparallel tetramer."],
+  ["What is similar between microtubules and actin? What's different? Any similarities between actin and IFs?","MT and actin: globular subunits, polarity, nucleotide hydrolysis (GTP vs ATP), dynamic assembly, motor proteins (kinesin/dynein vs myosin). Different: MT is a stiff hollow 25 nm tube; actin is thin and flexible at 7 nm. Actin and IF: both form networks under membranes (cortex vs nuclear lamina) and give mechanical support."],
+  ["Which cytoskeleton component would you expect in the cell cortex? Nuclear lamina? Cilium?","Cortex: actin. Nuclear lamina: intermediate filaments (lamins). Cilium: microtubules."],
+  ["Which have motor proteins that travel along them, and why?","Microtubules (kinesin, dynein) and actin (myosin), because they're polar so motors can walk one direction. IFs have no polarity and no motors."],
+  ["Match: myosin, dynein, kinesin to direction and track.","Myosin → + end of actin. Kinesin → + end of microtubules. Dynein → − end of microtubules."]
+ ],
+ cards:[
+  ["Intermediate filament: monomer & size","Fibrous α-helical protein (keratin, vimentin, lamin…); ~10 nm."],
+  ["IF polarity / motors","No polarity (antiparallel tetramer); no motor proteins."],
+  ["IF function","Tensile strength, resisting mechanical stress; nuclear lamina."],
+  ["Nuclear lamina","Mesh of lamin IFs under the inner nuclear membrane supporting the envelope."],
+  ["Plectin","Linker protein that cross-links IFs and connects them to MTs and actin."],
+  ["Microtubule: subunit & size","αβ-tubulin heterodimer (GTP-binding); hollow 25 nm tube of 13 protofilaments."],
+  ["γ-tubulin ring","Nucleates MTs at organizing centers like the centrosome."],
+  ["Centrosome","Animal MT-organizing center: pair of centrioles in a protein matrix with γ-tubulin rings."],
+  ["Dynamic instability","MT switching between growth and rapid shrinkage, set by the GTP cap vs. GTP hydrolysis."],
+  ["GTP cap","GTP-tubulin at a growing plus end; losing it triggers catastrophe."],
+  ["MAPs","Microtubule-associated proteins that stabilize or regulate MTs."],
+  ["Kinesin","MT motor walking toward the + end (outward)."],
+  ["Dynein","MT motor walking toward the − end; also bends cilia and flagella."],
+  ["Saltatory movement","Jerky, stop-and-go cargo transport by motors."],
+  ["9 + 2 axoneme","Nine doublet MTs around two singlets in cilia and flagella."],
+  ["Actin: subunit & size","Globular ATP-binding G-actin; thin, flexible ~7 nm filament."],
+  ["Cell cortex","Actin-rich layer just under the plasma membrane."],
+  ["Treadmilling","Add at + and lose at − at equal rates; constant length, filament moves."],
+  ["Lamellipodium / filopodium","Sheet-like / spike-like actin protrusions used in crawling."],
+  ["Myosin","Actin motor; moves to the + end. Myosin I = vesicles/membrane; myosin II = contraction."]
+ ],
+ quiz:[
+  {q:"Which cytoskeletal filament has the greatest tensile strength?",o:["Actin filaments","Microtubules","Intermediate filaments","All are equal"],a:2,w:"IFs are ropelike, with many overlapping lateral non-covalent interactions."},
+  {q:"Which cytoskeletal element lacks structural polarity?",o:["Microtubules","Actin filaments","Intermediate filaments","None; all are polar"],a:2,w:"The staggered antiparallel tetramer makes both ends identical."},
+  {q:"The nuclear lamina is made of:",o:["Actin","Tubulin","Intermediate filaments (lamins)","Myosin"],a:2,w:"Nuclear lamins are the IF type found in all animal cells."},
+  {q:"An IF tetramer is made of:",o:["Two parallel coiled-coil dimers","Two staggered antiparallel coiled-coil dimers","Four tubulin heterodimers","Four G-actin monomers"],a:1,w:"Antiparallel arrangement → no polarity."},
+  {q:"Which cytoskeletal component has NO motor proteins?",o:["Microtubules","Actin","Intermediate filaments","Cilia"],a:2,w:"Motors need polarity to know which way to walk, and IFs have none."},
+  {q:"Microtubules are made of:",o:["α/β-tubulin heterodimers","G-actin","Keratin","Lamins"],a:0,w:"The dimer is the subunit; stacked dimers form protofilaments."},
+  {q:"What does γ-tubulin do?",o:["Caps the plus end","Forms rings that nucleate MTs, making assembly energetically favorable","Hydrolyzes GTP","Walks cargo to the minus end"],a:1,w:"γ-tubulin rings are embedded in the centrosome matrix."},
+  {q:"A microtubule grows when:",o:["GTP hydrolysis is faster than tubulin addition","Tubulin addition is faster than GTP hydrolysis, keeping a GTP cap","GDP-tubulin binds tightly","The minus end is free"],a:1,w:"GTP-tubulin binds well; the GTP cap stabilizes the growing end."},
+  {q:"What happens when a microtubule loses its GTP cap?",o:["It grows faster","GDP-tubulin binds poorly, protofilaments peel apart, and it rapidly shrinks","It becomes an intermediate filament","Kinesin stops"],a:1,w:"That's catastrophe, part of dynamic instability."},
+  {q:"Kinesin generally moves cargo toward the:",o:["Minus end (centrosome)","Plus end (cell periphery)","Z disc","Nucleus only"],a:1,w:"Kinesin → +. Dynein → −."},
+  {q:"Which motor moves toward the minus end of microtubules?",o:["Kinesin","Myosin II","Dynein","Myosin I"],a:2,w:"Dynein carries cargo inward toward the centrosome."},
+  {q:"Cilia and flagella bend (rather than just slide apart) because:",o:["Actin contracts inside them","Dynein slides doublets past each other, but linking proteins hold the doublets together","They lack microtubules","Kinesin pulls on the membrane"],a:1,w:"Constrained sliding = bending."},
+  {q:"The 9 + 2 arrangement describes:",o:["Centrioles","The axoneme of cilia and flagella","IF tetramers","Actin bundles in microvilli"],a:1,w:"Nine outer doublets plus two central singlet MTs."},
+  {q:"Actin filaments are most concentrated in the:",o:["Nuclear lamina","Cell cortex under the plasma membrane","Mitochondrial matrix","Centrosome"],a:1,w:"The cortex supports the PM and drives shape changes."},
+  {q:"Treadmilling of an actin filament means:",o:["Subunits add at + and leave at − at the same rate, so length is constant","The filament shrinks from both ends","Myosin walks along it","It lacks polarity"],a:0,w:"Constant length, but the filament's position shifts toward +."},
+  {q:"Actin monomers bind and hydrolyze ___, while tubulin binds and hydrolyzes ___.",o:["GTP; ATP","ATP; GTP","ATP; ATP","GTP; GTP"],a:1,w:"Same logic, different nucleotide."},
+  {q:"During cell crawling, what pushes the lamellipodium forward?",o:["Microtubule depolymerization","Actin polymerization at plus ends","Intermediate filament assembly","Dynein"],a:1,w:"Then focal contacts attach and myosin contraction pulls the rear."},
+  {q:"Which organizes the position of the Golgi near the centrosome and stretches the ER out?",o:["Microtubules","Intermediate filaments","Actin","Lamins"],a:0,w:"MT polarity organizes membrane-bound organelles."},
+  {q:"Order these filaments by diameter, smallest to largest:",o:["MT < IF < actin","Actin (7 nm) < IF (10 nm) < MT (25 nm)","IF < actin < MT","Actin < MT < IF"],a:1,w:"Relative size is on the cytoskeleton study list."},
+  {q:"Polymerization of folded protein subunits into a filament relies on ___ bonds and is ___ structure.",o:["Covalent; primary","Non-covalent; quaternary","Peptide; secondary","Disulfide; tertiary"],a:1,w:"Subunits held together non-covalently = quaternary structure."}
+ ]
+},
+{
+ id:"u6", lec:"Lectures 14–15", title:"Muscle contraction", short:"Muscle", mins:40,
+ points:[
+  "Contraction uses interacting <b>actin</b> and <b>myosin II</b> filaments. Myosin II is a dimer with two heads and tails wound into a <b>coiled coil</b>; many associate into a bipolar <b>thick filament</b> (heads at both ends, bare region in the middle).",
+  "<b>Myofibrils</b> are the contractile structures in muscle cells. The repeating contractile unit is the <b>sarcomere</b> (~2.5 µm), bounded by <b>Z discs</b>.",
+  "Thin filaments (actin) attach to the Z disc by their <b>(+) ends</b>; thick filaments (myosin II) sit in the middle, overlapping the actin.",
+  "<b>Sliding filament model</b>: myosin heads walk toward the actin (+) ends (toward the Z discs), pulling the Z discs together. The sarcomere shortens, but neither filament changes length.",
+  "<b>Why (+) ends face the Z disc</b>: myosin moves toward (+) ends. With + ends at the Z discs, both halves of the bipolar thick filament pull actin inward, bringing the Z discs closer.",
+  "<b>Cross-bridge cycle</b>: (1) <b>Attached</b>: head bound to actin with no nucleotide (rigor; why rigor mortis happens without ATP). (2) <b>Released</b>: ATP binds and the head lets go. (3) <b>Cocked</b>: ATP hydrolysis swings the head ~5 nm forward; ADP + P<sub>i</sub> stay bound. (4) <b>Power stroke</b>: weak binding to a new actin site releases P<sub>i</sub> and triggers the force-generating stroke. (5) <b>Attached</b> again after ADP is lost, now moved along the filament.",
+  "<b>Triggering contraction</b>: an action potential travels along the PM into <b>T tubules</b> (invaginations of the plasma membrane). Voltage-gated Ca<sup>2+</sup> channels in the T tubule open <b>Ca<sup>2+</sup>-release channels</b> in the <b>sarcoplasmic reticulum</b> (specialized smooth ER that stores Ca<sup>2+</sup>).",
+  "Ca<sup>2+</sup> floods the cytosol and binds <b>troponin</b>, which shifts <b>tropomyosin</b> off the myosin-binding sites on actin, and contraction begins. Remove Ca<sup>2+</sup> → tropomyosin blocks again → relaxation."
+ ],
+ figs:[
+  ["L14_s45_0","Myosin II molecule and bipolar thick filament."],
+  ["L14_s47_0","A muscle cell is packed with myofibrils."],
+  ["L14_s49_0","Sarcomere: Z discs, thin actin filaments and thick myosin filaments."],
+  ["L14_s50_0","Contraction: filaments slide, the sarcomere shortens, and filament lengths don't change."],
+  ["L14_s51_0","Cross-bridge cycle step 1: attached (rigor)."],
+  ["L14_s52_0","Step 2: released, after ATP binds."],
+  ["L14_s53_0","Step 3: cocked, after ATP hydrolysis."],
+  ["L14_s54_0","Step 4: rebinding and power stroke."],
+  ["L14_s55_0","Step 5: attached again, one step farther along."],
+  ["L14_s56_0","T tubules and sarcoplasmic reticulum surround each myofibril."],
+  ["L14_s57_0","An action potential in the T tubule opens Ca²⁺-release channels in the SR."],
+  ["L14_s58_0","Ca²⁺ + troponin moves tropomyosin to expose myosin-binding sites."]
+ ],
+ qs:[
+  ["Why do the + ends of actin have to face the Z discs?","Myosin walks toward + ends. With the + ends at the Z discs, both halves of the bipolar thick filament pull actin toward the center, drawing the Z discs together and shortening the sarcomere."]
+ ],
+ cards:[
+  ["Sarcomere","Contractile unit of a myofibril between two Z discs (~2.5 µm)."],
+  ["Z disc","Sarcomere boundary where actin + ends attach."],
+  ["Thick vs thin filament","Thick = myosin II; thin = actin."],
+  ["Myosin II","Two-headed motor with coiled-coil tails; forms bipolar thick filaments."],
+  ["Rigor state","Myosin head bound to actin without ATP; rigor mortis."],
+  ["What releases myosin from actin?","ATP binding to the myosin head."],
+  ["What cocks the myosin head?","ATP hydrolysis (ADP + Pᵢ remain bound)."],
+  ["What triggers the power stroke?","Rebinding to actin and release of Pᵢ."],
+  ["T tubule","PM invagination that carries the action potential deep into the muscle cell."],
+  ["Sarcoplasmic reticulum","Specialized smooth ER storing Ca²⁺ in muscle."],
+  ["Troponin / tropomyosin","Ca²⁺ binds troponin → tropomyosin shifts → myosin sites exposed."]
+ ],
+ quiz:[
+  {q:"The contractile unit of a myofibril is the:",o:["Z disc","Sarcomere","T tubule","Sarcoplasmic reticulum"],a:1,w:"Sarcomeres repeat along each myofibril."},
+  {q:"During contraction, what happens to filament lengths?",o:["Actin shortens","Myosin shortens","Neither changes; they slide past each other","Both shorten"],a:2,w:"Sliding filament model: overlap increases, and the sarcomere (Z to Z) shortens."},
+  {q:"What causes the myosin head to release from actin?",o:["ATP hydrolysis","ATP binding","Pᵢ release","Ca²⁺ binding to myosin"],a:1,w:"ATP binding lowers myosin's affinity for actin."},
+  {q:"What 'cocks' the myosin head into its high-energy position?",o:["ATP binding","ATP hydrolysis","ADP release","Tropomyosin"],a:1,w:"Hydrolysis triggers the ~5 nm shape change; ADP + Pᵢ stay bound."},
+  {q:"The power stroke is triggered by:",o:["ATP binding","Pᵢ release after the head rebinds actin","Ca²⁺ leaving the cytosol","Z disc separation"],a:1,w:"Weak binding → Pᵢ release → power stroke → ADP lost."},
+  {q:"Why does rigor mortis occur?",o:["Too much Ca²⁺ is pumped back","No ATP is available to release myosin heads from actin","Actin depolymerizes","Tropomyosin is destroyed"],a:1,w:"Without ATP, heads stay locked in the attached state."},
+  {q:"Where is Ca²⁺ stored in a resting muscle cell?",o:["T tubules","Sarcoplasmic reticulum","Mitochondria","Z discs"],a:1,w:"The SR is specialized smooth ER. The smooth ER sequesters Ca²⁺."},
+  {q:"Ca²⁺ allows contraction by binding:",o:["Myosin heads","Troponin, which moves tropomyosin off myosin-binding sites on actin","ATP synthase","Plectin"],a:1,w:"Remove Ca²⁺ and tropomyosin blocks the sites again."},
+  {q:"Actin filaments attach to the Z disc by their:",o:["Minus ends","Plus ends","Middle","They don't attach"],a:1,w:"Myosin walks toward +, pulling Z discs inward."},
+  {q:"What are T tubules?",o:["Microtubule bundles","Invaginations of the plasma membrane that carry the action potential inward","ER tubules that store Ca²⁺","Myosin tails"],a:1,w:"Their voltage-gated channels are coupled to SR Ca²⁺-release channels."}
+ ]
+},
+{
+ id:"u7", lec:"Lecture 15", title:"Intracellular compartments", short:"Organelles", mins:30,
+ points:[
+  "Membrane-bound organelles form intracellular compartments; parts of the cytosol and cytoskeleton also help compartmentalize.",
+  "<b>Benefits of compartmentalization</b>: the cell <b>can be bigger</b> (ATP synthesis isn't limited to the plasma membrane, so a smaller surface-area-to-volume ratio is fine); <b>more efficient</b>; keeps dangerous things like digestive enzymes away from the rest of the cell; lets enzymes be <b>regulated by location</b>.",
+  "<b>Nucleus</b>, the \"corporate headquarters\", surrounded by the double-membrane <b>nuclear envelope</b>.",
+  "<b>ER</b>: continuous with the outer nuclear envelope; the site of membrane synthesis. <b>Smooth ER</b>: no ribosomes, <b>sequesters Ca<sup>2+</sup></b>, function varies by cell type. <b>Rough ER</b>, \"the factory\": bumpy with ribosomes; protein synthesis, especially <b>membrane-bound or secreted</b> proteins.",
+  "<b>Golgi apparatus</b>, the \"processing and distribution center\": receives proteins and lipids from the ER, modifies them, and sends them on. Lots of vesicle budding and fusing.",
+  "<b>Lysosomes</b>, \"the incinerator\": membrane sacs of digestive enzymes that degrade worn-out organelles and material brought in by endocytosis.",
+  "<b>Endosomes</b>, \"the cargo containers\": pass endocytosed molecules on to the lysosome or back to the plasma membrane. If endosomes are the containers, <b>vesicles + motor proteins</b> are the trucks and the <b>cytoskeleton (microtubules)</b> is the roads.",
+  "<b>Peroxisomes</b>: membrane sacs with enzymes for oxidative reactions (free radicals); break down lipids and destroy toxic molecules.",
+  "<b>Mitochondria and chloroplasts</b>: covered in Units 1–4."
+ ],
+ figs:[
+  ["L15_s27_0","The major membrane-bound compartments of an animal cell."],
+  ["L15_s28_1","Electron micrograph: nucleus, lysosomes, peroxisome, mitochondrion, rough ER."],
+  ["L15_s39_0","The Golgi apparatus: cis network → cisternae → trans network."]
+ ],
+ qs:[
+  ["What might be some benefits of cell compartmentalization?","Cells can be larger (ATP isn't made at the PM), reactions are more efficient, digestive enzymes are kept away from everything else, and enzymes can be regulated by keeping them in specific places."],
+  ["If endosomes are the cargo containers, what are the trucks? What about the roads?","Trucks = transport vesicles pulled by motor proteins (kinesin, dynein, myosin). Roads = cytoskeleton, mainly microtubules (and actin)."]
+ ],
+ cards:[
+  ["Rough ER","ER with ribosomes; makes membrane and secreted proteins."],
+  ["Smooth ER","No ribosomes; lipid synthesis, Ca²⁺ storage, cell-type-specific jobs."],
+  ["Golgi","Receives from ER, modifies, sorts and ships proteins/lipids."],
+  ["Lysosome","Digestive enzyme sac (\"incinerator\")."],
+  ["Endosome","Sorting station for endocytosed material (\"cargo container\")."],
+  ["Peroxisome","Oxidative reactions; breaks down lipids, destroys toxins."],
+  ["Why compartmentalize?","Bigger cells, efficiency, isolate harmful enzymes, regulate by location."]
+ ],
+ quiz:[
+  {q:"Which organelle is continuous with the outer nuclear membrane?",o:["Golgi","ER","Lysosome","Peroxisome"],a:1,w:"The ER lumen is continuous with the space between nuclear membranes."},
+  {q:"Proteins destined for secretion or the plasma membrane are made mainly on:",o:["Free cytosolic ribosomes, then released","Rough ER","Smooth ER","Peroxisomes"],a:1,w:"Rough ER, \"the factory\"."},
+  {q:"Which organelle sequesters Ca²⁺ and has no ribosomes?",o:["Rough ER","Smooth ER","Golgi","Nucleus"],a:1,w:"In muscle it's specialized as the sarcoplasmic reticulum."},
+  {q:"Which organelle performs oxidative reactions to break down lipids and destroy toxic molecules?",o:["Lysosome","Peroxisome","Endosome","Golgi"],a:1,w:"Peroxisomes handle free-radical/oxidative chemistry."},
+  {q:"One benefit of compartmentalization is that cells can be bigger. Why?",o:["Membranes are lighter than cytosol","ATP synthesis isn't restricted to the plasma membrane, so a lower surface-area-to-volume ratio is OK","Lysosomes add volume","The nucleus divides"],a:1,w:"Internal membranes (mitochondria) make ATP, unlike in bacteria."},
+  {q:"Endosomes pass endocytosed molecules to:",o:["The nucleus","The lysosome or back to the plasma membrane","The ER only","Mitochondria"],a:1,w:"They're the sorting \"cargo containers\" of the endocytic pathway."},
+  {q:"The Golgi is best described as the cell's:",o:["Incinerator","Processing and distribution center","Power plant","Headquarters"],a:1,w:"It modifies and sorts proteins and lipids received from the ER."}
+ ]
+},
+{
+ id:"u8", lec:"Lecture 16", title:"Protein sorting & import", short:"Protein sorting", mins:55,
+ points:[
+  "Cells constantly make proteins and need to get them to the right place. They use <b>signal sequences</b>, \"address labels\" of amino acids, which are usually <b>removed when the protein arrives</b>. Moving a signal to another protein redirects that protein.",
+  "Typical signals: <b>ER import</b> = N-terminal stretch of hydrophobic amino acids; <b>ER retention</b> = C-terminal <b>KDEL</b> (Lys-Asp-Glu-Leu); <b>mitochondrial import</b> = N-terminal with positive charges (Arg/Lys); <b>nuclear import</b> = internal Lys/Arg-rich sequence (PPKKKRKV); <b>peroxisome</b> = C-terminal SKL.",
+  "Most proteins are made by ribosomes in the <b>cytosol</b>. <b>No sorting signal → stays in the cytosol.</b>",
+  "Three ways across: (1) cytosol → nucleus through <b>nuclear pores</b> (protein stays folded); (2) cytosol → mitochondria/chloroplasts/ER/peroxisomes via <b>protein translocators</b> (requires <b>unfolding</b>); (3) ER onward → Golgi etc. by <b>vesicles</b>.",
+  "<b>Nuclear transport</b>: needs a <b>nuclear localization signal (NLS)</b> and help from <b>nuclear import receptors</b>. The receptor binds the NLS, then binds repeated amino-acid sequences in the gel-like basket of nuclear pore proteins, hopping from one to the next until inside. It releases the protein in the nucleus. Energy from <b>GTP binding (Ran-GTP)</b> is needed to get the receptor back out and repeat; GTP hydrolysis in the cytosol resets it.",
+  "<b>Mitochondria/chloroplasts</b> make some of their own proteins but need many from the cytosol. The harder part is <b>two membranes</b>. The outer-membrane translocator (<b>TOM</b>) and inner-membrane translocator (<b>TIM</b>) form a complex; the protein crosses unfolded; <b>chaperones</b> in the matrix refold it and the signal is cut off. Going to the thylakoid or inner membrane requires more sorting signals.",
+  "<b>ER</b> is the entry point for anything going to the Golgi, endosomes, lysosomes, PM or out of the cell. Unlike mito/chloroplast import, the protein enters the ER <b>while it's being made</b> (co-translationally).",
+  "<b>SRP pathway</b>: the ribosome starts translating mRNA → the N-terminal <b>ER signal sequence</b> emerges → <b>signal recognition particle (SRP)</b> binds it and translation slows → the ribosome is brought to the ER and SRP binds the <b>SRP receptor</b> → SRP is released and the signal binds the <b>translocation channel</b> → translation finishes as the chain threads through → the ribosome goes back to the cytosol.",
+  "<b>Why N-terminal?</b> The N-terminus is made first, so the signal is exposed early and the protein can be targeted before most of it is made or folded.",
+  "<b>Water-soluble proteins</b>: fully threaded through and released into the <b>ER lumen</b>; <b>signal peptidase</b> cleaves the signal; the mature protein folds. They stay in the ER or end up in the lumen of another endomembrane organelle, or are secreted.",
+  "<b>Single-pass transmembrane</b>: the N-terminal signal starts transfer like a soluble protein; a stretch of hydrophobic amino acids acts as a <b>stop-transfer</b> sequence; the signal is cleaved, and the stop-transfer helix drifts into the bilayer; translation finishes on the cytosolic side. Result: N-terminus in the lumen, C-terminus in the cytosol. For PM proteins, the <b>lumen side becomes extracellular</b>.",
+  "<b>Double-pass transmembrane</b>: an <b>internal hydrophobic start-transfer</b> sequence (also binds SRP, not cleaved) starts translocation; the chain inserts until a <b>stop-transfer</b>; the rest is made in the cytosol. <b>Multi-pass</b> proteins alternate start- and stop-transfer sequences."
+ ],
+ figs:[
+  ["L16_s7_0","Table 15-3: typical signal sequences. Note where each one sits (N-term, C-term, internal)."],
+  ["L16_s8_0","Moving the ER signal onto a cytosolic protein sends it to the ER."],
+  ["L16_s9_0","Three routes: through nuclear pores, across membranes by translocators, and by vesicles."],
+  ["L16_s12_0","Nuclear pore complex: cytosolic fibrils, gel-like meshwork, nuclear basket."],
+  ["L16_s13_0","A nuclear import receptor carries an NLS-tagged protein through the pore."],
+  ["L16_s14_0","The Ran-GTP cycle releases cargo in the nucleus and recycles the receptor."],
+  ["L16_s18_0","Mitochondrial import through TOM and TIM; the signal peptide is cleaved in the matrix."],
+  ["L16_s23_0","Free vs ER-bound ribosomes: the ER signal sequence decides."],
+  ["L16_s26_0","SRP binds the signal, docks on the SRP receptor, and hands off to the translocator."],
+  ["L16_s29_0","Soluble protein: signal peptidase cuts the signal and the protein is released into the lumen."],
+  ["L16_s30_0","Single-pass TM protein: start signal (cleaved) + stop-transfer."],
+  ["L16_s35_0","Double-pass TM protein: internal start-transfer + stop-transfer."],
+  ["L16_s38_0","After the ER: the secretory and endocytic pathways."]
+ ],
+ qs:[
+  ["What about mitochondrial/chloroplast structure might make protein import harder?","Two membranes (outer and inner; chloroplasts can add thylakoids), so proteins must cross both, unfolded, through linked TOM/TIM translocators."],
+  ["Why does the ER signal have to be on the N-terminus and not the C-terminus?","The N-terminus is translated first. An N-terminal signal is exposed early, so SRP can stop translation and bring the ribosome to the ER before the protein is finished or folded. A C-terminal signal would only appear after the protein was already complete in the cytosol."],
+  ["Which proteins (water-soluble or transmembrane) end up in the ER lumen? Why?","Water-soluble ones. They have no stop-transfer sequence, so they're fully translocated, the signal is cleaved, and they're released into the lumen. TM proteins get stuck in the membrane at stop-transfer sequences."],
+  ["For proteins going to the plasma membrane, which side will be extracellular?","The side that faced the ER lumen. When the vesicle fuses with the PM, the lumen side becomes the outside."],
+  ["How could you make a TM protein with both N and C termini on the lumen side? What about multi-pass?","Use a cleaved N-terminal signal (puts N in the lumen), then a stop-transfer, then an internal start-transfer that sends the rest, including the C-terminus, back into the lumen. Multi-pass proteins alternate start- and stop-transfer sequences."]
+ ],
+ cards:[
+  ["Signal sequence","Amino-acid \"address label\" directing a protein; usually removed at the destination."],
+  ["No signal","Protein stays in the cytosol."],
+  ["NLS","Nuclear localization signal; internal Lys/Arg-rich sequence."],
+  ["Nuclear import receptor","Binds the NLS and nuclear pore repeats to carry cargo in; Ran-GTP releases cargo."],
+  ["Nuclear pore transport","Proteins pass folded."],
+  ["TOM / TIM","Outer / inner mitochondrial membrane translocators; protein crosses unfolded."],
+  ["Mitochondrial signal","N-terminal, positively charged; cleaved in the matrix."],
+  ["SRP","Signal recognition particle; binds the ER signal and ribosome, slows translation, targets to the ER."],
+  ["SRP receptor","ER membrane protein that docks SRP + ribosome."],
+  ["Co-translational import","ER proteins are threaded in while being translated."],
+  ["Signal peptidase","Cleaves the ER signal sequence in the lumen."],
+  ["Stop-transfer sequence","Hydrophobic stretch that halts translocation and becomes a membrane-spanning helix."],
+  ["Start-transfer sequence","Internal hydrophobic sequence that starts translocation (binds SRP, not cleaved)."],
+  ["KDEL","C-terminal ER retention signal."]
+ ],
+ quiz:[
+  {q:"A protein made on a cytosolic ribosome with NO sorting signal will:",o:["Go to the ER","Stay in the cytosol","Be secreted","Go to the nucleus"],a:1,w:"The default location is the cytosol."},
+  {q:"How do proteins enter the nucleus?",o:["Unfolded, through TOM/TIM","Folded, through nuclear pores, with nuclear import receptors","By SRP-mediated co-translational import","By vesicle fusion"],a:1,w:"Nuclear pores let folded proteins through with receptor help."},
+  {q:"The energy for recycling nuclear import receptors comes from:",o:["ATP hydrolysis by myosin","GTP binding/hydrolysis by Ran","The H⁺ gradient","NADH"],a:1,w:"Ran-GTP releases cargo in the nucleus; hydrolysis in the cytosol resets the receptor."},
+  {q:"Proteins imported into mitochondria must:",o:["Stay folded","Be unfolded to pass through TOM and TIM translocators","Have a C-terminal KDEL","Be glycosylated first"],a:1,w:"Then matrix chaperones refold them and the signal is cleaved."},
+  {q:"What is unique about ER protein import compared with mitochondrial import?",o:["It happens after translation is done","It happens co-translationally: the protein enters as it's being made","It needs no signal","It uses nuclear pores"],a:1,w:"The ribosome docks on the ER via SRP and translates directly into the channel."},
+  {q:"What does the signal recognition particle (SRP) do?",o:["Cleaves the signal sequence","Binds the ER signal sequence and ribosome, slows translation, and brings the ribosome to the SRP receptor on the ER","Pumps protons","Folds proteins in the lumen"],a:1,w:"Then SRP is released and the signal binds the translocation channel."},
+  {q:"Why is the ER signal sequence at the N-terminus?",o:["It's more hydrophilic","It's synthesized first, so targeting can happen during translation","The C-terminus is always cleaved","Ribosomes read C to N"],a:1,w:"Early exposure allows co-translational targeting."},
+  {q:"A water-soluble protein with an ER signal sequence ends up:",o:["Spanning the ER membrane","Released into the ER lumen after signal peptidase cleaves the signal","In the cytosol","In the mitochondrial matrix"],a:1,w:"No stop-transfer, so it's fully translocated."},
+  {q:"In a single-pass transmembrane protein made with a cleaved N-terminal signal and one stop-transfer sequence, the N-terminus ends up:",o:["In the cytosol","In the ER lumen","In the nucleus","Free in the membrane"],a:1,w:"N in the lumen, C in the cytosol."},
+  {q:"For a plasma membrane protein, which side of the ER membrane becomes extracellular?",o:["The cytosolic side","The lumen side","Neither","Both"],a:1,w:"Lumen = topologically outside."},
+  {q:"A double-pass transmembrane protein uses:",o:["Two cleaved N-terminal signals","An internal start-transfer sequence and a stop-transfer sequence","A KDEL sequence","An NLS"],a:1,w:"The internal start-transfer also binds SRP and isn't cleaved."},
+  {q:"Which signal is a C-terminal ER retention signal?",o:["PPKKKRKV","KDEL","SKL","An N-terminal hydrophobic stretch"],a:1,w:"Lys-Asp-Glu-Leu at the C-terminus."},
+  {q:"Which organelle is the entry point for proteins going to the Golgi, endosomes and lysosomes?",o:["Nucleus","ER","Mitochondria","Peroxisome"],a:1,w:"Everything in the secretory/endomembrane system starts at the ER."}
+ ]
+},
+{
+ id:"u9", lec:"Lectures 17–18", title:"Vesicle transport, Golgi & exocytosis", short:"Vesicles + Golgi", mins:55,
+ points:[
+  "<b>Vesicular transport</b>: the ER buds off bits of membrane with lumen contents inside and sends them to the Golgi, where they fuse. <b>Secretory pathway (exocytosis)</b>: ER → Golgi → cell surface (or → endosomes → lysosomes). <b>Endocytic pathway</b>: PM → endosomes → lysosomes.",
+  "The cell needs to (1) get the right proteins into the vesicle, (2) form the bud when they're there, and (3) fuse only with the right target. <b>Coats</b> handle 1 and 2; <b>tethers and SNAREs</b> handle 3.",
+  "<b>Clathrin coating</b>: cargo binds <b>cargo receptors</b>; <b>adaptins</b> link receptors to clathrin; clathrin assembles a basket that bends the membrane into a bud; <b>dynamin</b> pinches the vesicle off; the coat is shed (uncoating) to give a naked transport vesicle.",
+  "<b>Table 15-4</b>: clathrin + adaptin 1: Golgi → lysosome (via endosomes). Clathrin + adaptin 2: plasma membrane → endosomes. <b>COPII</b>: ER → Golgi. <b>COPI</b>: Golgi → ER.",
+  "<b>Docking</b>: <b>Rab proteins</b> (GTPases on the vesicle surface; each organelle/vesicle type has a unique Rab) are recognized by <b>tethering proteins</b> on the target membrane. <b>v-SNAREs</b> (vesicle) pair with <b>t-SNAREs</b> (target), both transmembrane proteins. They twist together, pulling the membranes close and squeezing out water from the hydrophilic heads so the bilayers fuse.",
+  "<b>ER → Golgi is tightly controlled</b>: proteins are quality-checked by many <b>chaperones</b> in the ER lumen; misfolded proteins are kicked out to be degraded. (Lots of misfolded protein activates sensors that turn on more chaperone genes.) Vesicles to the Golgi use <b>COPII</b>, not clathrin.",
+  "<b>Staying vs. leaving the ER</b>: resident ER proteins carry the <b>ER retention signal (KDEL)</b>; departing soluble proteins carry exit signals that bind receptors to get packed into coated vesicles. Escaped ER proteins are caught in the cis Golgi and sent back.",
+  "<b>Golgi</b>: stacked membrane-bound sacs; one sac = a <b>cisterna</b>. <b>Cis face</b> (cis = same) faces the ER; ER and Golgi have a similar evolutionary origin. <b>Trans face</b> (trans = different) faces the plasma membrane. The <b>cis cisterna</b> receives ER vesicles and returns anything with an ER retention signal.",
+  "Proteins move through the Golgi by <b>transport vesicles</b> passing between cisternae and by <b>cisternal maturation</b> (cisternae themselves migrate through the stack). Proteins are often <b>modified</b> along the way (e.g., glycosylation).",
+  "<b>Exocytosis/secretion</b>: vesicles bud from the trans Golgi network and fuse with the PM, releasing contents outside the cell. The <b>vesicle membrane becomes part of the plasma membrane</b>.",
+  "<b>Constitutive exocytosis</b> (constitutive = always happening at baseline): vesicles constantly fuse from the trans Golgi to the PM to deliver new lipids and proteins, grow the membrane before division, and secrete extracellular matrix proteins and other extracellular fluid components.",
+  "<b>Regulated exocytosis</b>: in cells specialized for secretion, product is stored in secretory vesicles near the PM and fuses <b>in response to an extracellular signal</b>. Examples: antibodies, inflammatory cytokines, mucus, hormones (insulin), antimicrobial peptides, neuropeptides."
+ ],
+ figs:[
+  ["L17_s1_0","Electron micrograph of a Golgi stack with vesicles."],
+  ["L17_s13_0","Clathrin-coated pits and vesicles."],
+  ["L17_s14_0","Clathrin coating: cargo selection → bud → dynamin pinches off → uncoating."],
+  ["L17_s18_0","Table 15-4: coat type, origin and destination."],
+  ["L17_s20_0","Rab on the vesicle is recognized by a tethering protein; then v-SNARE meets t-SNARE."],
+  ["L17_s23_0","SNAREs twist, membranes coalesce, bilayers fuse."],
+  ["L17_s26_0","ER quality control: chaperones refold proteins; misfolded proteins trigger more chaperones."],
+  ["L15_s39_0","Golgi: cis network → cis, medial, trans cisternae → trans Golgi network."],
+  ["L17_s37_0","Constitutive vs regulated secretion."],
+  ["L18_s2_0","Exocytosis: the vesicle membrane merges into the plasma membrane."]
+ ],
+ qs:[
+  ["Where would tethering proteins be made?","On the rough ER, since they're membrane proteins. Then they're trafficked to their target membrane."],
+  ["If tethers are single-pass TM proteins, which terminus recognizes the Rab?","The Rab is on the cytosolic face of the vesicle, so the tether's cytosolic end must bind it. With a cleaved N-terminal signal + stop-transfer, N ends up in the lumen and the C-terminus faces the cytosol, so the C-terminus recognizes the Rab."],
+  ["If something is going to be secreted into the extracellular space, where is it in the ER?","In the ER lumen, as a soluble protein. The lumen is topologically equivalent to the outside of the cell."],
+  ["How can the ER tell if a soluble protein should stay in the lumen or be sent to the Golgi?","Signals. Resident proteins carry the ER retention signal (KDEL) and are retrieved from the cis Golgi. Proteins meant to leave have exit signals that bind receptors and get them into COPII vesicles. Misfolded proteins are held back by chaperones."],
+  ["How do vesicles bud off membranes?","Coat proteins (clathrin + adaptins, or COPI/COPII) assemble on the cytosolic face, bind cargo receptors and curve the membrane into a bud. Dynamin pinches off clathrin vesicles; then the coat comes off."],
+  ["Where does the vesicle membrane go after exocytosis?","It becomes part of the plasma membrane. That's how new lipids and proteins get added to the PM."],
+  ["Why would we need constitutive exocytosis constantly?","To keep supplying new lipids and membrane proteins to the PM, grow the membrane before division, and secrete ECM proteins and other baseline products."]
+ ],
+ cards:[
+  ["Secretory pathway","ER → Golgi → plasma membrane / outside (or → endosomes → lysosomes)."],
+  ["Endocytic pathway","Plasma membrane → endosomes → lysosomes."],
+  ["Clathrin","Coat protein forming a basket around vesicles from the PM and trans Golgi."],
+  ["Adaptin","Links cargo receptors to clathrin; adaptin 1 = Golgi, adaptin 2 = PM."],
+  ["Dynamin","GTPase that pinches clathrin-coated vesicles off the membrane."],
+  ["COPII","Coat for ER → Golgi vesicles."],
+  ["COPI","Coat for Golgi → ER (retrieval) vesicles."],
+  ["Rab","Vesicle-surface GTPase marking identity; recognized by tethering proteins."],
+  ["v-SNARE / t-SNARE","Vesicle / target membrane SNAREs that twist together to drive fusion."],
+  ["Cis vs trans Golgi","Cis faces the ER (receives); trans faces the PM (ships)."],
+  ["Cisterna","One flattened sac of the Golgi stack."],
+  ["Cisternal maturation","Cisternae themselves move through the Golgi stack, carrying proteins."],
+  ["Constitutive exocytosis","Continuous, unregulated delivery of vesicles to the PM."],
+  ["Regulated exocytosis","Stored secretory vesicles fuse only after an extracellular signal (e.g., insulin release)."]
+ ],
+ quiz:[
+  {q:"Vesicles traveling from the ER to the Golgi are coated with:",o:["Clathrin + adaptin 2","COPI","COPII","Clathrin + adaptin 1"],a:2,w:"COPII: ER → Golgi. COPI is the return route."},
+  {q:"Vesicles from the plasma membrane to endosomes are coated with:",o:["Clathrin + adaptin 2","COPII","COPI","Clathrin + adaptin 1"],a:0,w:"Adaptin 2 = plasma membrane; adaptin 1 = Golgi."},
+  {q:"Golgi → ER retrieval vesicles use which coat?",o:["COPI","COPII","Clathrin","No coat"],a:0,w:"COPI brings escaped ER proteins (with KDEL) back."},
+  {q:"Which protein pinches a clathrin-coated vesicle off the membrane?",o:["Adaptin","Dynamin","Rab","SNARE"],a:1,w:"Dynamin (a GTPase) wraps the neck of the bud."},
+  {q:"How does a vesicle 'know' its target membrane at the docking step?",o:["Clathrin color","Rab proteins on the vesicle are recognized by tethering proteins on the target, then v-SNAREs pair with t-SNAREs","Motor proteins decide","It fuses randomly"],a:1,w:"Rabs and SNAREs give high specificity."},
+  {q:"How do SNAREs drive membrane fusion?",o:["They hydrolyze lipids","v- and t-SNAREs twist together, pulling membranes close and squeezing out water between hydrophilic heads","They pump Ca²⁺","They form a pore with clathrin"],a:1,w:"Close enough membranes coalesce and fuse."},
+  {q:"The cis face of the Golgi:",o:["Faces the plasma membrane","Faces the ER and receives vesicles from it","Releases secretory vesicles","Contains lysosomes"],a:1,w:"Cis = same side as the ER. Trans = facing the PM."},
+  {q:"What happens to a resident ER protein (with KDEL) that accidentally reaches the cis Golgi?",o:["It's secreted","It's degraded in the lysosome","It's sent back to the ER","It stays in the Golgi"],a:2,w:"The cis cisterna returns anything with an ER retention signal."},
+  {q:"What happens to misfolded proteins in the ER?",o:["They're shipped to the Golgi anyway","They're held by chaperones and, if not fixed, kicked out to be degraded","They're secreted","They're stored in peroxisomes"],a:1,w:"ER → Golgi transport is tightly quality-controlled."},
+  {q:"After exocytosis, the secretory vesicle's membrane:",o:["Is degraded in the lysosome","Becomes part of the plasma membrane","Returns to the ER","Dissolves in the extracellular fluid"],a:1,w:"This adds lipids and proteins to the PM."},
+  {q:"Insulin release from pancreatic β cells is an example of:",o:["Constitutive exocytosis","Regulated exocytosis","Pinocytosis","Phagocytosis"],a:1,w:"Stored in vesicles near the PM, released only on a signal."},
+  {q:"Which describes constitutive exocytosis?",o:["Occurs only after a hormone signal","Happens constantly at baseline, supplying new membrane lipids/proteins and ECM proteins","Only in immune cells","Brings material into the cell"],a:1,w:"Constitutive = always on."},
+  {q:"Which two mechanisms move proteins through the Golgi stack?",o:["Nuclear pores and SRP","Transport vesicles between cisternae and cisternal maturation","Kinesin and dynein only","Diffusion through the lumen"],a:1,w:"Proteins are often modified along the way."}
+ ]
+},
+{
+ id:"u10", lec:"Lecture 18", title:"Endocytosis, endosomes & lysosomes", short:"Endocytosis", mins:40,
+ points:[
+  "<b>Endocytosis</b> = taking things into the cell in vesicles made from the plasma membrane.",
+  "<b>Pinocytosis</b>, \"cell drinking\": ingests fluid and dissolved molecules in small vesicles (<b>&lt;150 nm</b>). Done by all cell types in multicellular organisms. Non-selective, which makes it more like passive uptake.",
+  "<b>Receptor-mediated endocytosis</b>, targeted pinocytosis: macromolecules bind specific receptors that cluster in <b>clathrin-coated</b> pits and vesicles. Increases the efficiency of uptake and can concentrate cargo <b>against its gradient</b>. Examples: <b>LDL</b> (cholesterol), <b>iron</b>, <b>vitamin B12</b>.",
+  "<b>LDL example</b>: LDL binds LDL receptors → clathrin-coated vesicle → uncoating → fuses with endosome → LDL released from receptors → receptors recycled to the PM → LDL delivered to the lysosome → free cholesterol released.",
+  "<b>Phagocytosis</b>, \"cell eating\": specialized cells (immune cells like macrophages and neutrophils) ingest large particles (<b>&gt;250 nm</b>) such as dead cells and microorganisms, forming a phagosome.",
+  "<b>Endosomes</b>: almost everything taken in passes through one. They work like the Golgi, but for endocytosis instead of exocytosis. Acidic (<b>pH 5–6</b>), so receptors usually drop their cargo. Fates: <b>recycling</b> back to the PM, <b>degradation</b> (cargo goes to the lysosome), or <b>transcytosis</b> to a different membrane domain.",
+  "<b>Lysosomes</b>: membrane sacs of <b>hydrolytic (acid hydrolase)</b> enzymes (nucleases, proteases, lipases, etc.) at <b>pH ~5</b> (cytosol ≈ 7.2). Their membrane has transporters to let digested amino acids, lipids and sugars out; an ATP-driven <b>H<sup>+</sup> pump</b> to keep it acidic; and special membrane proteins that protect it from its own enzymes and acid.",
+  "<b>Autophagy</b>: recycling old cell parts (proteins, organelles). An isolation membrane wraps the target into an <b>autophagosome</b>, which fuses with a lysosome to be degraded.",
+  "<b>All roads lead to lysosomes</b>: endocytosis (via early → late endosomes), phagocytosis (phagosome) and autophagy (autophagosome) all end at the lysosome.",
+  "<b>…unless</b>: pathogens survive by escaping the phagosome into the cytosol (e.g., <i>Listeria</i> uses toxins, then actin \"comet tails\" to spread), blocking phagosome-lysosome fusion, resisting the acid/enzymes, or getting expelled (vomocytosis). Some symbionts set up a protected niche."
+ ],
+ figs:[
+  ["L18_s24_0","Endocytosis: the plasma membrane folds inward to make a vesicle."],
+  ["L18_s25_0","Three types: receptor-mediated endocytosis, pinocytosis, phagocytosis."],
+  ["L18_s29_0","Receptor-mediated uptake of LDL; receptors are recycled."],
+  ["L18_s30_0","Virus particles entering through clathrin-coated pits."],
+  ["L18_s32_0","Endosome fates: recycling, degradation, transcytosis."],
+  ["L18_s35_0","The lysosome: pH 5, acid hydrolases, H⁺ pump, metabolite transporters."],
+  ["L18_s36_0","Autophagy: isolation membrane → autophagosome → fuses with lysosome."],
+  ["L18_s37_0","All roads lead to lysosomes: endocytosis, phagocytosis, autophagy."],
+  ["L18_s39_0","How pathogens avoid lysosomes: escape, actin comet tails, vomocytosis."]
+ ],
+ qs:[
+  ["Which is more like passive transport: pinocytosis or receptor-mediated endocytosis?","Pinocytosis. It's non-selective and just takes in whatever is in the surrounding fluid at its existing concentration. Receptor-mediated endocytosis concentrates specific cargo and can move it against a gradient."],
+  ["If a microbe got taken into a cell via phagocytosis, what would it need to do to survive?","Avoid lysosomal destruction: escape the phagosome into the cytosol, block phagosome-lysosome fusion or acidification, resist acid hydrolases, or get the cell to expel it (vomocytosis)."]
+ ],
+ cards:[
+  ["Pinocytosis","\"Cell drinking\": non-selective uptake of fluid in small vesicles (<150 nm)."],
+  ["Receptor-mediated endocytosis","Ligand binds receptors → clathrin-coated vesicles; efficient, concentrates cargo (LDL, iron, B12)."],
+  ["Phagocytosis","\"Cell eating\" by specialized cells; large particles (>250 nm), microbes, dead cells."],
+  ["Endosome pH","5–6; receptors release cargo."],
+  ["Endosome fates","Recycling, degradation (lysosome), transcytosis."],
+  ["Lysosome pH","~5, maintained by an ATP-driven H⁺ pump."],
+  ["Acid hydrolases","Lysosomal digestive enzymes (proteases, nucleases, lipases…)."],
+  ["Autophagy","Self-eating: autophagosome engulfs old organelles/proteins and fuses with a lysosome."],
+  ["Transcytosis","Moving endocytosed cargo across the cell to a different membrane domain."]
+ ],
+ quiz:[
+  {q:"Which form of endocytosis is non-selective 'cell drinking' with small vesicles?",o:["Phagocytosis","Pinocytosis","Receptor-mediated endocytosis","Autophagy"],a:1,w:"Pinocytosis: fluid uptake, vesicles <150 nm."},
+  {q:"LDL, iron and vitamin B12 are taken up by:",o:["Pinocytosis","Phagocytosis","Receptor-mediated endocytosis with clathrin-coated vesicles","Exocytosis"],a:2,w:"Specific receptors concentrate the cargo."},
+  {q:"Phagocytosis is carried out mainly by:",o:["All cells equally","Specialized cells such as immune cells","Only plant cells","Red blood cells"],a:1,w:"For big particles (>250 nm): microbes, dead cells."},
+  {q:"Why do receptors usually release their cargo in the endosome?",o:["Endosomes are alkaline","Endosomes are acidic (pH 5–6)","Endosomes contain clathrin","Receptors are digested"],a:1,w:"The low pH loosens receptor-ligand binding."},
+  {q:"After LDL is released in the endosome, the LDL receptors are:",o:["Digested in the lysosome","Recycled back to the plasma membrane","Secreted","Sent to the nucleus"],a:1,w:"LDL goes on to the lysosome; receptors return to the PM."},
+  {q:"Which is NOT a function of the lysosome membrane?",o:["H⁺ pump to keep pH ~5","Transporters to export digested amino acids/sugars/lipids","Proteins that protect it from its own enzymes","ATP synthesis via an electron transport chain"],a:3,w:"Lysosomes use ATP to pump H⁺; they don't make ATP."},
+  {q:"Autophagy is:",o:["Uptake of extracellular fluid","Degradation of the cell's own old proteins/organelles via autophagosomes fused with lysosomes","Secretion of hormones","Import into mitochondria"],a:1,w:"Recycling old cell parts."},
+  {q:"Moving endocytosed material to a different domain of the plasma membrane is called:",o:["Transcytosis","Pinocytosis","Recycling","Exocytosis"],a:0,w:"One of three endosome fates, along with recycling and degradation."},
+  {q:"Which is more like passive transport?",o:["Receptor-mediated endocytosis","Pinocytosis","Neither","Both"],a:1,w:"Pinocytosis is non-selective and doesn't concentrate cargo."},
+  {q:"A bacterium escapes a phagosome into the cytosol. What has it avoided?",o:["Fusion with a lysosome and digestion","Translation","The Krebs cycle","Nuclear import"],a:0,w:"All roads lead to lysosomes, unless the microbe gets out first."}
+ ]
+}
+];
+
+// The Ch 13/14 study guide, with answers keyed to units.
+const GUIDE = [
+ {h:"Cellular respiration (Ch 13 & part of 14)", items:[
+  ["Endosymbiotic theory: what is it?","Mitochondria (and chloroplasts) descend from bacteria engulfed by an ancestral host cell that kept them as permanent residents.","u1"],
+  ["What bacteria-like characteristics do mitochondria/chloroplasts have?","Own DNA; own ribosomes + transcription machinery; reproduce by binary fission; double membrane.","u1"],
+  ["Who has what (plants vs animals)?","Animals: mitochondria. Plants: mitochondria AND chloroplasts.","u1"],
+  ["Label mitochondria structure","Outer membrane, intermembrane space, inner membrane (cristae), matrix. Practice on the labeling drill below.","u1"],
+  ["What are our activated carriers and how does each work?","ATP stores energy in phosphoanhydride bonds and releases it by hydrolysis. NADH (NADPH) carries a hydride ion (H⁺ + 2e⁻). FADH₂ carries 2 e⁻ + 2 H⁺. NADH/FADH₂ donate electrons to the ETC.","u2"],
+  ["Glycolysis: where? inputs/outputs?","Cytosol. Glucose + 2 ATP + 2 NAD⁺ → 2 pyruvate + 4 ATP (net 2) + 2 NADH.","u2"],
+  ["Why do we need to spend ATP?","To phosphorylate the sugar: traps it in the cell and destabilizes/primes it to split into two 3C sugars. Invest 2, get 4 back.","u2"],
+  ["What type of bonds do we make on the broken glucose so we can make ATP?","High-energy phosphate bonds (e.g., in 1,3-bisphosphoglycerate and PEP) with higher transfer energy than ATP, then transferred to ADP.","u2"],
+  ["Glycolysis: anaerobic or aerobic?","Anaerobic.","u2"],
+  ["Pre-Krebs: where? inputs/outputs?","Mitochondrial matrix. Pyruvate (3C) → acetyl CoA (2C) + CO₂ + NADH (2 NADH per glucose).","u3"],
+  ["Krebs: where? inputs/outputs?","Matrix. Per acetyl CoA: 3 NADH, 1 FADH₂, 1 GTP, 2 CO₂ (×2 per glucose). O in CO₂ from water.","u3"],
+  ["Oxidation steps make electron carriers","4 of 8 steps are oxidations by dehydrogenases → NADH or FADH₂.","u3"],
+  ["What makes it a cycle?","The last step regenerates oxaloacetate to accept the next acetyl CoA.","u3"],
+  ["ETC: inputs/outputs, anaerobic or aerobic?","Aerobic. In: NADH, FADH₂, O₂, ADP + Pᵢ. Out: NAD⁺, FAD, H₂O, ATP (via ATP synthase).","u3"],
+  ["Where are the proteins of the chain located?","Inner mitochondrial membrane (cristae).","u3"],
+  ["Where are the H⁺ being built up, and what does that create?","Intermembrane space. Creates an electrochemical gradient (pH gradient + membrane potential = proton-motive force).","u3"],
+  ["Enzyme that makes ATP: name? energy source?","ATP synthase. H⁺ flowing back into the matrix spin its rotor/stalk, and that mechanical energy phosphorylates ADP.","u3"],
+  ["Role of NADH/FADH₂ and O₂","NADH/FADH₂ donate high-energy electrons; O₂ is the final electron acceptor (forms H₂O).","u3"],
+  ["Electron affinity / redox potential down the chain?","Increases: from low affinity (NADH, −) to high affinity (O₂, +).","u3"],
+  ["Complexes use the charge difference from passing electrons to do what?","Pump H⁺ from the matrix into the intermembrane space.","u3"]
+ ]},
+ {h:"Photosynthesis (Ch 14)", items:[
+  ["Chloroplast structure: label","Outer membrane, inner membrane, stroma, thylakoid membrane, thylakoid space (lumen), granum.","u4"],
+  ["Chlorophyll","Porphyrin ring with delocalized electrons; light excites them so a high-energy electron can be passed on.","u4"],
+  ["Where in the chloroplast are the light reactions?","Thylakoid membrane.","u4"],
+  ["Antenna complex: made of? what does it do with electrons?","Hundreds of chlorophylls that pass excitation energy along to the reaction center.","u4"],
+  ["Reaction center: what's in it, and what does it do with electrons?","Special pair (chlorophyll dimer) holds electrons at lower energy and gives the excited electron to a mobile electron carrier (charge separation).","u4"],
+  ["How do lost electrons get replaced?","PSII: by splitting water (makes O₂). PSI: with electrons from PSII.","u4"],
+  ["Photosystem II: location, order, what it does/makes","Thylakoid membrane; FIRST. Splits water (O₂ + H⁺ into thylakoid space), sends e⁻ to plastoquinone → cytochrome b₆-f pumps H⁺ into the thylakoid space → ATP synthase makes ATP.","u4"],
+  ["Where are the H⁺ built up (chloroplast)?","Thylakoid space (lumen).","u4"],
+  ["Photosystem I: location, order, what it does/makes","Thylakoid membrane; SECOND. Re-excites e⁻ from PSII → ferredoxin → FNR makes NADPH. Special-pair electrons replaced from PSII.","u4"],
+  ["Redox potential difference: respiration vs photosynthesis","Respiration: electrons go only downhill to O₂. Photosynthesis: electrons start on water (high affinity), and light boosts them uphill twice (PSII, PSI) to reduce NADP⁺.","u4"],
+  ["Dark reactions: where? who fixes CO₂?","Stroma. Rubisco.","u4"],
+  ["Calvin cycle: inputs/outputs; why a cycle?","3 CO₂ + 9 ATP + 6 NADPH → 1 G3P out. RuBP is regenerated, so it's a cycle.","u4"],
+  ["Why do plants still do cellular respiration?","Time of day: no light at night. Different tissues: roots/stems/seeds have no chloroplasts but need ATP.","u4"]
+ ]},
+ {h:"Cytoskeleton study list (Lecture 14 slide)", items:[
+  ["For each element: monomer, structure, polymerization, size, polarity, motors, functions","See the comparison table in the Cytoskeleton unit.","u5"],
+  ["Microtubules: dynamic instability, why and how","GTP-tubulin adds and binds well; hydrolysis to GDP weakens binding. Growth if addition outpaces hydrolysis (GTP cap); catastrophe if the cap is lost. Lets MTs search the cell (\"fishing\").","u5"],
+  ["Cilia/flagella: broad terms","9 + 2 axoneme; dynein arms slide doublets; linking proteins convert sliding into bending.","u5"],
+  ["Motor transport: proteins and direction","Kinesin → + (MT). Dynein → − (MT). Myosin → + (actin).","u5"],
+  ["Actin: localization and how that influences function","Concentrated in the cortex: shape, microvilli, lamellipodia/filopodia for crawling, contractile bundles.","u5"],
+  ["Actin dynamics","ATP-actin polymerization at + end; treadmilling at intermediate concentrations.","u5"],
+  ["Muscle contraction","Sarcomere, sliding filaments, cross-bridge cycle, Ca²⁺ → troponin/tropomyosin.","u6"]
+ ]}
+];
+
+const RESOURCES = {
+ u1:{v:[["Endosymbiotic theory explained","Amoeba Sisters endosymbiotic theory"],["Mitochondria structure and function","mitochondria structure and function cell biology"],["Nitroplast discovery (2024)","nitroplast nitrogen fixing organelle discovery"]],r:[["OpenStax Bio 2e, 4.3: Eukaryotic cells (includes endosymbiosis)","https://openstax.org/books/biology-2e/pages/4-3-eukaryotic-cells"]]},
+ u2:{v:[["Ninja Nerd: Glycolysis","Ninja Nerd glycolysis"],["Crash Course Biology: ATP & respiration","Crash Course Biology ATP respiration"],["Fermentation: lactic acid vs alcoholic","Amoeba Sisters fermentation"]],r:[["OpenStax Bio 2e, 7.2: Glycolysis","https://openstax.org/books/biology-2e/pages/7-2-glycolysis"]]},
+ u3:{v:[["Ninja Nerd: Krebs cycle","Ninja Nerd Krebs cycle"],["Ninja Nerd: Electron transport chain","Ninja Nerd electron transport chain"],["ATP synthase rotation animation","ATP synthase animation rotary motor"]],r:[["OpenStax Bio 2e, 7.3: Pyruvate oxidation & citric acid cycle","https://openstax.org/books/biology-2e/pages/7-3-oxidation-of-pyruvate-and-the-citric-acid-cycle"],["OpenStax Bio 2e, 7.4: Oxidative phosphorylation","https://openstax.org/books/biology-2e/pages/7-4-oxidative-phosphorylation"]]},
+ u4:{v:[["Photosynthesis light reactions (Z-scheme)","photosynthesis light reactions photosystem II photosystem I Z scheme"],["Calvin cycle explained","Calvin cycle rubisco explained"],["Crash Course Biology: Photosynthesis","Crash Course Biology photosynthesis"]],r:[["OpenStax Bio 2e, 8.2: Light-dependent reactions","https://openstax.org/books/biology-2e/pages/8-2-the-light-dependent-reactions-of-photosynthesis"],["OpenStax Bio 2e, 8.3: Calvin cycle","https://openstax.org/books/biology-2e/pages/8-3-using-light-energy-to-make-organic-molecules"],["HHMI BioInteractive: Photosynthesis animation series","https://www.biointeractive.org/classroom-resources/photosynthesis"]]},
+ u5:{v:[["Microtubule dynamic instability animation","microtubule dynamic instability animation"],["Kinesin walking animation","kinesin walking microtubule animation"],["Cilia and flagella: dynein bending","cilia flagella axoneme dynein bending"],["Actin treadmilling & cell crawling","actin treadmilling lamellipodium cell migration"],["The Inner Life of the Cell (Harvard BioVisions)","Inner Life of the Cell Harvard BioVisions"]],r:[["OpenStax Bio 2e, 4.5: The Cytoskeleton","https://openstax.org/books/biology-2e/pages/4-5-the-cytoskeleton"]]},
+ u6:{v:[["Cross-bridge cycle animation","muscle contraction cross bridge cycle animation"],["Ninja Nerd: Muscle contraction","Ninja Nerd skeletal muscle contraction"],["Excitation-contraction coupling","excitation contraction coupling T tubule sarcoplasmic reticulum"]],r:[["OpenStax Bio 2e, 38.4: Muscle contraction","https://openstax.org/books/biology-2e/pages/38-4-muscle-contraction-and-locomotion"]]},
+ u7:{v:[["Amoeba Sisters: Cell organelles","Amoeba Sisters organelles"],["Endomembrane system overview","endomembrane system overview"]],r:[["OpenStax Bio 2e, 4.4: Endomembrane system","https://openstax.org/books/biology-2e/pages/4-4-the-endomembrane-system-and-proteins"]]},
+ u8:{v:[["Signal recognition particle & ER targeting","signal recognition particle cotranslational translocation animation"],["Nuclear import: NLS & Ran","nuclear import NLS importin Ran GTP"],["Transmembrane protein insertion: start/stop transfer","start transfer stop transfer sequence membrane protein insertion"]],r:[["OpenStax Bio 2e, 4.4: Endomembrane system","https://openstax.org/books/biology-2e/pages/4-4-the-endomembrane-system-and-proteins"]]},
+ u9:{v:[["Vesicle budding: clathrin, COPI, COPII","clathrin COPI COPII vesicle coat"],["SNARE-mediated membrane fusion","SNARE vesicle fusion animation"],["Constitutive vs regulated secretion","constitutive regulated secretion"]],r:[["OpenStax Bio 2e, 4.4: Endomembrane system","https://openstax.org/books/biology-2e/pages/4-4-the-endomembrane-system-and-proteins"]]},
+ u10:{v:[["Receptor-mediated endocytosis of LDL","receptor mediated endocytosis LDL animation"],["Phagocytosis, pinocytosis, receptor-mediated","Amoeba Sisters endocytosis exocytosis"],["Autophagy explained","autophagy explained animation"]],r:[["OpenStax Bio 2e, 5.4: Bulk transport","https://openstax.org/books/biology-2e/pages/5-4-bulk-transport"],["Molecular Biology of the Cell: Endocytosis (NCBI)","https://www.ncbi.nlm.nih.gov/books/NBK26870/"]]}
+};
+
+const NOTECARD = [
+ ["Respiration numbers","Glycolysis: net 2 ATP, 2 NADH (cytosol). Pre-Krebs: 2 NADH, 2 CO₂ (matrix). Krebs: 6 NADH, 2 FADH₂, 2 GTP, 4 CO₂. ETC: ~30 ATP total."],
+ ["ETC order","NADH → NADH dehydrogenase → Q → cyt c reductase → cyt c → cyt c oxidase → O₂."],
+ ["H⁺ & ATP synthase","Mito: H⁺ in IMS, ATP made in matrix. Chloro: H⁺ in thylakoid space, ATP made in stroma."],
+ ["Photosynthesis chain","H₂O → PSII → PQ → b₆-f (H⁺) → PC → PSI → Fd → FNR → NADPH. Calvin: 3 CO₂ + 9 ATP + 6 NADPH → 1 G3P."],
+ ["Cytoskeleton grid","Actin 7 nm, ATP, polar, myosin. IF 10 nm, no polarity, no motors. MT 25 nm, GTP, polar, kinesin (+)/dynein (−)."],
+ ["Cross-bridge","Attached → ATP binds (release) → hydrolysis (cock) → Pᵢ release (power stroke) → ADP off."],
+ ["Coats","COPII ER→Golgi. COPI Golgi→ER. Clathrin + AP1 Golgi→endo/lyso. Clathrin + AP2 PM→endosome."],
+ ["Signals","ER: N-term hydrophobic. KDEL: C-term ER retention. Mito: N-term +. NLS: internal K/R. SKL: peroxisome."],
+ ["pH","Cytosol 7.2. Matrix 7.9. Endosome 5–6. Lysosome ~5."],
+ ["Endocytosis sizes","Pinocytosis <150 nm. Phagocytosis >250 nm."]
+];
+
+</script>
+<script>
+(function(){
+const KEY="bio323-exam2-v1";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const pad=n=>String(n).padStart(2,"0");
+const iso=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const parse=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const WD=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const todayD=(()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate())})();
+const UMAP=Object.fromEntries(UNITS.map((u,i)=>[u.id,Object.assign(u,{n:i+1})]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const pct=(c,n)=>n?Math.round(100*c/n):0;
+
+// ---------- state ----------
+const defaults={
+  exam:"2026-10-28", start:iso(todayD), daily:120, rest:[],
+  include:Object.fromEntries(UNITS.map(u=>[u.id,true])),
+  conf:Object.fromEntries(UNITS.map(u=>[u.id,2])),
+  done:{}, guide:{}, stats:{}, cardsKnown:{}, nc:NOTECARD.map(()=>true),
+  tab:"plan", unit:"u1"
+};
+let S;
+try{S=Object.assign({},defaults,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){S=Object.assign({},defaults)}
+if(parse(S.start)<todayD && parse(S.start)<parse(S.exam)) S.start=iso(todayD);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+
+function unitStat(id){const s=S.stats[id];return s?{c:s.c,n:s.n,p:pct(s.c,s.n)}:{c:0,n:0,p:null}}
+function isWeak(id){const s=unitStat(id);return (s.n>=4&&s.p<70)||S.conf[id]==1}
+
+// ---------- tabs ----------
+const TABS=["plan","units","guide","quiz","cards","notecard","resources"];
+function show(tab,push){
+  if(!TABS.includes(tab))tab="plan";
+  S.tab=tab;save();
+  $$("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===tab?"true":"false"));
+  TABS.forEach(t=>$("#v-"+t).hidden=t!==tab);
+  if(tab==="plan")renderPlan();
+  if(tab==="units")renderUnit();
+  if(tab==="guide")renderGuide();
+  if(tab==="quiz"&&!quiz.active)renderQuizSetup();
+  if(tab==="cards")renderCards();
+  if(tab==="notecard")renderNotecard();
+  if(tab==="resources")renderResources();
+  if(push!==false){try{history.replaceState(null,"","#"+(tab==="units"?S.unit:tab))}catch(e){}}
+  window.scrollTo({top:0});
+}
+$$("nav.tabs button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.tab)));
+function openUnit(id){S.unit=id;show("units")}
+window.__openUnit=openUnit;
+
+// ---------- countdown ----------
+function renderCountdown(){
+  const exam=parse(S.exam);const days=Math.round((exam-todayD)/864e5);
+  const el=$("#countdown");
+  const dstr=WD[exam.getDay()]+", "+MO[exam.getMonth()]+" "+exam.getDate();
+  if(days>1) el.innerHTML=`<span class="big mono">${days}</span><span class="lbl"><b>days until Exam 2</b>${dstr}</span>`;
+  else if(days===1) el.innerHTML=`<span class="big mono">1</span><span class="lbl"><b>day to go</b>Exam is tomorrow, ${dstr}</span>`;
+  else if(days===0) el.innerHTML=`<span class="big">Today</span><span class="lbl"><b>Exam day</b>Bring your notecard</span>`;
+  else el.innerHTML=`<span class="lbl"><b>Exam date has passed</b>Set a new date in Study plan</span>`;
+}
+
+// ---------- plan ----------
+function initPlanControls(){
+  $("#examDate").value=S.exam; $("#startDate").value=S.start; $("#daily").value=String(S.daily);
+  $("#examDate").addEventListener("change",e=>{if(e.target.value){S.exam=e.target.value;save();renderCountdown();renderPlan()}});
+  $("#startDate").addEventListener("change",e=>{if(e.target.value){S.start=e.target.value;save();renderPlan()}});
+  $("#daily").addEventListener("change",e=>{S.daily=+e.target.value;save();renderPlan()});
+  $("#dow").innerHTML=WD.map((w,i)=>`<label class="chip ${S.rest.includes(i)?"on":""}"><input type="checkbox" value="${i}" ${S.rest.includes(i)?"checked":""}>${w}</label>`).join("");
+  $$("#dow input").forEach(c=>c.addEventListener("change",()=>{
+    const v=+c.value;S.rest=c.checked?[...new Set([...S.rest,v])]:S.rest.filter(x=>x!==v);c.parentElement.classList.toggle("on",c.checked);save();renderPlan()}));
+  renderConf();
+  $("#resetPlan").addEventListener("click",()=>{S.done={};save();renderPlan()});
+}
+function renderConf(){
+  $("#conf").innerHTML=UNITS.map(u=>`<div class="conf-row"><label class="nm"><input type="checkbox" data-inc="${u.id}" ${S.include[u.id]?"checked":""}><span>${u.n}. ${u.short}</span></label>
+   <span class="seg" role="group" aria-label="Confidence for ${u.short}">${[[1,"shaky"],[2,"ok"],[3,"solid"]].map(([v,l])=>`<button type="button" data-u="${u.id}" data-v="${v}" class="${S.conf[u.id]==v?"on":""}" ${S.include[u.id]?"":"disabled"} aria-pressed="${S.conf[u.id]==v}">${l}</button>`).join("")}</span></div>`).join("");
+  $$("#conf [data-inc]").forEach(c=>c.addEventListener("change",()=>{S.include[c.dataset.inc]=c.checked;save();renderConf();renderPlan()}));
+  $$("#conf .seg button").forEach(b=>b.addEventListener("click",()=>{S.conf[b.dataset.u]=+b.dataset.v;save();renderConf();renderPlan()}));
+}
+function buildPlan(){
+  const start=parse(S.start), exam=parse(S.exam);
+  const units=UNITS.filter(u=>S.include[u.id]);
+  if(!(exam>start)) return {err:"Pick an exam date after your start date."};
+  if(!units.length) return {err:"Choose at least one topic."};
+  let days=[];
+  for(let d=new Date(start);d<exam;d=addDays(d,1)) if(!S.rest.includes(d.getDay())) days.push(new Date(d));
+  let restNote="";
+  if(!days.length){for(let d=new Date(start);d<exam;d=addDays(d,1))days.push(new Date(d));restNote="Every day before the exam is marked as a day off, so the plan ignores days off.";}
+  const W={1:1.4,2:1,3:.65};
+  const N=days.length, R=N>=8?2:(N>=3?1:0), L=Math.max(1,N-R);
+  const plan=days.map(d=>({date:d,tasks:[],kind:"learn"}));
+  const loads=units.map(u=>Math.round(u.mins*W[S.conf[u.id]]/5)*5);
+  const learnTasks=(u,i)=>[
+    {id:"learn-"+u.id,txt:`Learn ${u.n}. ${u.title}: read the key points, study the figures, answer the lecture questions`,min:loads[i],act:["unit",u.id],u:u.id},
+    {id:"quiz-"+u.id,txt:`Quiz yourself on ${u.short} (${Math.min(10,u.quiz.length)} questions)`,min:10,act:["quiz",u.id],u:u.id},
+    {id:"cards-"+u.id,txt:`Flashcards: ${u.short}`,min:10,act:["cards",u.id],u:u.id}
+  ];
+  if(L>=units.length){
+    units.forEach((u,i)=>{const di=Math.floor(i*L/units.length);plan[di].tasks.push(...learnTasks(u,i))});
+    // empty learning days → second pass on weakest
+    const ranked=units.slice().sort((a,b)=>(S.conf[a.id]-S.conf[b.id])||((unitStat(a.id).p??101)-(unitStat(b.id).p??101)));
+    let k=0;
+    for(let di=0;di<L;di++){ if(plan[di].tasks.length) continue;
+      plan[di].kind="review";
+      for(let j=0;j<2&&ranked.length;j++){const u=ranked[k%ranked.length];k++;
+        plan[di].tasks.push({id:`re-${u.id}-${di}`,txt:`Second pass: ${u.short}. Redo the lecture questions without peeking, then quiz again`,min:Math.round(u.mins*.4/5)*5+10,act:["unit",u.id],u:u.id});}
+    }
+  }else{
+    const total=loads.reduce((a,b)=>a+b+20,0);let cum=0;
+    units.forEach((u,i)=>{const mid=cum+(loads[i]+20)/2;cum+=loads[i]+20;const di=Math.min(L-1,Math.floor(mid/total*L));plan[di].tasks.push(...learnTasks(u,i))});
+  }
+  if(R===2){const d=plan[N-2];d.kind="review";d.tasks.push(
+    {id:"guide-all",txt:"Work through the whole study guide checklist; check off what you can explain",min:40,act:["guide"]},
+    {id:"mixed-25",txt:"Mixed quiz: 25 questions across all topics",min:25,act:["quiz","mixed25"]},
+    {id:"weak-cards",txt:"Flashcards: anything still in your \"still learning\" pile",min:15,act:["cards","all"]});}
+  if(R>=1){const d=plan[N-1];d.kind="final";d.tasks.push(
+    {id:"exam-40",txt:"Practice exam: 40 mixed questions, no notes",min:40,act:["quiz","exam40"]},
+    {id:"review-missed",txt:"Reread the topics behind every question you missed",min:25,act:["units"]},
+    {id:"notecard",txt:"Write your 3×5 notecard by hand",min:25,act:["notecard"]});}
+  if(R===0){plan[N-1].tasks.push({id:"notecard",txt:"Write your 3×5 notecard by hand",min:20,act:["notecard"]})}
+  plan.push({date:exam,kind:"exam",tasks:[
+    {id:"exam-warm",txt:"10-minute warm-up: flip through flashcards for your shakiest topic",min:10,act:["cards","all"]},
+    {id:"exam-bring",txt:"Bring your notecard, pencil and ID",min:0}]});
+  const need=Math.round(plan.slice(0,N).reduce((a,d)=>a+d.tasks.reduce((x,t)=>x+t.min,0),0)/N);
+  return {plan,restNote,R,L,N,need};
+}
+function renderPlan(){
+  const res=buildPlan();
+  if(res.err){$("#days").innerHTML=`<div class="card empty">${res.err}</div>`;$("#planSummary").innerHTML="";return}
+  const all=res.plan.flatMap(d=>d.tasks.map(t=>d.kind+":"+t.id));
+  const doneN=all.filter(k=>S.done[k]).length;
+  const studyDays=res.N;
+  $("#planSummary").innerHTML=`<div><span class="eyebrow">Plan</span><div><b class="mono">${studyDays}</b> study day${studyDays===1?"":"s"} · <b class="mono">${UNITS.filter(u=>S.include[u.id]).length}</b> topics${res.R?` · <b class="mono">${res.R}</b> review day${res.R>1?"s":""}`:""}</div></div>
+   <div class="meter" aria-label="Plan progress"><i style="width:${pct(doneN,all.length)}%"></i></div><span class="mono">${doneN}/${all.length} done</span>
+   <span class="muted" style="flex-basis:100%;font-size:.9rem">This plan averages <b class="mono">≈ ${res.need} min</b> a day; you set <b class="mono">${S.daily} min</b>.${res.need>S.daily*1.15?" Raise your time per day, start earlier, or mark solid topics as solid to trim it.":""} <a href="#" id="toSettings" class="only-mobile">Customize plan</a></span>
+   ${res.restNote?`<span class="flag" style="flex-basis:100%">${res.restNote}</span>`:""}
+   ${res.N<4?`<span class="flag" style="flex-basis:100%">Short runway: several topics are stacked per day. Lean on the quizzes and lecture questions rather than rereading.</span>`:""}`;
+  $("#days").innerHTML=res.plan.map((d,di)=>{
+    const mins=d.tasks.reduce((a,t)=>a+t.min,0);
+    const over=d.kind!=="exam"&&mins>S.daily*1.15;
+    const isToday=iso(d.date)===iso(todayD);
+    const lab={learn:"Learn",review:"Review",final:"Final review",exam:"Exam day"}[d.kind];
+    return `<article class="day ${isToday?"today":""} ${d.kind==="exam"?"exam":""}">
+     <div class="date"><span class="w">${WD[d.date.getDay()]}</span><span class="d mono">${d.date.getDate()}</span><span class="w">${MO[d.date.getMonth()]}</span></div>
+     <div class="body"><div class="head"><div class="row" style="gap:8px"><b>${lab}</b>${isToday?'<span class="pill good">today</span>':""}</div>
+      <div class="row" style="gap:6px">${d.kind!=="exam"?`<span class="pill">≈ ${mins} min</span>`:""}${over?`<span class="pill warn">${mins-S.daily} min over your daily time</span>`:""}</div></div>
+      ${d.tasks.map(t=>{const k=d.kind+":"+t.id;const weak=t.u&&isWeak(t.u);
+        return `<div class="task ${S.done[k]?"done":""}"><input type="checkbox" data-k="${k}" ${S.done[k]?"checked":""} aria-label="Done: ${t.txt.replace(/"/g,"")}"><span class="tx">${t.txt} ${weak?'<span class="pill weak">weak spot</span>':""}</span>${t.act?`<button class="linkbtn go" data-act="${t.act.join(",")}" type="button">Open</button>`:"<span></span>"}</div>`}).join("")}
+     </div></article>`}).join("");
+  const ts=$("#toSettings");if(ts)ts.addEventListener("click",e=>{e.preventDefault();$(".settings").scrollIntoView({behavior:"smooth"})});
+  $$("#days input[data-k]").forEach(c=>c.addEventListener("change",()=>{S.done[c.dataset.k]=c.checked;save();renderPlan()}));
+  $$("#days [data-act]").forEach(b=>b.addEventListener("click",()=>runAct(b.dataset.act.split(","))));
+}
+function runAct([a,b]){
+  if(a==="unit")openUnit(b);
+  else if(a==="quiz"){show("quiz");if(b==="mixed25")startQuiz(UNITS.filter(u=>S.include[u.id]).map(u=>u.id),25);else if(b==="exam40")startQuiz(UNITS.filter(u=>S.include[u.id]).map(u=>u.id),40);else startQuiz([b],10)}
+  else if(a==="cards"){fc.unit=b||"all";fc.reset=true;show("cards")}
+  else show(a);
+}
+
+// ---------- units ----------
+const CMP=`<div class="tablewrap"><table><thead><tr><th></th><th>Actin filaments</th><th>Intermediate filaments</th><th>Microtubules</th></tr></thead><tbody>
+<tr><th>Subunit</th><td>Globular G-actin (binds ATP)</td><td>Fibrous α-helical proteins (keratin, vimentin, neurofilament, lamin)</td><td>α/β-tubulin heterodimer (binds GTP)</td></tr>
+<tr><th>Size</th><td class="mono">~7 nm, thin, flexible</td><td class="mono">~10 nm, ropelike</td><td class="mono">~25 nm, stiff hollow tube</td></tr>
+<tr><th>Assembly</th><td>Helical polymer; treadmilling</td><td>Monomer → coiled-coil dimer → staggered antiparallel tetramer → 8 tetramers laterally</td><td>Dimers → 13 protofilaments → hollow tube; nucleated by γ-tubulin; dynamic instability</td></tr>
+<tr><th>Polarity</th><td>Yes (+/−)</td><td>No</td><td>Yes (+/−)</td></tr>
+<tr><th>Motors</th><td>Myosin (→ +)</td><td>None</td><td>Kinesin (→ +), dynein (→ −)</td></tr>
+<tr><th>Where</th><td>Cell cortex, microvilli, lamellipodia, filopodia, sarcomeres</td><td>Cytoplasm network; nuclear lamina</td><td>Radiate from centrosome; spindle; cilia/flagella</td></tr>
+<tr><th>Unique jobs</th><td>Cell crawling, muscle contraction, cell shape at the PM</td><td>Tensile strength / mechanical stress</td><td>Organelle positioning, long-range transport, mitosis, cilia beating</td></tr>
+</tbody></table></div>`;
+const MITO_SVG=`<svg viewBox="-30 -20 480 280" role="img" aria-label="Mitochondrion diagram with numbered parts">
+<ellipse cx="210" cy="120" rx="195" ry="100" fill="#f3ead8" stroke="#8a5a2b" stroke-width="5"/>
+<ellipse cx="210" cy="120" rx="176" ry="82" fill="#f7d9a8" stroke="#c0762a" stroke-width="4"/>
+${[70,120,170,220,270,320].map((x,i)=>`<rect x="${x-9}" y="${i%2?120:38}" width="18" height="${i%2?84:82}" rx="9" fill="#f3ead8" stroke="#c0762a" stroke-width="4"/>`).join("")}
+<ellipse cx="210" cy="120" rx="176" ry="82" fill="none" stroke="#c0762a" stroke-width="4"/>
+<path d="M-10 10 L61 56 M430 30 L396 120 M430 230 L323 183" stroke="#b8306f" stroke-width="2"/>
+${[[-10,10,1],[430,30,2],[220,170,3],[270,165,4],[430,230,5]].map(([x,y,n])=>`<g><circle cx="${x}" cy="${y}" r="14" fill="#b8306f"/><text x="${x}" y="${y+5}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#fff">${n}</text></g>`).join("")}
+</svg>`;
+const MITO_KEY=["Outer membrane","Intermembrane space","Inner membrane","Matrix","Crista (fold of inner membrane)"];
+const MITO_ORDER=[0,1,4,3,2]; // marker n -> label index
+const CHL_SVG=`<svg viewBox="0 0 420 240" role="img" aria-label="Chloroplast diagram with numbered parts">
+<ellipse cx="210" cy="120" rx="198" ry="104" fill="#eaf4df" stroke="#3f7a2a" stroke-width="5"/>
+<ellipse cx="210" cy="120" rx="182" ry="89" fill="#d7ecc4" stroke="#5c9a3c" stroke-width="3"/>
+<path d="M70 120 H350" stroke="#2f7d32" stroke-width="5"/>
+${[95,175,255,325].map(x=>[0,1,2,3,4].map(j=>`<rect x="${x-24}" y="${78+j*17}" width="48" height="13" rx="6" fill="#8fd17f" stroke="#2f7d32" stroke-width="2.5"/>`).join("")).join("")}
+${[[30,60,1],[60,150,2],[140,195,3],[175,45,4],[262,135,5],[215,170,6]].map(([x,y,n])=>`<g><circle cx="${x}" cy="${y}" r="14" fill="#b8306f"/><text x="${x}" y="${y+5}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#fff">${n}</text></g>`).join("")}
+<path d="M175 59 L175 76 M215 156 L215 123" stroke="#b8306f" stroke-width="2"/><path d="M262 121 L258 112" stroke="#b8306f" stroke-width="2"/>
+</svg>`;
+const CHL_KEY=["Outer membrane","Inner membrane","Stroma","Granum (stack of thylakoids)","Thylakoid space (lumen)","Stromal thylakoid (lamella)"];
+const CHL_ORDER=[0,1,2,3,4,5];
+function drill(id,svg,key,order,note){
+  const opts=shuffle(key);
+  return `<div class="card" style="display:grid;gap:14px"><div><span class="eyebrow">Study guide: be able to label</span><h3>${note}</h3></div>
+  <div class="drill" id="${id}">${svg}<div class="slots">${order.map((k,i)=>`<div class="slot"><span class="num">${i+1}</span><select data-ans="${key[k]}" aria-label="Label ${i+1}"><option value="">Choose…</option>${opts.map(o=>`<option>${o}</option>`).join("")}</select><span class="mark"></span></div>`).join("")}
+  <div class="row"><button class="btn small primary" type="button" data-check="${id}">Check</button><button class="btn small" type="button" data-reveal="${id}">Show answers</button><span class="mono" data-res="${id}"></span></div></div></div>
+  <p class="muted" style="font-size:.85rem">Simplified diagram. Check yourself against the labeled slide figures below.</p></div>`;
+}
+function renderUnitNav(){
+  $("#unitNav").innerHTML=UNITS.map(u=>{const s=unitStat(u.id);return `<button type="button" data-u="${u.id}" aria-current="${S.unit===u.id}"><span class="n">${pad(u.n)}</span><span class="t">${u.short}<span class="l">${u.lec}${s.n?` · quiz ${s.p}%`:""}</span></span></button>`}).join("");
+  $("#unitSelect").innerHTML=UNITS.map(u=>`<option value="${u.id}" ${S.unit===u.id?"selected":""}>${u.n}. ${u.title}</option>`).join("");
+  $$("#unitNav button").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.u)));
+}
+$("#unitSelect").addEventListener("change",e=>openUnit(e.target.value));
+function renderUnit(){
+  renderUnitNav();
+  const u=UMAP[S.unit]||UNITS[0];const s=unitStat(u.id);const r=RESOURCES[u.id];
+  $("#unitContent").innerHTML=`
+  <div class="section-head"><div style="display:grid;gap:6px"><span class="eyebrow">Topic ${u.n} of ${UNITS.length} · ${u.lec}</span><h2>${u.title}</h2></div>
+   <div class="row">${s.n?`<span class="pill ${s.p>=80?"good":s.p<70?"weak":"warn"}">quiz ${s.c}/${s.n} · ${s.p}%</span>`:""}<button class="btn small primary" type="button" data-go="quiz">Quiz this topic</button><button class="btn small" type="button" data-go="cards">Flashcards</button></div></div>
+  <div class="card"><h3 style="margin-bottom:12px">Key points</h3><ul class="points">${u.points.map(p=>`<li>${p}</li>`).join("")}</ul></div>
+  ${u.id==="u1"?drill("dm",MITO_SVG,MITO_KEY,MITO_ORDER,"Label the mitochondrion"):""}
+  ${u.id==="u4"?drill("dc",CHL_SVG,CHL_KEY,CHL_ORDER,"Label the chloroplast"):""}
+  ${u.id==="u5"?`<div style="display:grid;gap:10px"><h3>Compare the three filaments</h3>${CMP}</div>`:""}
+  ${u.qs.length?`<div style="display:grid;gap:10px"><div><h3>Questions from lecture</h3><p class="muted">Your professor asked these in class. Answer before you open each one.</p></div><div class="qs">${u.qs.map(q=>`<details class="q"><summary>${q[0]}</summary><div class="ans">${q[1]}</div></details>`).join("")}</div></div>`:""}
+  <div style="display:grid;gap:10px"><div><h3>Figures from the slides</h3><p class="muted">Tap any figure to enlarge.</p></div>
+   <div class="figs">${u.figs.map(([id,cap])=>{const m=id.match(/L(\d+)_s(\d+)/);return `<figure class="fig"><button type="button" data-img="${id}" data-cap="${cap.replace(/"/g,"&quot;")}"><img loading="lazy" src="img/${id}.jpg" alt="${cap.replace(/"/g,"&quot;")}"></button><figcaption>${cap}<span class="src">Lecture ${m[1]}, slide ${m[2]}</span></figcaption></figure>`}).join("")}</div></div>
+  <div class="card res"><h3>Need another explanation?</h3><ul>${resItems(r)}</ul></div>
+  <div class="row" style="justify-content:space-between">${u.n>1?`<button class="btn" type="button" data-nav="${UNITS[u.n-2].id}">← ${UNITS[u.n-2].short}</button>`:"<span></span>"}${u.n<UNITS.length?`<button class="btn" type="button" data-nav="${UNITS[u.n].id}">${UNITS[u.n].short} →</button>`:""}</div>`;
+  $$("#unitContent [data-img]").forEach(b=>b.addEventListener("click",()=>openLB(b.dataset.img,b.dataset.cap)));
+  $$("#unitContent [data-nav]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.nav)));
+  $$("#unitContent [data-go]").forEach(b=>b.addEventListener("click",()=>b.dataset.go==="quiz"?(show("quiz"),startQuiz([u.id],u.quiz.length)):(fc.unit=u.id,fc.reset=true,show("cards"))));
+  $$("#unitContent [data-check]").forEach(b=>b.addEventListener("click",()=>{const box=$("#"+b.dataset.check);let ok=0,n=0;
+    box.querySelectorAll("select").forEach(s=>{n++;const m=s.parentElement.querySelector(".mark");if(s.value===s.dataset.ans){ok++;m.textContent="✓";m.className="mark ok"}else{m.textContent="✗";m.className="mark no"}});
+    box.querySelector(`[data-res="${b.dataset.check}"]`).textContent=`${ok}/${n} correct`}));
+  $$("#unitContent [data-reveal]").forEach(b=>b.addEventListener("click",()=>{const box=$("#"+b.dataset.reveal);box.querySelectorAll("select").forEach(s=>{s.value=s.dataset.ans;const m=s.parentElement.querySelector(".mark");m.textContent="";})}));
+}
+function resItems(r){return r.v.map(([t,q])=>`<li><a href="${YT(q)}" target="_blank" rel="noopener"><span class="ic v">VIDEO</span><span>${t}</span></a></li>`).join("")+r.r.map(([t,url])=>`<li><a href="${url}" target="_blank" rel="noopener"><span class="ic r">READ</span><span>${t}</span></a></li>`).join("")}
+
+// ---------- lightbox ----------
+function openLB(id,cap){$("#lbImg").src="img/"+id+".jpg";$("#lbImg").alt=cap;$("#lbCap").textContent=cap;$("#lb").hidden=false;$("#lbClose").focus()}
+function closeLB(){$("#lb").hidden=true}
+$("#lbClose").addEventListener("click",closeLB);
+$("#lb").addEventListener("click",e=>{if(e.target.id==="lb")closeLB()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#lb").hidden)closeLB()});
+
+// ---------- guide ----------
+let guideRevealAll=false;
+function renderGuide(){
+  const total=GUIDE.reduce((a,s)=>a+s.items.length,0);
+  const done=Object.values(S.guide).filter(Boolean).length;
+  $("#guideCount").textContent=`${done}/${total} items checked off`;
+  $("#guideMeter").style.width=pct(done,total)+"%";
+  $("#guideList").innerHTML=GUIDE.map((sec,si)=>`<div class="guide-sec"><h3>${sec.h}</h3>${sec.items.map(([q,a,u],ii)=>{const k=si+"-"+ii;return `<div class="gi"><input type="checkbox" data-g="${k}" ${S.guide[k]?"checked":""} aria-label="I can answer: ${q.replace(/"/g,"")}"><div><b>${q}</b><div class="ga" ${guideRevealAll?"":"hidden"} id="ga-${k}">${a}</div><div class="tools"><button class="linkbtn" type="button" data-show="${k}">${guideRevealAll?"Hide":"Show"} answer</button><button class="linkbtn" type="button" data-unit="${u}">Go to topic: ${UMAP[u].short}</button></div></div></div>`}).join("")}</div>`).join("");
+  $$("#guideList [data-g]").forEach(c=>c.addEventListener("change",()=>{S.guide[c.dataset.g]=c.checked;save();const d=Object.values(S.guide).filter(Boolean).length;$("#guideCount").textContent=`${d}/${total} items checked off`;$("#guideMeter").style.width=pct(d,total)+"%"}));
+  $$("#guideList [data-show]").forEach(b=>b.addEventListener("click",()=>{const el=$("#ga-"+b.dataset.show);el.hidden=!el.hidden;b.textContent=(el.hidden?"Show":"Hide")+" answer"}));
+  $$("#guideList [data-unit]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.unit)));
+  $("#guideRevealAll").textContent=guideRevealAll?"Hide all answers":"Show all answers";
+}
+$("#guideRevealAll").addEventListener("click",()=>{guideRevealAll=!guideRevealAll;renderGuide()});
+
+// ---------- quiz ----------
+const quiz={active:false};
+let qsel=null;
+function renderQuizSetup(){
+  quiz.active=false;
+  if(!qsel)qsel=new Set(UNITS.filter(u=>S.include[u.id]).map(u=>u.id));
+  const bank=UNITS.reduce((a,u)=>a+u.quiz.length,0);
+  $("#quizArea").innerHTML=`<div class="view">
+  <div class="card quiz-setup"><div><span class="eyebrow">${bank} questions written from your slides</span><h2>Practice quiz</h2></div>
+   <div class="row"><button class="btn primary" type="button" id="qExam">Practice exam · 40 mixed</button><button class="btn" type="button" id="qWeak">Weak spots only</button></div>
+   <div class="field"><span class="lab">Or build your own: topics</span><div class="row" id="qUnits">${UNITS.map(u=>`<label class="chip ${qsel.has(u.id)?"on":""}"><input type="checkbox" value="${u.id}" ${qsel.has(u.id)?"checked":""}>${u.n}. ${u.short}</label>`).join("")}</div>
+    <div class="row"><button class="linkbtn" type="button" id="qAll">Select all</button><button class="linkbtn" type="button" id="qNone">Clear</button></div></div>
+   <div class="row"><label for="qN" class="lab" style="font-weight:700">Questions</label><select id="qN" class="btn" style="font-weight:400"><option>10</option><option selected>20</option><option>30</option><option value="999">All</option></select><button class="btn primary" type="button" id="qStart">Start quiz</button></div>
+  </div>
+  <div class="card" style="display:grid;gap:12px"><h3>Your scores so far</h3><div class="breakdown">${UNITS.map(u=>{const s=unitStat(u.id);const col=s.p===null?"var(--line)":s.p>=80?"var(--good)":s.p>=70?"var(--warn)":"var(--bad)";return `<div class="bd-row"><span>${u.n}. ${u.short}</span><span class="bar"><i style="width:${s.p||0}%;background:${col}"></i></span><span class="mono">${s.n?s.p+"%":"–"}</span></div>`}).join("")}</div>
+  <div class="row"><span class="muted" style="font-size:.88rem">Totals across every quiz you've taken. Topics under 70% are flagged as weak spots in your plan.</span><button class="linkbtn" type="button" id="qReset">Reset scores</button></div></div></div>`;
+  $$("#qUnits input").forEach(c=>c.addEventListener("change",()=>{c.checked?qsel.add(c.value):qsel.delete(c.value);c.parentElement.classList.toggle("on",c.checked)}));
+  $("#qAll").addEventListener("click",()=>{qsel=new Set(UNITS.map(u=>u.id));renderQuizSetup()});
+  $("#qNone").addEventListener("click",()=>{qsel=new Set();renderQuizSetup()});
+  $("#qStart").addEventListener("click",()=>{if(!qsel.size)return;startQuiz([...qsel],+$("#qN").value)});
+  $("#qExam").addEventListener("click",()=>startQuiz(UNITS.filter(u=>S.include[u.id]).map(u=>u.id),40));
+  $("#qWeak").addEventListener("click",()=>{const w=UNITS.filter(u=>S.include[u.id]&&isWeak(u.id)).map(u=>u.id);startQuiz(w.length?w:UNITS.map(u=>u.id),20,!w.length)});
+  $("#qReset").addEventListener("click",()=>{S.stats={};save();renderQuizSetup()});
+}
+function startQuiz(ids,n,noWeak){
+  // balanced sample across units
+  const pools=ids.map(id=>shuffle(UMAP[id].quiz.map((q,i)=>Object.assign({u:id,key:id+"-"+i},q))));
+  let out=[];let i=0;const total=Math.min(n,pools.reduce((a,p)=>a+p.length,0));
+  while(out.length<total){const p=pools[i%pools.length];if(p.length)out.push(p.shift());i++}
+  out=shuffle(out).map(q=>{const order=shuffle(q.o.map((t,j)=>j));return Object.assign({},q,{order})});
+  Object.assign(quiz,{active:true,qs:out,idx:0,answers:[],note:noWeak?"No weak spots yet, so this is a mix of everything.":""});
+  renderQ();
+}
+function renderQ(){
+  const q=quiz.qs[quiz.idx];const u=UMAP[q.u];const ans=quiz.answers[quiz.idx];
+  const L="ABCDEF";
+  $("#quizArea").innerHTML=`<div class="card qcard">
+   <div class="qtop"><span class="eyebrow">Question ${quiz.idx+1} of ${quiz.qs.length} · ${u.short}</span><button class="linkbtn" type="button" id="qQuit">End quiz</button></div>
+   <div class="progress"><i style="width:${pct(quiz.idx,quiz.qs.length)}%"></i></div>
+   ${quiz.note&&quiz.idx===0?`<span class="flag">${quiz.note}</span>`:""}
+   <p class="qtext">${q.q}</p>
+   <div class="opts">${q.order.map((oi,k)=>{let cls="";if(ans!==undefined){if(oi===q.a)cls="right";else if(oi===ans)cls="wrong"}return `<button class="opt ${cls}" type="button" data-oi="${oi}" ${ans!==undefined?"disabled":""}><span class="k">${L[k]}</span><span>${q.o[oi]}</span></button>`}).join("")}</div>
+   ${ans!==undefined?`<div class="feedback"><b class="${ans===q.a?"ok":"no"}">${ans===q.a?"Correct.":"Not quite. The answer is: "+q.o[q.a]}</b>${q.w}</div>
+   <div class="row"><button class="btn primary" type="button" id="qNext">${quiz.idx+1<quiz.qs.length?"Next question":"See results"}</button><button class="linkbtn" type="button" id="qTopic">Review this topic</button></div>`:`<p class="muted" style="font-size:.85rem">Keys 1–4 also work.</p>`}
+  </div>`;
+  $$("#quizArea .opt").forEach(b=>b.addEventListener("click",()=>answer(+b.dataset.oi)));
+  $("#qQuit").addEventListener("click",()=>quiz.answers.length?finish():renderQuizSetup());
+  if(ans!==undefined){$("#qNext").addEventListener("click",next);$("#qNext").focus();$("#qTopic").addEventListener("click",()=>openUnit(q.u))}
+}
+function answer(oi){
+  const q=quiz.qs[quiz.idx];if(quiz.answers[quiz.idx]!==undefined)return;
+  quiz.answers[quiz.idx]=oi;
+  const st=S.stats[q.u]||{c:0,n:0};st.n++;if(oi===q.a)st.c++;S.stats[q.u]=st;save();
+  renderQ();
+}
+function next(){if(quiz.idx+1<quiz.qs.length){quiz.idx++;renderQ()}else finish()}
+document.addEventListener("keydown",e=>{
+  if(S.tab!=="quiz"||!quiz.active||!$("#lb").hidden)return;
+  if(e.target.closest&&e.target.closest("select,input"))return;
+  const q=quiz.qs[quiz.idx];if(!q)return;
+  if(quiz.answers[quiz.idx]===undefined){const k=parseInt(e.key,10);if(k>=1&&k<=q.order.length){answer(q.order[k-1])}}
+  else if(e.key==="Enter"&&document.activeElement.id!=="qNext"){next()}
+});
+function finish(){
+  quiz.active=false;
+  const done=quiz.qs.slice(0,quiz.answers.length);
+  const right=done.filter((q,i)=>quiz.answers[i]===q.a).length;
+  const by={};done.forEach((q,i)=>{by[q.u]=by[q.u]||{c:0,n:0};by[q.u].n++;if(quiz.answers[i]===q.a)by[q.u].c++});
+  const missed=done.map((q,i)=>[q,quiz.answers[i]]).filter(([q,a])=>a!==q.a);
+  $("#quizArea").innerHTML=`<div class="view"><div class="card" style="display:grid;gap:14px">
+   <span class="eyebrow">Results</span><div class="row" style="gap:18px"><span class="score mono">${pct(right,done.length)}%</span><span>${right} of ${done.length} correct</span></div>
+   <div class="breakdown">${Object.entries(by).map(([id,s])=>{const p=pct(s.c,s.n);return `<div class="bd-row"><span>${UMAP[id].short}</span><span class="bar"><i style="width:${p}%;background:${p>=80?"var(--good)":p>=70?"var(--warn)":"var(--bad)"}"></i></span><span class="mono">${s.c}/${s.n}</span></div>`}).join("")}</div>
+   <div class="row"><button class="btn primary" type="button" id="qAgain">New quiz</button>${missed.length?`<button class="btn" type="button" id="qRetry">Retry the ${missed.length} I missed</button>`:""}</div></div>
+   ${missed.length?`<div class="card" style="display:grid;gap:12px"><h3>Review what you missed</h3><div class="missed">${missed.map(([q,a])=>`<div class="m"><b>${q.q}</b><div>Your answer: <span class="no">${q.o[a]}</span></div><div>Correct: <span class="ok">${q.o[q.a]}</span></div><div class="muted">${q.w}</div><button class="linkbtn" type="button" data-unit="${q.u}">Review ${UMAP[q.u].short}</button></div>`).join("")}</div></div>`:""}</div>`;
+  $("#qAgain").addEventListener("click",renderQuizSetup);
+  if(missed.length)$("#qRetry").addEventListener("click",()=>{Object.assign(quiz,{active:true,qs:shuffle(missed.map(([q])=>Object.assign({},q,{order:shuffle(q.order)}))),idx:0,answers:[],note:""});renderQ()});
+  $$("#quizArea [data-unit]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.unit)));
+}
+
+// ---------- flashcards ----------
+const fc={unit:"all",deck:[],i:0,flipped:false,reset:true};
+function deckFor(unit){
+  const units=unit==="all"?UNITS.filter(u=>S.include[u.id]):[UMAP[unit]];
+  return units.flatMap(u=>u.cards.map((c,i)=>({u:u.id,k:u.id+"-"+i,t:c[0],d:c[1]})));
+}
+function renderCards(){
+  $("#fcUnit").innerHTML=`<option value="all">All exam topics</option>`+UNITS.map(u=>`<option value="${u.id}" ${fc.unit===u.id?"selected":""}>${u.n}. ${u.short}</option>`).join("");
+  if(fc.unit==="all")$("#fcUnit").value="all";
+  if(fc.reset){const d=deckFor(fc.unit);const learning=d.filter(c=>!S.cardsKnown[c.k]);fc.deck=shuffle(learning.length?learning:d);fc.i=0;fc.flipped=false;fc.reset=false;fc.allKnown=!learning.length}
+  drawCard();
+}
+function drawCard(){
+  const total=fc.deck.length;
+  if(fc.i>=total){
+    const d=deckFor(fc.unit);const left=d.filter(c=>!S.cardsKnown[c.k]).length;
+    $("#fcArea").innerHTML=`<div class="card empty" style="width:min(100%,620px)"><h3>Deck finished</h3><p>${left?`${left} card${left>1?"s":""} still in your \"still learning\" pile.`:"You marked every card as known."}</p><div class="row" style="justify-content:center;margin-top:12px">${left?`<button class="btn primary" type="button" id="fcLearn">Study the ${left} again</button>`:""}<button class="btn" type="button" id="fcAll">Reset this deck</button></div></div>`;
+    if(left)$("#fcLearn").addEventListener("click",()=>{fc.reset=true;renderCards()});
+    $("#fcAll").addEventListener("click",()=>{d.forEach(c=>delete S.cardsKnown[c.k]);save();fc.reset=true;renderCards()});
+    return;
+  }
+  const c=fc.deck[fc.i];
+  $("#fcArea").innerHTML=`${fc.allKnown?`<span class="flag">You'd marked all of these as known, so here's the full deck again.</span>`:""}
+   <span class="mono muted">${fc.i+1} / ${total}</span>
+   <button class="flash ${fc.flipped?"flipped":""}" type="button" id="fcCard" aria-label="Flip card"><span class="inner">
+    <span class="face front"><span class="tag pill">${UMAP[c.u].short}</span><span class="term">${c.t}</span></span>
+    <span class="face back"><span class="tag pill">${c.t}</span><span class="def">${c.d}</span></span></span></button>
+   <div class="row" style="justify-content:center"><button class="btn" type="button" id="fcNo">Still learning</button><button class="btn primary" type="button" id="fcYes">Got it</button></div>
+   <span class="muted" style="font-size:.85rem">Tap the card or press Space to flip. ← still learning, → got it.</span>`;
+  $("#fcCard").addEventListener("click",()=>{fc.flipped=!fc.flipped;$("#fcCard").classList.toggle("flipped",fc.flipped)});
+  $("#fcYes").addEventListener("click",()=>mark(true));
+  $("#fcNo").addEventListener("click",()=>mark(false));
+}
+function mark(known){const c=fc.deck[fc.i];if(known)S.cardsKnown[c.k]=true;else delete S.cardsKnown[c.k];save();fc.i++;fc.flipped=false;drawCard()}
+document.addEventListener("keydown",e=>{if(S.tab!=="cards"||!fc.deck[fc.i]||e.target.closest&&e.target.closest("select,input"))return;
+  if(e.key===" "){e.preventDefault();fc.flipped=!fc.flipped;$("#fcCard")&&$("#fcCard").classList.toggle("flipped",fc.flipped)}
+  if(e.key==="ArrowRight")mark(true); if(e.key==="ArrowLeft")mark(false)});
+$("#fcUnit").addEventListener("change",e=>{fc.unit=e.target.value;fc.reset=true;renderCards()});
+$("#fcShuffle").addEventListener("click",()=>{fc.deck=shuffle(fc.deck.slice(fc.i)).concat();fc.i=0;fc.flipped=false;drawCard()});
+$("#fcRestart").addEventListener("click",()=>{fc.reset=true;renderCards()});
+
+// ---------- notecard ----------
+function renderNotecard(){
+  $("#ncList").innerHTML=NOTECARD.map(([h,t],i)=>`<label class="nc-item"><input type="checkbox" data-nc="${i}" ${S.nc[i]?"checked":""}><span><b>${h}</b><br><span class="muted">${t}</span></span></label>`).join("");
+  $$("#ncList [data-nc]").forEach(c=>c.addEventListener("change",()=>{S.nc[+c.dataset.nc]=c.checked;save();drawNC()}));
+  drawNC();
+}
+function drawNC(){
+  const items=NOTECARD.filter((_,i)=>S.nc[i]);
+  $("#ncCard").innerHTML=`<h4>BIO 323 · Exam 2</h4><div class="cols">${items.map(([h,t])=>`<div class="it"><b>${h}:</b> ${t}</div>`).join("")}</div>`;
+  $("#ncCount").textContent=`${items.length} of ${NOTECARD.length} blocks · 3″ × 5″ preview`;
+}
+
+// ---------- resources ----------
+function renderResources(){
+  $("#resGrid").innerHTML=UNITS.map(u=>`<div class="card res"><div><span class="eyebrow">${u.lec}</span><h3>${u.n}. ${u.title}</h3></div><ul>${resItems(RESOURCES[u.id])}</ul><button class="linkbtn" type="button" data-unit="${u.id}" style="justify-self:start">Open topic notes</button></div>`).join("");
+  $$("#resGrid [data-unit]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.unit)));
+}
+
+// ---------- boot ----------
+initPlanControls();renderCountdown();
+const h=(location.hash||"").slice(1);
+if(UMAP[h]){S.unit=h;show("units",false)}else if(TABS.includes(h))show(h,false);else show(S.tab||"plan",false);
+})();
+</script>
+
+</body>
+</html>
