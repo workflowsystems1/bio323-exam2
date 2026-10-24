@@ -203,15 +203,16 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 
 /* flashcards */
 .fc-wrap{display:grid;gap:16px;justify-items:center}
-.flash{width:min(100%,620px);aspect-ratio:5/3;perspective:1200px;cursor:pointer;border:0;background:none;padding:0}
-.flash .inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
-.flash.flipped .inner{transform:rotateY(180deg)}
-.flash .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;padding:24px;text-align:center;box-shadow:0 1px 0 var(--line), 0 10px 30px -18px rgba(20,20,60,.35)}
-.flash .face .tag{position:absolute;top:12px;left:16px}
-.flash .front .term{font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,4vw,2rem)}
-.flash .back{transform:rotateY(180deg);background:var(--accent-soft)}
-.flash .back .def{font-size:clamp(1rem,2.6vw,1.25rem);max-width:46ch}
-@media (prefers-reduced-motion:reduce){.flash .inner,.progress i{transition:none}}
+.flash{width:min(100%,620px);min-height:clamp(220px,52vw,360px);display:grid;place-items:center;position:relative;cursor:pointer;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:44px 24px 28px;text-align:center;color:var(--ink);box-shadow:0 10px 30px -18px rgba(20,20,60,.35);font:inherit}
+.flash.flipped{background:var(--accent-soft);border-color:var(--accent)}
+.flash .tag{position:absolute;top:12px;left:16px}
+.flash .side{position:absolute;top:12px;right:16px;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.flash .term{font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,4vw,2rem);line-height:1.2}
+.flash .def{font-size:clamp(1rem,2.6vw,1.25rem);max-width:46ch;line-height:1.5}
+.flash .face{animation:fcIn .18s ease-out}
+@keyframes fcIn{from{opacity:.2;transform:scale(.985)}to{opacity:1;transform:none}}
+.fc-stats{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-family:var(--f-mono);font-size:.85rem}
+@media (prefers-reduced-motion:reduce){.flash .face{animation:none}.progress i{transition:none}}
 /* ruled index card for notecard */
 .index-card{aspect-ratio:5/3;width:min(100%,640px);background:var(--figbg);color:#22223a;border-radius:6px;box-shadow:0 12px 30px -20px rgba(0,0,0,.5);padding:14px 16px 12px;background-image:linear-gradient(#fff 0 28px, transparent 28px),repeating-linear-gradient(#fff 0 14px,#b9d2ee 14px 15px);position:relative;overflow:hidden;font-family:var(--f-mono);font-size:7.2px;line-height:15px}
 .index-card::before{content:"";position:absolute;left:0;right:0;top:27px;height:2px;background:#e48aa8}
@@ -313,9 +314,10 @@ tr:last-child td,tr:last-child th{border-bottom:0}
   <!-- GUIDE -->
   <section class="view" id="v-guide" hidden>
     <div class="card" style="display:grid;gap:10px">
-      <span class="eyebrow">From your Ch 13/14 study guide + Lecture 14 cytoskeleton list</span>
+      <span class="eyebrow">Your Ch 13, 14, 15 and 17 study guides</span>
       <h2>Can you answer every item?</h2>
       <p class="muted">Try each one out loud first, then reveal the answer. Check it off once you can explain it without looking.</p>
+      <div class="row" id="guideFilter"></div>
       <div class="summary-bar"><span class="mono" id="guideCount"></span><div class="meter"><i id="guideMeter"></i></div><button class="btn small" id="guideRevealAll" type="button">Show all answers</button></div>
     </div>
     <div id="guideList" class="view"></div>
@@ -897,6 +899,7 @@ const UNITS = [
   {q:"For a plasma membrane protein, which side of the ER membrane becomes extracellular?",o:["The cytosolic side","The lumen side","Neither","Both"],a:1,w:"Lumen = topologically outside."},
   {q:"A double-pass transmembrane protein uses:",o:["Two cleaved N-terminal signals","An internal start-transfer sequence and a stop-transfer sequence","A KDEL sequence","An NLS"],a:1,w:"The internal start-transfer also binds SRP and isn't cleaved."},
   {q:"Which signal is a C-terminal ER retention signal?",o:["PPKKKRKV","KDEL","SKL","An N-terminal hydrophobic stretch"],a:1,w:"Lys-Asp-Glu-Leu at the C-terminus."},
+  {q:"What binds inside the ER translocation channel to open it?",o:["SRP","The signal sequence (or an internal start-transfer sequence)","The ribosome's large subunit only","KDEL"],a:1,w:"SRP brings the ribosome to the ER, then leaves; the signal sequence itself binds the channel."},
   {q:"Which organelle is the entry point for proteins going to the Golgi, endosomes and lysosomes?",o:["Nucleus","ER","Mitochondria","Peroxisome"],a:1,w:"Everything in the secretory/endomembrane system starts at the ER."}
  ]
 },
@@ -912,6 +915,8 @@ const UNITS = [
   "<b>Staying vs. leaving the ER</b>: resident ER proteins carry the <b>ER retention signal (KDEL)</b>; departing soluble proteins carry exit signals that bind receptors to get packed into coated vesicles. Escaped ER proteins are caught in the cis Golgi and sent back.",
   "<b>Golgi</b>: stacked membrane-bound sacs; one sac = a <b>cisterna</b>. <b>Cis face</b> (cis = same) faces the ER; ER and Golgi have a similar evolutionary origin. <b>Trans face</b> (trans = different) faces the plasma membrane. The <b>cis cisterna</b> receives ER vesicles and returns anything with an ER retention signal.",
   "Proteins move through the Golgi by <b>transport vesicles</b> passing between cisternae and by <b>cisternal maturation</b> (cisternae themselves migrate through the stack). Proteins are often <b>modified</b> along the way (e.g., glycosylation).",
+  "<b>Which face buds what</b>: vesicles headed to the plasma membrane (or lysosomes) bud from the <b>trans</b> face; vesicles returning to the ER bud from the <b>cis</b> side in <b>COPI</b> vesicles.",
+  "<b>Inside vesicle = outside cell</b>: the vesicle lumen (like the ER and Golgi lumens) is topologically the same as the outside of the cell. That is why lumen-facing protein ends become extracellular and why vesicle contents are released outside.",
   "<b>Exocytosis/secretion</b>: vesicles bud from the trans Golgi network and fuse with the PM, releasing contents outside the cell. The <b>vesicle membrane becomes part of the plasma membrane</b>.",
   "<b>Constitutive exocytosis</b> (constitutive = always happening at baseline): vesicles constantly fuse from the trans Golgi to the PM to deliver new lipids and proteins, grow the membrane before division, and secrete extracellular matrix proteins and other extracellular fluid components.",
   "<b>Regulated exocytosis</b>: in cells specialized for secretion, product is stored in secretory vesicles near the PM and fuses <b>in response to an extracellular signal</b>. Examples: antibodies, inflammatory cytokines, mucus, hormones (insulin), antimicrobial peptides, neuropeptides."
@@ -966,6 +971,9 @@ const UNITS = [
   {q:"After exocytosis, the secretory vesicle's membrane:",o:["Is degraded in the lysosome","Becomes part of the plasma membrane","Returns to the ER","Dissolves in the extracellular fluid"],a:1,w:"This adds lipids and proteins to the PM."},
   {q:"Insulin release from pancreatic β cells is an example of:",o:["Constitutive exocytosis","Regulated exocytosis","Pinocytosis","Phagocytosis"],a:1,w:"Stored in vesicles near the PM, released only on a signal."},
   {q:"Which describes constitutive exocytosis?",o:["Occurs only after a hormone signal","Happens constantly at baseline, supplying new membrane lipids/proteins and ECM proteins","Only in immune cells","Brings material into the cell"],a:1,w:"Constitutive = always on."},
+  {q:"Vesicles carrying proteins to the plasma membrane bud from which part of the Golgi?",o:["Cis face","Trans face (trans Golgi network)","Medial cisterna only","The nuclear envelope"],a:1,w:"Trans = facing the PM. Return trips to the ER leave from the cis side in COPI vesicles."},
+  {q:"\"Inside the vesicle = outside the cell\" means:",o:["Vesicles contain cytosol","The vesicle lumen is topologically equivalent to the extracellular space, so its contents are released outside and its inner face becomes the PM's outer face","Vesicles carry cytosolic proteins out","Vesicles never fuse"],a:1,w:"Same reason lumen-side protein ends end up extracellular."},
+  {q:"How does cargo get concentrated into a forming vesicle?",o:["It diffuses in randomly","Cargo binds cargo receptors; adaptins link the receptors to the coat","Dynamin pumps it in","SNAREs pull it in"],a:1,w:"Receptors + adaptins + coat proteins gather the right cargo into the bud."},
   {q:"Which two mechanisms move proteins through the Golgi stack?",o:["Nuclear pores and SRP","Transport vesicles between cisternae and cisternal maturation","Kinesin and dynein only","Diffusion through the lumen"],a:1,w:"Proteins are often modified along the way."}
  ]
 },
@@ -979,7 +987,7 @@ const UNITS = [
   "<b>Phagocytosis</b>, \"cell eating\": specialized cells (immune cells like macrophages and neutrophils) ingest large particles (<b>&gt;250 nm</b>) such as dead cells and microorganisms, forming a phagosome.",
   "<b>Endosomes</b>: almost everything taken in passes through one. They work like the Golgi, but for endocytosis instead of exocytosis. Acidic (<b>pH 5–6</b>), so receptors usually drop their cargo. Fates: <b>recycling</b> back to the PM, <b>degradation</b> (cargo goes to the lysosome), or <b>transcytosis</b> to a different membrane domain.",
   "<b>Lysosomes</b>: membrane sacs of <b>hydrolytic (acid hydrolase)</b> enzymes (nucleases, proteases, lipases, etc.) at <b>pH ~5</b> (cytosol ≈ 7.2). Their membrane has transporters to let digested amino acids, lipids and sugars out; an ATP-driven <b>H<sup>+</sup> pump</b> to keep it acidic; and special membrane proteins that protect it from its own enzymes and acid.",
-  "<b>Autophagy</b>: recycling old cell parts (proteins, organelles). An isolation membrane wraps the target into an <b>autophagosome</b>, which fuses with a lysosome to be degraded.",
+  "<b>Autophagy</b> (\"self-eating\"): recycling old or damaged cell parts (proteins, organelles). An isolation membrane wraps the target into a double-membrane <b>autophagosome</b>, which fuses with a lysosome to be degraded. It overlaps with endocytosis because both pathways end by fusing with lysosomes.",
   "<b>All roads lead to lysosomes</b>: endocytosis (via early → late endosomes), phagocytosis (phagosome) and autophagy (autophagosome) all end at the lysosome.",
   "<b>…unless</b>: pathogens survive by escaping the phagosome into the cytosol (e.g., <i>Listeria</i> uses toxins, then actin \"comet tails\" to spread), blocking phagosome-lysosome fusion, resisting the acid/enzymes, or getting expelled (vomocytosis). Some symbionts set up a protected niche."
  ],
@@ -1019,6 +1027,7 @@ const UNITS = [
   {q:"Autophagy is:",o:["Uptake of extracellular fluid","Degradation of the cell's own old proteins/organelles via autophagosomes fused with lysosomes","Secretion of hormones","Import into mitochondria"],a:1,w:"Recycling old cell parts."},
   {q:"Moving endocytosed material to a different domain of the plasma membrane is called:",o:["Transcytosis","Pinocytosis","Recycling","Exocytosis"],a:0,w:"One of three endosome fates, along with recycling and degradation."},
   {q:"Which is more like passive transport?",o:["Receptor-mediated endocytosis","Pinocytosis","Neither","Both"],a:1,w:"Pinocytosis is non-selective and doesn't concentrate cargo."},
+  {q:"How does autophagy overlap with the endocytic pathway?",o:["Both happen in the nucleus","Both deliver their contents to lysosomes for digestion","Both use COPII vesicles","Both export proteins"],a:1,w:"Autophagosomes fuse with lysosomes just like late endosomes do."},
   {q:"A bacterium escapes a phagosome into the cytosol. What has it avoided?",o:["Fusion with a lysosome and digestion","Translation","The Krebs cycle","Nuclear import"],a:0,w:"All roads lead to lysosomes, unless the microbe gets out first."}
  ]
 }
@@ -1026,7 +1035,7 @@ const UNITS = [
 
 // The Ch 13/14 study guide, with answers keyed to units.
 const GUIDE = [
- {h:"Cellular respiration (Ch 13 & part of 14)", items:[
+ {h:"Ch 13: Cellular respiration (+ part of 14)", items:[
   ["Endosymbiotic theory: what is it?","Mitochondria (and chloroplasts) descend from bacteria engulfed by an ancestral host cell that kept them as permanent residents.","u1"],
   ["What bacteria-like characteristics do mitochondria/chloroplasts have?","Own DNA; own ribosomes + transcription machinery; reproduce by binary fission; double membrane.","u1"],
   ["Who has what (plants vs animals)?","Animals: mitochondria. Plants: mitochondria AND chloroplasts.","u1"],
@@ -1048,7 +1057,7 @@ const GUIDE = [
   ["Electron affinity / redox potential down the chain?","Increases: from low affinity (NADH, −) to high affinity (O₂, +).","u3"],
   ["Complexes use the charge difference from passing electrons to do what?","Pump H⁺ from the matrix into the intermembrane space.","u3"]
  ]},
- {h:"Photosynthesis (Ch 14)", items:[
+ {h:"Ch 14: Photosynthesis", items:[
   ["Chloroplast structure: label","Outer membrane, inner membrane, stroma, thylakoid membrane, thylakoid space (lumen), granum.","u4"],
   ["Chlorophyll","Porphyrin ring with delocalized electrons; light excites them so a high-energy electron can be passed on.","u4"],
   ["Where in the chloroplast are the light reactions?","Thylakoid membrane.","u4"],
@@ -1063,14 +1072,60 @@ const GUIDE = [
   ["Calvin cycle: inputs/outputs; why a cycle?","3 CO₂ + 9 ATP + 6 NADPH → 1 G3P out. RuBP is regenerated, so it's a cycle.","u4"],
   ["Why do plants still do cellular respiration?","Time of day: no light at night. Different tissues: roots/stems/seeds have no chloroplasts but need ATP.","u4"]
  ]},
- {h:"Cytoskeleton study list (Lecture 14 slide)", items:[
-  ["For each element: monomer, structure, polymerization, size, polarity, motors, functions","See the comparison table in the Cytoskeleton unit.","u5"],
-  ["Microtubules: dynamic instability, why and how","GTP-tubulin adds and binds well; hydrolysis to GDP weakens binding. Growth if addition outpaces hydrolysis (GTP cap); catastrophe if the cap is lost. Lets MTs search the cell (\"fishing\").","u5"],
-  ["Cilia/flagella: broad terms","9 + 2 axoneme; dynein arms slide doublets; linking proteins convert sliding into bending.","u5"],
-  ["Motor transport: proteins and direction","Kinesin → + (MT). Dynein → − (MT). Myosin → + (actin).","u5"],
-  ["Actin: localization and how that influences function","Concentrated in the cortex: shape, microvilli, lamellipodia/filopodia for crawling, contractile bundles.","u5"],
-  ["Actin dynamics","ATP-actin polymerization at + end; treadmilling at intermediate concentrations.","u5"],
-  ["Muscle contraction","Sarcomere, sliding filaments, cross-bridge cycle, Ca²⁺ → troponin/tropomyosin.","u6"]
+ {h:"Ch 17: Cytoskeleton", items:[
+  ["Microtubules: monomer, structure, how they polymerize","α/β-tubulin heterodimer (GTP on β). Dimers stack head-to-tail into protofilaments; 13 protofilaments close into a hollow tube. Nucleated by γ-tubulin rings in the centrosome.","u5"],
+  ["Intermediate filaments: monomer, structure, how they polymerize","Fibrous α-helical monomer → parallel coiled-coil dimer → staggered antiparallel tetramer → 8 tetramers pack laterally into a ropelike filament. All non-covalent.","u5"],
+  ["Actin: monomer, structure, how it polymerizes","Globular G-actin (binds ATP) polymerizes into a thin, flexible, two-stranded helical filament with + and − ends.","u5"],
+  ["Relative size","Actin ~7 nm (smallest) < intermediate filaments ~10 nm < microtubules ~25 nm (largest).","u5"],
+  ["Polar or not?","Microtubules: polar. Actin: polar. Intermediate filaments: NOT polar (antiparallel tetramer makes both ends the same).","u5"],
+  ["Motor proteins or not?","Microtubules: kinesin (→ +) and dynein (→ −). Actin: myosin (→ +). Intermediate filaments: none.","u5"],
+  ["Functions of each","MT: organelle positioning, cell polarity, long-range transport, mitotic spindle, cilia/flagella. IF: tensile strength, resisting mechanical stress, nuclear lamina. Actin: cell cortex/shape, microvilli, crawling (lamellipodia, filopodia), contraction, short-range transport.","u5"],
+  ["Which have overlapping functions vs not?","MT and actin overlap: both are dynamic, polar, carry cargo with motors and help set cell polarity and movement. IF function (mechanical strength) is unique; they don't transport anything. Actin and IF both make supportive networks under membranes (cortex vs nuclear lamina).","u5"],
+  ["What is unique to each?","MT: hollow, GTP-driven dynamic instability, γ-tubulin/centrosome, cilia & flagella, spindle. IF: no polarity, no motors, strongest tensile strength, lamina. Actin: cell cortex, crawling protrusions, treadmilling, muscle contraction with myosin II.","u5"],
+  ["Microtubules: dynamic instability, why and how","How: GTP-tubulin adds and binds tightly; GTP is hydrolyzed to GDP soon after, weakening binding. Adding faster than hydrolysis keeps a GTP cap = growth; lose the cap = protofilaments peel off = rapid shrinking. Why: lets MTs search the cell (\"fishing\") and be stabilized only where they find a target, so the network can reorganize fast.","u5"],
+  ["Broad terms of how cilia/flagella work","9 + 2 axoneme of stabilized MTs. Dynein arms on one doublet walk on the neighboring doublet; linking proteins hold the doublets together, so sliding becomes bending. Cilia move fluid over a cell; flagella push the cell.","u5"],
+  ["Motor protein transport: which proteins, which way","Kinesin → + end (outward, toward cell periphery). Dynein → − end (inward, toward centrosome). Both use ATP for jerky \"saltatory\" steps carrying vesicles/organelles via adaptor proteins.","u5"],
+  ["Actin: localization in the cell and how that influences function","Most concentrated in the cortex just under the plasma membrane, so it controls cell shape and surface structures: microvilli, and in crawling, polymerization at + ends pushes out lamellipodia/filopodia, focal contacts attach, myosin contracts the rear.","u5"],
+  ["Actin: dynamic instability, how","Like MTs but with ATP: ATP-actin adds at the + end, hydrolysis to ADP weakens binding, ADP-actin falls off the − end. At intermediate monomer concentration it treadmills (add at +, lose at −, same length).","u5"],
+  ["Myosin","Actin motor protein that walks toward the + end using ATP. Myosin I (one head) moves vesicles and membranes. Myosin II (two heads, coiled-coil tails) forms bipolar thick filaments for contraction.","u5"],
+  ["In general terms, how sarcomeres are organized and how muscle contraction works","Sarcomere = unit between two Z discs. Actin thin filaments attach to Z discs by + ends; bipolar myosin II thick filaments sit in the middle overlapping them. Ca²⁺ (released from the SR after an action potential via T tubules) binds troponin, moving tropomyosin off actin. Myosin heads cycle (ATP binds → release; hydrolysis → cock; Pᵢ release → power stroke) pulling actin toward the center, so Z discs move together. Filaments slide; they don't shorten.","u6"]
+ ]},
+ {h:"Ch 15: Intracellular compartments and transport", items:[
+  ["Intracellular compartments: benefits","Cells can be bigger (ATP isn't made at the PM, so a low surface-area-to-volume ratio is fine), reactions are more efficient, harmful enzymes are kept apart, and enzymes can be regulated by location.","u7"],
+  ["Membrane-bound organelles: what each does","Nucleus: DNA, headquarters. Rough ER: makes membrane/secreted proteins. Smooth ER: lipids, Ca²⁺ storage. Golgi: modifies, sorts, ships. Lysosome: digests. Endosome: sorts endocytosed cargo. Peroxisome: oxidative reactions, breaks down lipids/toxins. Mitochondria: ATP. Chloroplasts: photosynthesis.","u7"],
+  ["Protein sorting: how do cells know what goes where?","Signal sequences, amino-acid \"address labels\" recognized by receptors/translocators at the right destination. No signal = stays in the cytosol.","u8"],
+  ["What usually happens to the signal sequence on arrival?","It's usually cleaved off (e.g., by signal peptidase in the ER or a matrix peptidase in mitochondria). The NLS is an exception and isn't cut off.","u8"],
+  ["Where do most proteins start out?","On ribosomes in the cytosol.","u8"],
+  ["How do we get proteins across membranes?","Three ways: through nuclear pores (folded), across membranes by protein translocators (unfolded: mitochondria, chloroplasts, ER, peroxisomes), and in vesicles (ER → Golgi → beyond).","u8"],
+  ["Nucleus: what takes proteins to and through pores?","Nuclear import receptors bind the nuclear localization signal (NLS) and the repeated amino-acid sequences in the pore's gel-like meshwork, hopping through. Ran-GTP releases the cargo inside; GTP hydrolysis resets the receptor.","u8"],
+  ["Nucleus: do proteins need to unfold?","No. They pass through nuclear pores fully folded.","u8"],
+  ["Mitochondria/chloroplasts: how many membranes, and how?","Two (outer + inner). TOM (outer) and TIM (inner) translocators line up to form a complex at contact sites, and the protein threads through both.","u8"],
+  ["Mitochondria/chloroplasts: do proteins need to unfold?","Yes. They cross unfolded, and chaperones in the matrix help refold them after the signal is cut off.","u8"],
+  ["Going somewhere other than the matrix/stroma, how?","Additional sorting signals send the protein on to the inner membrane, intermembrane space or thylakoid.","u8"],
+  ["ER: protein is made as it enters","Import is co-translational: the ribosome keeps translating while the growing chain threads through the translocator.","u8"],
+  ["How does the ribosome + partially translated protein get to the ER?","The N-terminal ER signal sequence emerges; SRP binds it (and the ribosome), pausing translation; SRP docks on the SRP receptor in the ER membrane; SRP is released and the ribosome sits on the translocator.","u8"],
+  ["What binds inside the translocator?","The signal sequence (the N-terminal ER signal, or an internal start-transfer sequence) binds the translocation channel and opens it.","u8"],
+  ["Soluble vs single-pass vs double-pass: how each is made","Soluble: N-terminal signal, whole chain threads into the lumen, signal cleaved, protein released into lumen. Single-pass: N-terminal signal starts, hydrophobic stop-transfer halts it and becomes the membrane helix, signal cleaved (N in lumen, C in cytosol). Double-pass: internal start-transfer (binds SRP, not cleaved) starts, stop-transfer halts it, so the protein crosses twice.","u8"],
+  ["TM topology: if a terminus is in the lumen, where does it end up in the plasma membrane? If in the cytosol?","Lumen side → extracellular side of the plasma membrane (inside vesicle = outside cell). Cytosolic side → stays cytosolic (inside the cell).","u8"],
+  ["Vesicles: how is cargo gathered into a vesicle?","Cargo binds cargo receptors in the donor membrane; adaptins bind the receptors' cytosolic tails and recruit coat proteins, concentrating cargo in the forming bud.","u9"],
+  ["How does the coat form, and how does it shape and bud the vesicle?","Coat proteins (clathrin, COPI, COPII) assemble on the cytosolic face into a curved basket that bends the membrane into a bud. Dynamin pinches clathrin vesicles off, and the coat is shed.","u9"],
+  ["What mediates fusion with the target, and how is it specific?","Rab GTPases on the vesicle (unique per vesicle/organelle type) are recognized by tethering proteins on the right target. Then matching v-SNAREs and t-SNAREs twist together and drive fusion. Only the correct pairs match.","u9"],
+  ["Exocytosis: where do secreted proteins start?","Made on the rough ER and released into the ER lumen as soluble proteins.","u9"],
+  ["Golgi structure: cisterna, cis vs trans face","Stack of flattened sacs (each a cisterna). Cis face faces the ER and receives vesicles; trans face faces the plasma membrane and ships them out.","u9"],
+  ["How does cargo move through the Golgi? (2 ways)","(1) Transport vesicles shuttle it from one cisterna to the next. (2) Cisternal maturation: the cisternae themselves move from cis to trans, carrying it.","u9"],
+  ["What usually happens to cargo moving through the Golgi?","It gets modified (e.g., glycosylation/sugar trimming) and sorted.","u9"],
+  ["Bound for the plasma membrane, vesicles bud off which face? Going back to the ER?","To the PM: bud from the trans face (trans Golgi network). Back to the ER: bud from the cis side in COPI vesicles.","u9"],
+  ["How membrane fusion works; inside vesicle = outside cell","SNAREs pull the two bilayers so close that water is squeezed out from between the hydrophilic heads and the bilayers merge. The vesicle lumen is topologically equivalent to the outside of the cell, so its contents end up outside and its inner membrane face becomes the PM's outer face.","u9"],
+  ["Constitutive vs regulated exocytosis","Constitutive: always on, delivers new lipids/proteins to the PM and secretes ECM proteins. Regulated: specialized cells store product in vesicles near the PM and release it only on an extracellular signal (insulin, neurotransmitters, antibodies, mucus).","u9"],
+  ["Pinocytosis vs receptor-mediated endocytosis vs phagocytosis: functions","Pinocytosis: non-selective fluid uptake by all cells. Receptor-mediated: selective uptake of specific macromolecules via receptors and clathrin. Phagocytosis: specialized (immune) cells eat large particles.","u10"],
+  ["Vesicle sizes and what each brings in","Pinocytosis: small (<150 nm), fluid and dissolved solutes. Receptor-mediated: clathrin-coated vesicles with LDL, iron, B12. Phagocytosis: large (>250 nm), microbes and dead cells.","u10"],
+  ["Which moves macromolecules against their concentration gradient?","Receptor-mediated endocytosis.","u10"],
+  ["Endosome: role, and how is it similar to the Golgi?","Sorting station for everything endocytosed: recycles receptors to the PM, sends cargo to lysosomes or across the cell (transcytosis). Like the Golgi, it sorts and redirects, but for the endocytic pathway instead of secretion.","u10"],
+  ["How does the endosome make cargo drop off receptors?","Its lumen is acidic (pH 5–6), which weakens receptor-ligand binding.","u10"],
+  ["Lysosomes: what are they; conditions inside","Membrane sacs of acid hydrolases (proteases, nucleases, lipases…). Lumen pH ~5, kept acidic by an ATP-driven H⁺ pump; the membrane has transporters to export digestion products and protective proteins.","u10"],
+  ["Lysosome role in endocytosis/autophagy","Final destination of both: late endosomes, phagosomes and autophagosomes fuse with lysosomes, which digest the contents.","u10"],
+  ["Autophagy: what is it and why do cells do it?","\"Self-eating\": a membrane wraps old/damaged organelles or proteins into an autophagosome that fuses with a lysosome. Cells do it to recycle parts and get rid of worn-out organelles.","u10"],
+  ["How does autophagy overlap with the endocytic pathway?","Both end at the lysosome: the autophagosome fuses with a lysosome (or late endosome) the same way endocytosed cargo is delivered.","u10"]
  ]}
 ];
 
@@ -1316,11 +1371,15 @@ function renderUnit(){
   ${u.id==="u1"?drill("dm",MITO_SVG,MITO_KEY,MITO_ORDER,"Label the mitochondrion"):""}
   ${u.id==="u4"?drill("dc",CHL_SVG,CHL_KEY,CHL_ORDER,"Label the chloroplast"):""}
   ${u.id==="u5"?`<div style="display:grid;gap:10px"><h3>Compare the three filaments</h3>${CMP}</div>`:""}
+  ${(()=>{const its=GUIDE.flatMap((s,si)=>s.items.map((it,ii)=>({it,k:gkey(si,ii),ch:s.h.split(":")[0]}))).filter(x=>x.it[2]===u.id);if(!its.length)return "";const dn=its.filter(x=>S.guide[x.k]).length;
+    return `<div style="display:grid;gap:10px"><div class="section-head"><div><h3>Your study guide asks</h3><p class="muted">Straight from your ${[...new Set(its.map(x=>x.ch))].join(" and ")} study guide. Check off each one you can explain.</p></div><span class="pill ${dn===its.length?"good":""}" id="ugCount">${dn}/${its.length} checked</span></div>
+    <div class="qs">${its.map(x=>`<div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start"><input type="checkbox" data-ug="${x.k}" ${S.guide[x.k]?"checked":""} aria-label="I can answer: ${x.it[0].replace(/"/g,"")}" style="width:18px;height:18px;margin-top:14px;accent-color:var(--good)"><details class="q"><summary>${x.it[0]}</summary><div class="ans">${x.it[1]}</div></details></div>`).join("")}</div></div>`})()}
   ${u.qs.length?`<div style="display:grid;gap:10px"><div><h3>Questions from lecture</h3><p class="muted">Your professor asked these in class. Answer before you open each one.</p></div><div class="qs">${u.qs.map(q=>`<details class="q"><summary>${q[0]}</summary><div class="ans">${q[1]}</div></details>`).join("")}</div></div>`:""}
   <div style="display:grid;gap:10px"><div><h3>Figures from the slides</h3><p class="muted">Tap any figure to enlarge.</p></div>
    <div class="figs">${u.figs.map(([id,cap])=>{const m=id.match(/L(\d+)_s(\d+)/);return `<figure class="fig"><button type="button" data-img="${id}" data-cap="${cap.replace(/"/g,"&quot;")}"><img loading="lazy" src="img/${id}.jpg" alt="${cap.replace(/"/g,"&quot;")}"></button><figcaption>${cap}<span class="src">Lecture ${m[1]}, slide ${m[2]}</span></figcaption></figure>`}).join("")}</div></div>
   <div class="card res"><h3>Need another explanation?</h3><ul>${resItems(r)}</ul></div>
   <div class="row" style="justify-content:space-between">${u.n>1?`<button class="btn" type="button" data-nav="${UNITS[u.n-2].id}">← ${UNITS[u.n-2].short}</button>`:"<span></span>"}${u.n<UNITS.length?`<button class="btn" type="button" data-nav="${UNITS[u.n].id}">${UNITS[u.n].short} →</button>`:""}</div>`;
+  $$("#unitContent [data-ug]").forEach(c=>{c.addEventListener("change",()=>{S.guide[c.dataset.ug]=c.checked;save();const all=$$("#unitContent [data-ug]");const n=all.filter(x=>x.checked).length;const p=$("#ugCount");p.textContent=`${n}/${all.length} checked`;p.classList.toggle("good",n===all.length)})});
   $$("#unitContent [data-img]").forEach(b=>b.addEventListener("click",()=>openLB(b.dataset.img,b.dataset.cap)));
   $$("#unitContent [data-nav]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.nav)));
   $$("#unitContent [data-go]").forEach(b=>b.addEventListener("click",()=>b.dataset.go==="quiz"?(show("quiz"),startQuiz([u.id],u.quiz.length)):(fc.unit=u.id,fc.reset=true,show("cards"))));
@@ -1339,14 +1398,19 @@ $("#lb").addEventListener("click",e=>{if(e.target.id==="lb")closeLB()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#lb").hidden)closeLB()});
 
 // ---------- guide ----------
-let guideRevealAll=false;
+let guideRevealAll=false,guideSec="all";
+const gkey=(si,ii)=>GUIDE[si].h.slice(0,6)+"-"+ii;
 function renderGuide(){
-  const total=GUIDE.reduce((a,s)=>a+s.items.length,0);
-  const done=Object.values(S.guide).filter(Boolean).length;
+  const secs=GUIDE.map((s,si)=>si).filter(si=>guideSec==="all"||String(si)===guideSec);
+  const keys=secs.flatMap(si=>GUIDE[si].items.map((_,ii)=>gkey(si,ii)));
+  const total=keys.length;
+  const done=keys.filter(k=>S.guide[k]).length;
+  $("#guideFilter").innerHTML=[["all","All chapters"],...GUIDE.map((s,si)=>[String(si),s.h.split(":")[0]])].map(([v,l])=>`<button type="button" class="chip ${guideSec===v?"on":""}" data-gs="${v}">${l}</button>`).join("");
+  $$("#guideFilter [data-gs]").forEach(b=>b.addEventListener("click",()=>{guideSec=b.dataset.gs;renderGuide()}));
   $("#guideCount").textContent=`${done}/${total} items checked off`;
   $("#guideMeter").style.width=pct(done,total)+"%";
-  $("#guideList").innerHTML=GUIDE.map((sec,si)=>`<div class="guide-sec"><h3>${sec.h}</h3>${sec.items.map(([q,a,u],ii)=>{const k=si+"-"+ii;return `<div class="gi"><input type="checkbox" data-g="${k}" ${S.guide[k]?"checked":""} aria-label="I can answer: ${q.replace(/"/g,"")}"><div><b>${q}</b><div class="ga" ${guideRevealAll?"":"hidden"} id="ga-${k}">${a}</div><div class="tools"><button class="linkbtn" type="button" data-show="${k}">${guideRevealAll?"Hide":"Show"} answer</button><button class="linkbtn" type="button" data-unit="${u}">Go to topic: ${UMAP[u].short}</button></div></div></div>`}).join("")}</div>`).join("");
-  $$("#guideList [data-g]").forEach(c=>c.addEventListener("change",()=>{S.guide[c.dataset.g]=c.checked;save();const d=Object.values(S.guide).filter(Boolean).length;$("#guideCount").textContent=`${d}/${total} items checked off`;$("#guideMeter").style.width=pct(d,total)+"%"}));
+  $("#guideList").innerHTML=secs.map(si=>{const sec=GUIDE[si];const sd=sec.items.filter((_,ii)=>S.guide[gkey(si,ii)]).length;return `<div class="guide-sec"><div class="section-head"><h3>${sec.h}</h3><span class="pill ${sd===sec.items.length?"good":""}">${sd}/${sec.items.length}</span></div>${sec.items.map(([q,a,u],ii)=>{const k=gkey(si,ii);return `<div class="gi"><input type="checkbox" data-g="${k}" ${S.guide[k]?"checked":""} aria-label="I can answer: ${q.replace(/"/g,"")}"><div><b>${q}</b><div class="ga" ${guideRevealAll?"":"hidden"} id="ga-${k}">${a}</div><div class="tools"><button class="linkbtn" type="button" data-show="${k}">${guideRevealAll?"Hide":"Show"} answer</button><button class="linkbtn" type="button" data-unit="${u}">Go to topic: ${UMAP[u].short}</button></div></div></div>`}).join("")}</div>`}).join("");
+  $$("#guideList [data-g]").forEach(c=>c.addEventListener("change",()=>{S.guide[c.dataset.g]=c.checked;save();renderGuide()}));
   $$("#guideList [data-show]").forEach(b=>b.addEventListener("click",()=>{const el=$("#ga-"+b.dataset.show);el.hidden=!el.hidden;b.textContent=(el.hidden?"Show":"Hide")+" answer"}));
   $$("#guideList [data-unit]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.unit)));
   $("#guideRevealAll").textContent=guideRevealAll?"Hide all answers":"Show all answers";
@@ -1454,23 +1518,33 @@ function drawCard(){
     return;
   }
   const c=fc.deck[fc.i];
+  const d=deckFor(fc.unit);const known=d.filter(x=>S.cardsKnown[x.k]).length;
   $("#fcArea").innerHTML=`${fc.allKnown?`<span class="flag">You'd marked all of these as known, so here's the full deck again.</span>`:""}
-   <span class="mono muted">${fc.i+1} / ${total}</span>
-   <button class="flash ${fc.flipped?"flipped":""}" type="button" id="fcCard" aria-label="Flip card"><span class="inner">
-    <span class="face front"><span class="tag pill">${UMAP[c.u].short}</span><span class="term">${c.t}</span></span>
-    <span class="face back"><span class="tag pill">${c.t}</span><span class="def">${c.d}</span></span></span></button>
+   <div class="fc-stats"><span>Card ${fc.i+1} of ${total}</span><span class="ok">${known} known</span><span>${d.length-known} still learning</span></div>
+   <button class="flash" type="button" id="fcCard" aria-live="polite"></button>
    <div class="row" style="justify-content:center"><button class="btn" type="button" id="fcNo">Still learning</button><button class="btn primary" type="button" id="fcYes">Got it</button></div>
-   <span class="muted" style="font-size:.85rem">Tap the card or press Space to flip. ← still learning, → got it.</span>`;
-  $("#fcCard").addEventListener("click",()=>{fc.flipped=!fc.flipped;$("#fcCard").classList.toggle("flipped",fc.flipped)});
+   <span class="muted" style="font-size:.85rem;text-align:center">Tap the card to flip it. On a keyboard: Space flips, ← still learning, → got it.</span>`;
+  paintCard();
+  $("#fcCard").addEventListener("click",flipCard);
   $("#fcYes").addEventListener("click",()=>mark(true));
   $("#fcNo").addEventListener("click",()=>mark(false));
 }
+function paintCard(){
+  const c=fc.deck[fc.i];const el=$("#fcCard");if(!c||!el)return;
+  el.classList.toggle("flipped",fc.flipped);
+  el.setAttribute("aria-label",fc.flipped?"Showing definition. Tap to see the term.":"Showing term. Tap to see the definition.");
+  el.innerHTML=fc.flipped
+    ?`<span class="tag pill">${c.t}</span><span class="side">definition</span><span class="face def">${c.d}</span>`
+    :`<span class="tag pill">${UMAP[c.u].short}</span><span class="side">term</span><span class="face term">${c.t}</span>`;
+}
+function flipCard(){fc.flipped=!fc.flipped;paintCard()}
 function mark(known){const c=fc.deck[fc.i];if(known)S.cardsKnown[c.k]=true;else delete S.cardsKnown[c.k];save();fc.i++;fc.flipped=false;drawCard()}
-document.addEventListener("keydown",e=>{if(S.tab!=="cards"||!fc.deck[fc.i]||e.target.closest&&e.target.closest("select,input"))return;
-  if(e.key===" "){e.preventDefault();fc.flipped=!fc.flipped;$("#fcCard")&&$("#fcCard").classList.toggle("flipped",fc.flipped)}
+document.addEventListener("keyup",e=>{if(e.key===" "&&S.tab==="cards"&&e.target.closest&&e.target.closest("#fcArea")){e.preventDefault()}});
+document.addEventListener("keydown",e=>{if(S.tab!=="cards"||!fc.deck[fc.i]||e.target.closest&&e.target.closest("select,input")||!$("#lb").hidden)return;
+  if(e.key===" "){e.preventDefault();if(!e.repeat)flipCard()}
   if(e.key==="ArrowRight")mark(true); if(e.key==="ArrowLeft")mark(false)});
 $("#fcUnit").addEventListener("change",e=>{fc.unit=e.target.value;fc.reset=true;renderCards()});
-$("#fcShuffle").addEventListener("click",()=>{fc.deck=shuffle(fc.deck.slice(fc.i)).concat();fc.i=0;fc.flipped=false;drawCard()});
+$("#fcShuffle").addEventListener("click",()=>{fc.deck=shuffle(fc.deck.slice(fc.i));fc.i=0;fc.flipped=false;drawCard()});
 $("#fcRestart").addEventListener("click",()=>{fc.reset=true;renderCards()});
 
 // ---------- notecard ----------
