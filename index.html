@@ -249,6 +249,94 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 .lb .x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));background:#fff;color:#111;border:0;border-radius:99px;padding:6px 14px;font-weight:700;cursor:pointer}
 .section-head{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between}
 .empty{padding:28px;text-align:center;color:var(--muted)}
+/* practice exam + notecard inputs/outputs */
+:root{--px-ember:#b0461a;--px-ember-soft:#f6e4da;--px-leaf:#2d6a4b;--px-leaf-soft:#e0eee5;
+  --px-mem:#4b5a52;--px-ims:#f2e2d2;--px-matrix:#e8c9a9;--px-stroma:#d9ebdd;--px-thy:#7fbf6a;--px-thy-edge:#3f8a3a;--px-tub-a:#5e6b65;--px-tub-b:#aeb8b2;--px-leaflet:#c8372d}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--px-ember:#f0915f;--px-ember-soft:#3a2418;--px-leaf:#7cc79c;--px-leaf-soft:#1c3227;
+  --px-mem:#b7c4bd;--px-ims:#3a2e24;--px-matrix:#5c4330;--px-stroma:#1f3a2a;--px-thy:#5fae55;--px-thy-edge:#9ad88d;--px-tub-a:#c2cec8;--px-tub-b:#5f6c66;--px-leaflet:#f47a6e}}
+:root[data-theme="dark"]{--px-ember:#f0915f;--px-ember-soft:#3a2418;--px-leaf:#7cc79c;--px-leaf-soft:#1c3227;
+  --px-mem:#b7c4bd;--px-ims:#3a2e24;--px-matrix:#5c4330;--px-stroma:#1f3a2a;--px-thy:#5fae55;--px-thy-edge:#9ad88d;--px-tub-a:#c2cec8;--px-tub-b:#5f6c66;--px-leaflet:#f47a6e}
+.px-break{display:flex;flex-wrap:wrap;gap:6px 14px;font:500 .8rem var(--f-mono);color:var(--muted)}
+.px-break a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line)}
+.px-sec{display:grid;gap:4px;scroll-margin-top:70px}
+.px-sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:6px}
+.px-pts{font:500 .76rem var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.px-intro{color:var(--muted);margin-top:.5rem}
+.px-group{margin-top:18px}
+.px-group h3{margin-bottom:8px}
+.px-bank{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px;padding:0;list-style:none}
+.px-bank li{font-size:.82rem;background:var(--surface-2);border-radius:999px;padding:3px 10px}
+.px-fig{margin:6px 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;overflow-x:auto;max-width:640px}
+.px-fig svg{display:block;width:100%;height:auto;min-width:300px}
+.px-items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;counter-reset:pxq}
+.px-item{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;counter-increment:pxq}
+.px-item.sel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,260px);gap:8px 14px;align-items:center}
+.px-q{margin:0;font-weight:700}
+.px-q::before{content:counter(pxq) ". ";font:600 .85rem var(--f-mono);color:var(--muted)}
+.px-item.lbl .px-q::before{content:none}
+.px-lnum{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--bg);font:600 .8rem var(--f-mono)}
+#v-exam select,#v-exam textarea{font:inherit;font-size:.95rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;max-width:100%}
+#v-exam textarea{margin-top:8px;resize:vertical;min-height:70px}
+.px-opts{display:flex;flex-direction:column;gap:2px;margin-top:8px}
+.px-opt{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:8px;cursor:pointer}
+.px-opt:hover{background:var(--surface-2)}
+.px-opt input{margin-top:5px;accent-color:var(--accent)}
+.px-item.tf .px-opts{flex-direction:row;gap:8px}
+.px-tag{font:500 .72rem var(--f-mono);color:var(--muted);background:var(--surface-2);border-radius:6px;padding:1px 6px;margin-left:6px;white-space:nowrap}
+.px-hint{font-size:.8rem;color:var(--muted);font-weight:400}
+.px-why{grid-column:1/-1;font-size:.92rem;border-radius:8px;padding:8px 10px;margin-top:8px}
+.px-item.sel .px-why{margin-top:0}
+.px-item.right{border-color:var(--good)} .px-item.right .px-why{background:var(--good-soft)} .px-item.right .px-why b{color:var(--good)}
+.px-item.wrong{border-color:var(--bad)} .px-item.wrong .px-why{background:var(--bad-soft)} .px-item.wrong .px-why b{color:var(--bad)}
+.px-item.sa .px-why{background:var(--surface-2)}
+.px-self{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px;font-size:.85rem;color:var(--muted)}
+.px-self button{font:600 .85rem var(--f-mono);min-width:36px;padding:5px 9px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.px-self button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.px-score{margin-top:10px;font:600 .9rem var(--f-mono)}
+.px-bar{position:sticky;bottom:0;z-index:5;background:var(--bg);border-top:1px solid var(--line);padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.px-bar .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.px-total{margin-left:auto;font:600 1rem var(--f-mono)}
+.px-summary{scroll-margin-top:70px}
+.px-sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:10px}
+.px-sumgrid div{font:500 .82rem var(--f-mono);color:var(--muted)}
+.px-sumgrid b{display:block;font-size:1.05rem;color:var(--ink)}
+@media (max-width:600px){.px-item.sel{grid-template-columns:1fr}.px-total{margin-left:0;width:100%}}
+/* inputs/outputs reference */
+.io-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.io-col{min-width:0}
+.io-col h3{padding-bottom:4px;margin-bottom:8px;border-bottom:3px solid}
+.io-col.resp h3{border-color:var(--px-ember);color:var(--px-ember)} .io-col.photo h3{border-color:var(--px-leaf);color:var(--px-leaf)}
+.io-stage{margin-bottom:12px}
+.io-stage h4{margin:0;font-size:1rem;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.io-stage h4 span{font:500 .7rem var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding-top:3px;font-weight:400}
+.io{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;margin:4px 0 0;font-size:.95rem}
+.io dt{font:600 .7rem var(--f-mono);text-transform:uppercase;letter-spacing:.06em;padding-top:4px}
+.resp .io dt{color:var(--px-ember)} .photo .io dt{color:var(--px-leaf)}
+.io dd{margin:0}
+.io-note{font-size:.86rem;color:var(--muted);margin-top:.2rem}
+@media (max-width:640px){.io-cols{grid-template-columns:1fr}}
+/* svg parts */
+.s-cyto{fill:var(--surface-2);stroke:var(--line);stroke-width:2}
+.s-ims{fill:var(--px-ims);stroke:var(--px-mem);stroke-width:4}
+.s-matrix{fill:var(--px-matrix);stroke:var(--px-mem);stroke-width:4}
+.cr-o{stroke:var(--px-mem);stroke-width:15;stroke-linecap:round}
+.cr-i{stroke:var(--px-ims);stroke-width:7;stroke-linecap:round}
+.s-chl{fill:var(--px-ims);stroke:var(--px-mem);stroke-width:3}
+.s-stroma{fill:var(--px-stroma);stroke:var(--px-mem);stroke-width:3}
+.s-thy{fill:var(--px-thy);stroke:var(--px-thy-edge);stroke-width:2}
+.lam{stroke:var(--px-thy-edge);stroke-width:4;fill:none;stroke-linecap:round}
+.leader{stroke:var(--ink);stroke-width:1.6;fill:none}
+.lab-c{fill:var(--ink)} .lab-t{fill:var(--bg);font:600 13px var(--f-mono);text-anchor:middle;dominant-baseline:central}
+.tub-a{fill:var(--px-tub-a)} .tub-b{fill:var(--px-tub-b)}
+.if{stroke:var(--px-tub-a);stroke-width:5;fill:none;stroke-linecap:round} .if2{stroke:var(--px-tub-b);stroke-width:5;fill:none;stroke-linecap:round}
+.ax{stroke:var(--muted);stroke-width:1.5;fill:none} .ax-t{fill:var(--muted);font:500 11px var(--f-mono)}
+.pnl{fill:none;stroke:var(--line);stroke-width:1.5} .pnl-t{fill:var(--ink);font:700 14px var(--f-body)}
+.e-path{stroke:#3b82c4;stroke-width:2.2;fill:none;stroke-dasharray:5 3}
+.lightup{fill:var(--px-ember);opacity:.85}
+.car1{fill:#e39b3c} .car2{fill:#9c7bd3} .car3{fill:#6cc3c9} .box1{fill:#2f9e5a} .box2{fill:#8fc7e8} .pump{fill:#e5b820}
+.ves-o{fill:var(--surface);stroke:var(--ink);stroke-width:2.5} .ves-i{fill:var(--surface-2);stroke:var(--px-leaflet);stroke-width:2.5}
+.prot{fill:var(--px-tub-b);stroke:var(--ink);stroke-width:1.5} .tail{stroke:var(--ink);stroke-width:2;fill:none} .cargo{fill:#3b82c4}
+.svg-t{fill:var(--ink);font:500 12px var(--f-body)} .svg-tm{fill:var(--muted);font:500 11px var(--f-body)}
 </style>
 </head>
 <body>
@@ -271,6 +359,7 @@ tr:last-child td,tr:last-child th{border-bottom:0}
     <button role="tab" data-tab="units">Topics</button>
     <button role="tab" data-tab="guide">Study guide</button>
     <button role="tab" data-tab="quiz">Practice quiz</button>
+    <button role="tab" data-tab="exam">Practice exam</button>
     <button role="tab" data-tab="cards">Flashcards</button>
     <button role="tab" data-tab="notecard">Notecard</button>
     <button role="tab" data-tab="resources">Videos &amp; reading</button>
@@ -328,6 +417,19 @@ tr:last-child td,tr:last-child th{border-bottom:0}
     <div id="quizArea"></div>
   </section>
 
+  <!-- PRACTICE EXAM -->
+  <section class="view" id="v-exam" hidden>
+    <div class="card" style="display:grid;gap:10px">
+      <span class="eyebrow">Same format as the real exam · from the review session</span>
+      <h2>Practice exam</h2>
+      <p class="muted">Matching, labeling, short answer, multiple choice and true/false, written like the review slides. Answer everything, then check. Wrong answers show the right one and why.</p>
+      <nav class="px-break" aria-label="Exam sections"><a href="#px-sec-match">Matching · 33 pts</a><a href="#px-sec-label">Labeling · 6 pts</a><a href="#px-sec-sa">Short answer · 11 pts</a><a href="#px-sec-mc">Multiple choice · 10 pts</a><a href="#px-sec-tf">True/false · 7 pts</a></nav>
+    </div>
+    <div class="card px-summary" id="pxSummary" hidden></div>
+    <div id="pxExam" class="view"></div>
+    <div class="px-bar"><button class="btn primary" id="pxCheck" type="button">Check answers</button><button class="btn" id="pxReset" type="button">Start over</button><span class="px-total" id="pxTotal"></span></div>
+  </section>
+
   <!-- FLASHCARDS -->
   <section class="view" id="v-cards" hidden>
     <div class="card row" style="justify-content:space-between">
@@ -343,6 +445,21 @@ tr:last-child td,tr:last-child th{border-bottom:0}
       <span class="eyebrow">Allowed: one handwritten 3″ × 5″ card (Lecture 17)</span>
       <h2>Plan your notecard</h2>
       <p class="muted">Pick what you'd lose points blanking on. Writing it by hand is studying too, so do it the night before. The preview is drawn at the card's real 5:3 shape.</p>
+    </div>
+    <div class="card" style="display:grid;gap:14px">
+      <div style="display:grid;gap:6px"><span class="eyebrow">Put this on your card · straight from the review slide</span><h2>Inputs &amp; outputs</h2><p class="muted">Per glucose for respiration.</p></div>
+      <div class="io-cols">
+        <div class="io-col resp"><h3>Cellular respiration</h3>
+          <div class="io-stage"><h4>Glycolysis <span>cytosol</span></h4><dl class="io"><dt>In</dt><dd>glucose + 2 ATP</dd><dt>Make</dt><dd>2 pyruvate, 2 ATP (net), 2 NADH</dd></dl></div>
+          <div class="io-stage"><h4>Pre-Krebs <span>matrix</span></h4><dl class="io"><dt>In</dt><dd>2 pyruvate (converted to acetyl CoA)</dd><dt>Make</dt><dd>2 NADH</dd></dl></div>
+          <div class="io-stage"><h4>Krebs cycle <span>matrix</span></h4><dl class="io"><dt>In</dt><dd>acetyl CoA, H₂O</dd><dt>Make</dt><dd>6 NADH, 2 FADH₂, 2 GTP, CO₂</dd></dl></div>
+          <div class="io-stage"><h4>Oxidative phosphorylation (ETC) <span>inner membrane</span></h4><dl class="io"><dt>In</dt><dd>NADH, FADH₂, O₂</dd><dt>Make</dt><dd>ATP + H₂O</dd></dl></div>
+        </div>
+        <div class="io-col photo"><h3>Photosynthesis</h3>
+          <div class="io-stage"><h4>Light reactions (ETC) <span>thylakoid membrane</span></h4><dl class="io"><dt>In</dt><dd>light energy, water</dd><dt>Make</dt><dd>ATP, NADPH, O₂</dd></dl></div>
+          <div class="io-stage"><h4>Calvin cycle <span>stroma</span></h4><dl class="io"><dt>In</dt><dd>CO₂, ATP, NADPH</dd><dt>Make</dt><dd>sugars, AAs, fatty acids</dd></dl><p class="io-note">Made from glyceraldehyde 3-phosphate (G3P) getting kicked out of the Calvin cycle.</p></div>
+        </div>
+      </div>
     </div>
     <div class="drill" style="align-items:start">
       <div class="nc-list" id="ncList"></div>
@@ -1143,7 +1260,8 @@ const RESOURCES = {
 };
 
 const NOTECARD = [
- ["Respiration numbers","Glycolysis: net 2 ATP, 2 NADH (cytosol). Pre-Krebs: 2 NADH, 2 CO₂ (matrix). Krebs: 6 NADH, 2 FADH₂, 2 GTP, 4 CO₂. ETC: ~30 ATP total."],
+ ["Respiration in → out","Glycolysis: glucose + 2 ATP → 2 pyruvate, 2 ATP (net), 2 NADH. Pre-Krebs: 2 pyruvate → acetyl CoA, 2 NADH. Krebs: acetyl CoA + H₂O → 6 NADH, 2 FADH₂, 2 GTP, CO₂. Ox phos (ETC): NADH, FADH₂, O₂ → ATP + H₂O."],
+ ["Photosynthesis in → out","Light rxns (ETC): light + water → ATP, NADPH, O₂. Calvin: CO₂, ATP, NADPH → sugars, AAs, fatty acids (from G3P kicked out of the cycle)."],
  ["ETC order","NADH → NADH dehydrogenase → Q → cyt c reductase → cyt c → cyt c oxidase → O₂."],
  ["H⁺ & ATP synthase","Mito: H⁺ in IMS, ATP made in matrix. Chloro: H⁺ in thylakoid space, ATP made in stroma."],
  ["Photosynthesis chain","H₂O → PSII → PQ → b₆-f (H⁺) → PC → PSI → Fd → FNR → NADPH. Calvin: 3 CO₂ + 9 ATP + 6 NADPH → 1 G3P."],
@@ -1182,13 +1300,16 @@ const defaults={
 let S;
 try{S=Object.assign({},defaults,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){S=Object.assign({},defaults)}
 if(parse(S.start)<todayD && parse(S.start)<parse(S.exam)) S.start=iso(todayD);
+if(!Array.isArray(S.nc))S.nc=NOTECARD.map(()=>true);
+if(S.nc.length===NOTECARD.length-1)S.nc.splice(1,0,true);
+while(S.nc.length<NOTECARD.length)S.nc.push(true);
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 
 function unitStat(id){const s=S.stats[id];return s?{c:s.c,n:s.n,p:pct(s.c,s.n)}:{c:0,n:0,p:null}}
 function isWeak(id){const s=unitStat(id);return (s.n>=4&&s.p<70)||S.conf[id]==1}
 
 // ---------- tabs ----------
-const TABS=["plan","units","guide","quiz","cards","notecard","resources"];
+const TABS=["plan","units","guide","quiz","exam","cards","notecard","resources"];
 function show(tab,push){
   if(!TABS.includes(tab))tab="plan";
   S.tab=tab;save();
@@ -1569,6 +1690,248 @@ function renderResources(){
 initPlanControls();renderCountdown();
 const h=(location.hash||"").slice(1);
 if(UMAP[h]){S.unit=h;show("units",false)}else if(TABS.includes(h))show(h,false);else show(S.tab||"plan",false);
+})();
+</script>
+<script>
+// Practice exam, written from the Exam 2 review session slides.
+(function(){
+const STAGES=["Glycolysis","Pre-Krebs","Krebs cycle","Oxidative phosphorylation (ETC)","Light reactions","Calvin cycle"];
+const LOCS=["Cytosol","Mitochondrial matrix","Inner mitochondrial membrane","Intermembrane space","Stroma","Thylakoid membrane","Thylakoid lumen"];
+const CELL=["Actin filaments","Microtubules","Intermediate filaments","Kinesin","Dynein","Myosin","Rough ER","Golgi apparatus","Lysosome"];
+const ENDO=["Pinocytosis","Receptor-mediated endocytosis","Constitutive exocytosis","Phagocytosis","Regulated exocytosis"];
+
+function lab(n,x,y){return `<circle class="lab-c" cx="${x}" cy="${y}" r="12"/><text class="lab-t" x="${x}" y="${y}">${n}</text>`}
+function ln(x1,y1,x2,y2){return `<line class="leader" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`}
+
+const MITO=(()=>{let s=`<svg viewBox="0 0 520 300" role="img" aria-label="Mitochondrion inside a cell with five numbered parts"><rect class="s-cyto" x="8" y="8" width="504" height="284" rx="26"/><rect class="s-ims" x="110" y="95" width="320" height="170" rx="85"/><rect class="s-matrix" x="135" y="117" width="270" height="126" rx="58"/>`;
+  [185,245,305,365].forEach(x=>{s+=`<line class="cr-o" x1="${x}" y1="117" x2="${x}" y2="172"/><line class="cr-i" x1="${x}" y1="110" x2="${x}" y2="172"/>`});
+  [215,275,335].forEach(x=>{s+=`<line class="cr-o" x1="${x}" y1="243" x2="${x}" y2="188"/><line class="cr-i" x1="${x}" y1="250" x2="${x}" y2="188"/>`});
+  s+=lab(1,44,44)+ln(270,95,270,58)+lab(2,270,46)+ln(122,180,70,180)+lab(3,56,180)+ln(405,180,462,180)+lab(4,476,180)+lab(5,305,212)+`</svg>`;return s})();
+
+const CHLORO=(()=>{let s=`<svg viewBox="0 0 560 300" role="img" aria-label="Chloroplast with five numbered parts"><ellipse class="s-chl" cx="280" cy="150" rx="205" ry="100"/><ellipse class="s-stroma" cx="280" cy="150" rx="192" ry="87"/>`;
+  s+=`<path class="lam" d="M207 124 L233 150 M207 163 L233 137 M297 130 L323 156 M297 156 L323 130 M143 136 L108 150 M387 150 L432 140"/>`;
+  [175,265,355].forEach(c=>{for(let i=0;i<5;i++)s+=`<rect class="s-thy" x="${c-32}" y="${118+i*13}" width="64" height="10" rx="5"/>`});
+  s+=ln(280,50,280,28)+lab(1,280,16)+ln(472,150,520,150)+lab(2,534,150)+ln(240,214,240,272)+lab(3,240,284)+`<path class="leader" d="M140 118 H133 V180 H140 M133 149 H66"/>`+lab(4,52,149)+ln(387,123,442,80)+lab(5,452,70)+`</svg>`;return s})();
+
+const CYTO=(()=>{let s=`<svg viewBox="0 0 560 330" role="img" aria-label="Three cytoskeleton filaments labeled A, B and C">`;
+  for(let r=0;r<5;r++)for(let i=0,x=70;x<=330;x+=13,i++)s+=`<circle class="${(i+r)%2?'tub-b':'tub-a'}" cx="${x+(r%2)*6}" cy="${30+r*14}" r="6"/>`;
+  for(let k=0;k<13;k++){const a=k/13*Math.PI*2;s+=`<circle class="${k%2?'tub-b':'tub-a'}" cx="${(440+30*Math.cos(a)).toFixed(1)}" cy="${(58+30*Math.sin(a)).toFixed(1)}" r="7"/>`}
+  for(let k=0;k<4;k++){let p=[];for(let x=70;x<=410;x+=5)p.push(`${x},${(165+14*Math.sin(x/22+k*Math.PI/2)).toFixed(1)}`);s+=`<polyline class="${k%2?'if2':'if'}" points="${p.join(' ')}"/>`}
+  for(let x=70;x<=410;x+=12){s+=`<circle class="tub-a" cx="${x}" cy="${(275+7*Math.sin(x/18)).toFixed(1)}" r="7"/><circle class="tub-b" cx="${x+6}" cy="${(275-7*Math.sin((x+6)/18)).toFixed(1)}" r="7"/>`}
+  s+=lab('A',28,58)+lab('B',28,165)+lab('C',28,275)+`</svg>`;return s})();
+
+const ETC=`<svg viewBox="0 0 600 300" role="img" aria-label="Two unlabeled electron transport chain energy diagrams, X and Y">
+<rect class="pnl" x="8" y="8" width="284" height="284" rx="10"/><rect class="pnl" x="308" y="8" width="284" height="284" rx="10"/>
+<text class="pnl-t" x="150" y="30" text-anchor="middle">Diagram X</text><text class="pnl-t" x="450" y="30" text-anchor="middle">Diagram Y</text>
+<path class="ax" d="M26 278 V48 M21 56 L26 46 L31 56"/><text class="ax-t" x="32" y="52">energy</text>
+<path class="ax" d="M326 278 V48 M321 56 L326 46 L331 56"/><text class="ax-t" x="332" y="52">energy</text>
+<rect class="box2" x="42" y="256" width="24" height="12" rx="2"/><rect class="box2" x="70" y="256" width="16" height="12" rx="2"/>
+<polygon class="lightup" points="62,248 96,248 96,140 79,114 62,140"/><polygon class="lightup" points="176,214 210,214 210,94 193,68 176,94"/>
+<path class="e-path" d="M79 248 V112 L115 150 L140 182 L172 206 M193 206 V66 L228 98 L258 124"/>
+<circle class="car1" cx="115" cy="150" r="8"/><rect class="car3" x="132" y="174" width="16" height="16" rx="5"/><circle class="car1" cx="160" cy="198" r="7"/>
+<circle class="car2" cx="228" cy="98" r="7"/><rect class="box1" x="252" y="122" width="26" height="12" rx="2"/><rect class="pump" x="128" y="150" width="10" height="10"/>
+<rect class="box1" x="334" y="56" width="26" height="12" rx="2"/>
+<path class="e-path" d="M350 70 L382 92 L420 130 L458 168 L498 206 L540 248"/>
+<rect class="car3" x="372" y="82" width="20" height="20" rx="6"/><circle class="car1" cx="420" cy="130" r="8"/><rect class="car3" x="448" y="158" width="20" height="20" rx="6"/><circle class="car2" cx="498" cy="206" r="8"/><rect class="car3" x="530" y="238" width="20" height="20" rx="6"/>
+<rect class="pump" x="390" y="70" width="10" height="10"/><rect class="pump" x="466" y="146" width="10" height="10"/><rect class="pump" x="548" y="226" width="10" height="10"/>
+<rect class="box2" x="520" y="268" width="18" height="12" rx="2"/><rect class="box2" x="542" y="268" width="30" height="12" rx="2"/>
+</svg>`;
+
+const VES=`<svg viewBox="0 0 360 330" role="img" aria-label="Secretory vesicle with a transmembrane protein, N terminus inside the lumen and C terminus outside">
+<circle class="ves-o" cx="180" cy="190" r="128"/><circle class="ves-i" cx="180" cy="190" r="115"/>
+<rect class="prot" x="172" y="52" width="16" height="36" rx="5"/>
+<path class="tail" d="M180 52 C170 44, 192 38, 180 30 C170 22, 190 16, 181 8"/><text class="svg-t" x="196" y="22">C terminus</text>
+<path class="tail" d="M180 88 C192 98, 168 106, 180 116 C192 126, 170 134, 180 144"/><text class="svg-t" x="196" y="128">N terminus</text>
+<g class="cargo"><polygon points="120,170 128,182 120,194 112,182"/><polygon points="230,180 238,192 230,204 222,192"/><polygon points="160,230 168,242 160,254 152,242"/><polygon points="210,250 218,262 210,274 202,262"/><polygon points="250,130 258,142 250,154 242,142"/></g>
+<text class="svg-tm" x="180" y="292" text-anchor="middle">Vesicle lumen</text>
+<text class="svg-tm" x="180" y="326" text-anchor="middle">Red = inner (lumen-facing) leaflet</text>
+</svg>`;
+
+const SECTIONS=[
+ {id:'match',title:'Matching',real:'33 pts',intro:'Pick the best match. Choices can be used more than once.',groups:[
+  {heading:'Which stage does this?',kind:'select',options:STAGES,items:[
+   {q:'Splits glucose into 2 pyruvate',ans:'Glycolysis',why:'Happens in the cytosol, no O₂ needed.'},
+   {q:'Converts pyruvate to acetyl CoA',ans:'Pre-Krebs',why:'Makes 2 NADH per glucose (and releases CO₂).'},
+   {q:'Makes 2 GTP and 2 FADH₂ per glucose',ans:'Krebs cycle'},
+   {q:'Uses O₂ as the final electron acceptor',ans:'Oxidative phosphorylation (ETC)',why:'O₂ picks up electrons + H⁺ and becomes H₂O.'},
+   {q:'Splits water and releases O₂',ans:'Light reactions'},
+   {q:'Fixes CO₂ into sugar',ans:'Calvin cycle'},
+   {q:'Glyceraldehyde 3-phosphate (G3P) gets kicked out to build sugars, AAs and fatty acids',ans:'Calvin cycle'},
+   {q:'Makes NADPH',ans:'Light reactions',why:'NADP⁺ is the final electron acceptor of the photosynthesis ETC.'},
+   {q:'Makes most of the cell\'s ATP using ATP synthase and an H⁺ gradient',ans:'Oxidative phosphorylation (ETC)'},
+   {q:'Needs 2 ATP invested to get started',ans:'Glycolysis'},
+   {q:'Releases most of the CO₂ from the carbons of acetyl CoA',ans:'Krebs cycle'}]},
+  {heading:'Where does it happen?',kind:'select',options:LOCS,items:[
+   {q:'Glycolysis',ans:'Cytosol'},
+   {q:'Pre-Krebs (pyruvate → acetyl CoA)',ans:'Mitochondrial matrix'},
+   {q:'Krebs cycle',ans:'Mitochondrial matrix'},
+   {q:'Respiratory ETC proteins are embedded here',ans:'Inner mitochondrial membrane'},
+   {q:'H⁺ is pumped into here during cellular respiration',ans:'Intermembrane space'},
+   {q:'Mitochondrial ATP synthase is found here',ans:'Inner mitochondrial membrane'},
+   {q:'Mitochondrial DNA and ribosomes',ans:'Mitochondrial matrix'},
+   {q:'Calvin cycle',ans:'Stroma'},
+   {q:'Photosystems I and II',ans:'Thylakoid membrane'},
+   {q:'H⁺ builds up here during the light reactions',ans:'Thylakoid lumen'},
+   {q:'Chloroplast ATP synthase releases ATP into here',ans:'Stroma',why:'ATP is made where the Calvin cycle can use it.'}]},
+  {heading:'Cytoskeleton and protein traffic',kind:'select',options:CELL,items:[
+   {q:'Hollow tubes of α/β-tubulin dimers',ans:'Microtubules'},
+   {q:'Rope-like, strongest filaments (keratin, lamins); give mechanical strength',ans:'Intermediate filaments'},
+   {q:'Thinnest filament; drives cell crawling and cytokinesis',ans:'Actin filaments'},
+   {q:'Motor that walks toward the + end of microtubules (out toward the cell edge)',ans:'Kinesin'},
+   {q:'Motor that walks toward the − end of microtubules (in toward the center)',ans:'Dynein'},
+   {q:'Motor protein that moves along actin',ans:'Myosin'},
+   {q:'Form the mitotic spindle',ans:'Microtubules'},
+   {q:'Make up the nuclear lamina',ans:'Intermediate filaments'},
+   {q:'Where transmembrane and secreted proteins are made',ans:'Rough ER'},
+   {q:'Modifies, sorts and ships proteins to their final destination',ans:'Golgi apparatus'},
+   {q:'Fuses with a phagosome to digest what was engulfed',ans:'Lysosome'}]}
+ ]},
+ {id:'label',title:'Labeling',real:'6 pts',intro:'Same style as the review slides. The real exam has fewer blanks; these give extra reps.',groups:[
+  {heading:'Label: mitochondria structure',figure:MITO,kind:'select',lbl:true,options:["Cytosol","Outer membrane","Intermembrane space","Inner membrane (folds = cristae)","Matrix","Stroma"],items:[
+   {q:'1',ans:'Cytosol'},{q:'2',ans:'Outer membrane'},{q:'3',ans:'Intermembrane space',why:'Where H⁺ gets pumped during respiration.'},{q:'4',ans:'Inner membrane (folds = cristae)',why:'Holds the ETC and ATP synthase.'},{q:'5',ans:'Matrix',why:'Pre-Krebs and Krebs happen here.'}]},
+  {heading:'Label: chloroplast structure',figure:CHLORO,kind:'select',lbl:true,options:["Outer membrane","Inner membrane","Stroma","Granum (stack)","Thylakoid","Matrix"],items:[
+   {q:'1',ans:'Outer membrane'},{q:'2',ans:'Inner membrane'},{q:'3',ans:'Stroma',why:'Calvin cycle happens here.'},{q:'4',ans:'Granum (stack)',why:'A stack of thylakoids.'},{q:'5',ans:'Thylakoid',why:'One disc. Its membrane holds the photosystems; the inside is the lumen.'}]},
+  {heading:'Label: cytoskeleton proteins',figure:CYTO,kind:'select',lbl:true,options:["Microtubule","Actin filament (microfilament)","Intermediate filament"],items:[
+   {q:'A',ans:'Microtubule',why:'Hollow tube; cross-section shows a ring of 13 protofilaments of tubulin.'},
+   {q:'B',ans:'Intermediate filament',why:'Twisted, rope-like strands.'},
+   {q:'C',ans:'Actin filament (microfilament)',why:'Two twisted strands of bead-like actin monomers.'}]},
+  {heading:'Which one is the cellular respiration ETC vs the photosynthesis ETC?',figure:ETC,kind:'select',lbl:true,options:["Cellular respiration ETC","Photosynthesis ETC"],items:[
+   {q:'X',ans:'Photosynthesis ETC',why:'Two big uphill jumps (orange) = light energy boosting electrons at PSII and PSI. Starts low at water, ends at NADPH. This is the Z-scheme.'},
+   {q:'Y',ans:'Cellular respiration ETC',why:'Electrons only go downhill, from NADH at the top to O₂ → H₂O at the bottom, pumping H⁺ along the way.'}]}
+ ]},
+ {id:'sa',title:'Short answer',real:'11 pts',intro:'Write your answer, then check and grade yourself against the key.',groups:[
+  {heading:'This vesicle is on its way to fuse with the plasma membrane',figure:VES,kind:'sa',items:[
+   {q:'Where was the transmembrane protein made? The cargo?',pts:1,model:'Both on ribosomes on the rough ER (co-translational entry into the ER), then through the Golgi to this vesicle.'},
+   {q:'Where will the C and N termini end up when it fuses?',pts:1,model:'N terminus (inside the lumen) ends up outside the cell, in the extracellular space. C terminus (facing the cytosol) stays in the cytosol.'},
+   {q:'Where will the red side of the vesicle membrane end up?',pts:1,model:'The lumen-facing (red) leaflet becomes the outer leaflet of the plasma membrane, facing outside the cell.'},
+   {q:'Where will the cargo go?',pts:1,model:'Released outside the cell (secreted) when the vesicle fuses.'}]},
+  {kind:'sa',items:[
+   {q:'Why does the Krebs cycle stop if there is no O₂, even though Krebs doesn\'t use O₂ directly?',pts:2,model:'Without O₂ the ETC backs up, so NADH and FADH₂ can\'t drop off electrons. NAD⁺ and FAD aren\'t regenerated, and Krebs runs out of the electron carriers it needs. (1 pt ETC backs up, 1 pt no NAD⁺/FAD.)'},
+   {q:'Give one similarity and one difference between the cellular respiration ETC and the photosynthesis ETC.',pts:2,model:'Similar: both pump H⁺ to make a gradient that drives ATP synthase. Different: respiration gets electrons from NADH/FADH₂ and ends at O₂ → H₂O; photosynthesis gets electrons from water using light and ends at NADP⁺ → NADPH.'},
+   {q:'A drug blocks the Calvin cycle. What happens to (a) ATP and NADPH, (b) O₂ production, (c) sugar production?',pts:3,model:'(a) ATP and NADPH build up because nothing uses them, so ADP and NADP⁺ run low. (b) The light reactions slow down with nowhere to send electrons, so O₂ production drops. (c) No G3P leaves the cycle, so sugar production stops.'}]}
+ ]},
+ {id:'mc',title:'Multiple choice',real:'10 pts',groups:[
+  {kind:'multi',items:[
+   {q:'Which require a specialized cell type?',options:ENDO,ans:[3,4],why:'Phagocytosis needs cells like macrophages and neutrophils. Regulated exocytosis needs secretory cells (neurons, endocrine cells).'},
+   {q:'Which occur constantly as part of regular homeostasis?',options:ENDO,ans:[0,1,2],why:'Phagocytosis is triggered by a particle, and regulated exocytosis waits for a signal.'},
+   {q:'Which move macromolecules into the cell against their concentration gradient?',options:ENDO,ans:[1],why:'Receptors grab and concentrate specific ligands, so the cell takes in far more than the outside concentration would give.'},
+   {q:'Which use clathrin coating?',options:ENDO,ans:[1],why:'Clathrin-coated pits are the signature of receptor-mediated endocytosis.'}]},
+  {kind:'mc',items:[
+   {q:'A pancreatic β-cell releases stored insulin only when blood sugar rises. This is:',options:ENDO,ans:4},
+   {q:'What is the final electron acceptor of the cellular respiration ETC?',options:['NAD⁺','O₂','CO₂','NADP⁺'],ans:1},
+   {q:'Where do the electrons for the photosynthesis ETC come from?',options:['Glucose','CO₂','Water','NADPH'],ans:2},
+   {q:'What is the net ATP from glycolysis per glucose?',options:['0','2','4','36'],ans:1,why:'Makes 4, invests 2.'},
+   {q:'Which carriers bring electrons from the Krebs cycle to the ETC?',options:['ATP and GTP','NADH and FADH₂','NADPH and ATP','Acetyl CoA and CO₂'],ans:1},
+   {q:'A transmembrane protein\'s N terminus faces the ER lumen. After it reaches the plasma membrane, the N terminus faces:',options:['The cytosol','The extracellular space','The nucleus','The Golgi lumen'],ans:1,why:'Lumen side = outside of the cell.'}]}
+ ]},
+ {id:'tf',title:'True/false',real:'7 pts',groups:[
+  {kind:'tf',items:[
+   {q:'The Calvin cycle directly requires light.',ans:false,why:'It needs ATP and NADPH from the light reactions, not light itself.'},
+   {q:'Glycolysis requires oxygen.',ans:false},
+   {q:'The Krebs cycle releases CO₂.',ans:true},
+   {q:'Microtubules are made of actin.',ans:false,why:'Tubulin.'},
+   {q:'After a vesicle fuses, the side of its membrane that faced the lumen ends up facing outside the cell.',ans:true},
+   {q:'During the light reactions, H⁺ builds up in the stroma.',ans:false,why:'It builds up in the thylakoid lumen.'},
+   {q:'Motor proteins carry cargo along intermediate filaments.',ans:false,why:'Motors use microtubules (kinesin, dynein) and actin (myosin).'}]}
+ ]}
+];
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const items=[];let n=0,checked=false;
+const $id=id=>document.getElementById(id);
+function renderItem(it){
+ const id=it.id;
+ if(it.kind==='select'){
+  const qh=it.lbl?`<span class="px-lnum">${it.q}</span>`:esc(it.q);
+  return `<li class="px-item sel${it.lbl?' lbl':''}" id="${id}"><label class="px-q" for="${id}-in">${qh}</label><select id="${id}-in"><option value="">Choose…</option>${it.options.map(o=>`<option>${esc(o)}</option>`).join('')}</select><div class="px-why" hidden></div></li>`;
+ }
+ if(it.kind==='mc'||it.kind==='multi'){
+  const t=it.kind==='mc'?'radio':'checkbox';
+  return `<li class="px-item" id="${id}"><p class="px-q">${esc(it.q)}${it.kind==='multi'?' <span class="px-hint">(select all that apply)</span>':''}</p><div class="px-opts">${it.options.map((o,i)=>`<label class="px-opt" for="${id}-${i}"><input type="${t}" name="${id}" id="${id}-${i}" value="${i}"><span>${esc(o)}</span></label>`).join('')}</div><div class="px-why" hidden></div></li>`;
+ }
+ if(it.kind==='tf'){
+  return `<li class="px-item tf" id="${id}"><p class="px-q">${esc(it.q)}</p><div class="px-opts"><label class="px-opt" for="${id}-t"><input type="radio" name="${id}" id="${id}-t" value="true"><span>True</span></label><label class="px-opt" for="${id}-f"><input type="radio" name="${id}" id="${id}-f" value="false"><span>False</span></label></div><div class="px-why" hidden></div></li>`;
+ }
+ return `<li class="px-item sa" id="${id}"><label class="px-q" for="${id}-in">${esc(it.q)}<span class="px-tag">${it.pts} pt${it.pts>1?'s':''}</span></label><textarea id="${id}-in" rows="3" placeholder="Your answer"></textarea><div class="px-why" hidden></div><div class="px-self" hidden></div></li>`;
+}
+function render(){
+ let h='';
+ SECTIONS.forEach(sec=>{
+  h+=`<section class="card px-sec" id="px-sec-${sec.id}"><header class="px-sec-head"><h2>${sec.title}</h2><span class="px-pts">Real exam: ${sec.real}</span></header>`;
+  if(sec.intro)h+=`<p class="px-intro">${sec.intro}</p>`;
+  sec.groups.forEach(g=>{
+   h+='<div class="px-group">';
+   if(g.heading)h+=`<h3>${esc(g.heading)}</h3>`;
+   if(g.figure)h+=`<figure class="px-fig">${g.figure}</figure>`;
+   if(g.kind==='select'&&!g.lbl)h+=`<ul class="px-bank" aria-label="Choices">${g.options.map(o=>`<li>${esc(o)}</li>`).join('')}</ul>`;
+   h+='<ol class="px-items">';
+   g.items.forEach(it=>{it.id='pxq'+(++n);it.sec=sec.id;it.kind=it.kind||g.kind;it.options=it.options||g.options;it.lbl=g.lbl;it.self=null;items.push(it);h+=renderItem(it)});
+   h+='</ol></div>';
+  });
+  h+=`<div class="px-score" id="px-score-${sec.id}" hidden></div></section>`;
+ });
+ $id('pxExam').innerHTML=h;
+}
+function ansText(it){
+ if(it.kind==='select')return it.ans;
+ if(it.kind==='mc')return it.options[it.ans];
+ if(it.kind==='multi')return it.ans.map(i=>it.options[i]).join(', ');
+ if(it.kind==='tf')return it.ans?'True':'False';
+}
+function check(){
+ checked=true;
+ items.forEach(it=>{
+  const li=$id(it.id),why=li.querySelector('.px-why');
+  if(it.kind==='sa'){
+   why.innerHTML=`<b>Key:</b> ${esc(it.model)}`;why.hidden=false;
+   const self=li.querySelector('.px-self');
+   let b='<span>Your points:</span>';for(let k=0;k<=it.pts;k++)b+=`<button type="button" data-k="${k}" aria-pressed="${it.self===k}">${k}</button>`;
+   self.innerHTML=b;self.hidden=false;
+   self.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{it.self=+btn.dataset.k;self.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===btn));totals()});
+   return;
+  }
+  let ok=false;
+  if(it.kind==='select')ok=$id(it.id+'-in').value===it.ans;
+  else if(it.kind==='mc'){const v=li.querySelector('input:checked');ok=!!v&&+v.value===it.ans}
+  else if(it.kind==='multi'){const v=[...li.querySelectorAll('input:checked')].map(x=>+x.value).sort().join();ok=v===[...it.ans].sort().join()}
+  else if(it.kind==='tf'){const v=li.querySelector('input:checked');ok=!!v&&(v.value==='true')===it.ans}
+  it.ok=ok;
+  li.classList.toggle('right',ok);li.classList.toggle('wrong',!ok);
+  why.innerHTML=(ok?'<b>Correct.</b> ':`<b>Answer: ${esc(ansText(it))}.</b> `)+(it.why?esc(it.why):'');
+  why.hidden=false;
+ });
+ totals();
+ $id('pxSummary').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+}
+function totals(){
+ if(!checked)return;
+ let got=0,max=0,pending=0,rows='';
+ SECTIONS.forEach(sec=>{
+  let g=0,m=0;
+  items.filter(i=>i.sec===sec.id).forEach(i=>{
+   if(i.kind==='sa'){m+=i.pts;if(i.self===null)pending++;else g+=i.self}else{m+=1;if(i.ok)g+=1}
+  });
+  got+=g;max+=m;
+  const el=$id('px-score-'+sec.id);el.textContent=`Section score: ${g} / ${m}`;el.hidden=false;
+  rows+=`<div>${sec.title}<b>${g} / ${m}</b></div>`;
+ });
+ const s=$id('pxSummary');
+ s.innerHTML=`<h2>Your score: ${got} / ${max} (${Math.round(got/max*100)}%)</h2><div class="px-sumgrid">${rows}</div><p class="muted" style="margin-top:.6rem;font-size:.9rem">${pending?`Grade yourself on ${pending} short answer${pending>1?'s':''} to finish the total. `:''}Wrong answers show the right one and why. Practice counts items, so totals differ from the real exam's points.</p>`;
+ s.hidden=false;
+ $id('pxTotal').textContent=`${got} / ${max}`;
+}
+function reset(){
+ checked=false;
+ document.querySelectorAll('#pxExam select,#pxExam textarea').forEach(x=>x.value='');
+ document.querySelectorAll('#pxExam input').forEach(x=>x.checked=false);
+ document.querySelectorAll('#pxExam .px-item').forEach(li=>{li.classList.remove('right','wrong');li.querySelector('.px-why').hidden=true;const s=li.querySelector('.px-self');if(s)s.hidden=true});
+ document.querySelectorAll('.px-score').forEach(x=>x.hidden=true);
+ items.forEach(i=>{i.self=null;i.ok=false});
+ $id('pxSummary').hidden=true;$id('pxTotal').textContent='';
+ window.scrollTo({top:0});
+}
+$id('pxCheck').onclick=check;
+$id('pxReset').onclick=reset;
+render();
 })();
 </script>
 
