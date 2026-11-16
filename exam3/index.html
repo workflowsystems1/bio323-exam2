@@ -346,6 +346,18 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 .lab-dot{fill:var(--ink)}
 .g-dna{fill:#9fd0f0;stroke:#3b82c4;stroke-width:1.5}.g-enh{fill:#c58fd6}.g-tata{fill:#e8742c}.g-core{fill:#f2b28a}.g-gene{fill:#6fb3e3}
 .f-par{stroke:var(--ink);stroke-width:4;fill:none;stroke-linecap:round}.f-new{stroke:var(--pink);stroke-width:5;fill:none;stroke-linecap:round;stroke-dasharray:2 7}.f-ori{fill:var(--muted)}
+
+.topright{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.who{font:inherit;font-size:.88rem;background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink);cursor:pointer}
+.who .sw{color:var(--accent);text-decoration:underline;margin-left:4px}
+.pf{position:fixed;inset:0;z-index:60;background:rgba(10,12,24,.55);display:grid;place-items:center;padding:16px}
+.pf[hidden]{display:none}
+.pf-box{background:var(--surface);color:var(--ink);border-radius:14px;max-width:460px;width:100%;padding:22px;display:grid;gap:14px;max-height:90vh;overflow:auto}
+.pf-box input,.pf-box textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--ink);flex:1;min-width:0;width:100%;box-sizing:border-box}
+.pf-box form input{width:auto}
+.pf-move{display:grid;gap:10px}.pf-move summary{cursor:pointer;font-weight:700}
+.pf-move[open]{display:grid;gap:10px}
+@media (max-width:700px){.topright{align-items:stretch}}
 </style>
 </head>
 <body>
@@ -358,7 +370,7 @@ tr:last-child td,tr:last-child th{border-bottom:0}
       <h1>Exam 3 Prep</h1>
       <p>Notes, figures and lecture questions from your slides, a study plan built around your exam date, and practice quizzes that track your weak spots.</p>
     </div>
-    <div class="countdown" id="countdown" aria-live="polite"></div>
+    <div class="topright"><div class="countdown" id="countdown" aria-live="polite"></div><button class="who" id="whoBtn" type="button"></button></div>
   </div>
 </header>
 
@@ -457,6 +469,22 @@ tr:last-child td,tr:last-child th{border-bottom:0}
     <div class="res-grid" id="resGrid"></div>
   </section>
 </main>
+
+<div class="pf" id="pf" hidden role="dialog" aria-modal="true" aria-labelledby="pfTitle">
+  <div class="pf-box">
+    <h2 id="pfTitle">Who's studying?</h2>
+    <p class="muted">Type your name to save your own progress: quiz scores, plan, checkmarks and flashcards. Each name keeps its own separate progress on this device.</p>
+    <div class="pf-list" id="pfList"></div>
+    <form id="pfForm" class="row"><input id="pfName" maxlength="30" placeholder="Your name" autocomplete="off" aria-label="Your name"><button class="btn primary" type="submit">Start studying</button></form>
+    <details class="pf-move"><summary>Move my progress to another device</summary>
+      <p class="muted">Progress saves on each device separately. To continue on your phone or another computer, copy your code here and paste it there.</p>
+      <div class="row"><button class="btn small" type="button" id="pfCopy">Copy my progress code</button><span class="mono" id="pfCopyMsg"></span></div>
+      <textarea id="pfCode" rows="3" placeholder="Paste a progress code from another device"></textarea>
+      <div class="row"><button class="btn small" type="button" id="pfLoad">Load code</button><span class="mono" id="pfLoadMsg"></span></div>
+    </details>
+    <div class="row" style="justify-content:space-between"><button class="linkbtn" type="button" id="pfClose">Close</button><button class="linkbtn" type="button" id="pfDelete" hidden>Remove current name from this device</button></div>
+  </div>
+</div>
 
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Figure">
   <button class="x" id="lbClose" type="button">Close</button>
@@ -1353,10 +1381,42 @@ const defaults={
   done:{}, guide:{}, stats:{}, cardsKnown:{},
   tab:"plan", unit:"u1"
 };
+// ---------- profiles (one saved progress per name, per device) ----------
+const PKEY=KEY+"::profiles";
+let P={names:[],current:""};
+try{P=Object.assign(P,JSON.parse(localStorage.getItem(PKEY)||"{}"))}catch(e){}
+const savePK=()=>{try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){}};
+const skey=n=>KEY+"::u::"+n.toLowerCase();
+const SK=P.current?skey(P.current):KEY;
 let S;
-try{S=Object.assign({},defaults,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){S=Object.assign({},defaults)}
+try{S=Object.assign({},defaults,JSON.parse(localStorage.getItem(SK)||"{}"))}catch(e){S=Object.assign({},defaults)}
 if(parse(S.start)<todayD && parse(S.start)<parse(S.exam)) S.start=iso(todayD);
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}};
+const esc1=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function useName(n){n=n.trim().replace(/\s+/g," ").slice(0,30);if(!n)return;
+  const ex=P.names.find(x=>x.toLowerCase()===n.toLowerCase());
+  if(!ex){P.names.push(n);
+    // first name on a device that already had unnamed progress inherits it
+    if(P.names.length===1){try{const old=localStorage.getItem(KEY);if(old&&!localStorage.getItem(skey(n)))localStorage.setItem(skey(n),old)}catch(e){}}}
+  P.current=ex||n;savePK();location.reload()}
+function openPF(first){
+  $("#pfList").innerHTML=P.names.length?`<span class="lab">Saved on this device</span><div class="row">${P.names.map(n=>`<button class="chip ${n===P.current?"on":""}" type="button" data-pn="${esc1(n)}">${esc1(n)}</button>`).join("")}</div>`:"";
+  $$("#pfList [data-pn]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.pn===P.current)closePF();else useName(b.dataset.pn)}));
+  $("#pfClose").hidden=!!first;$("#pfDelete").hidden=!P.current;$("#pfCopyMsg").textContent="";$("#pfLoadMsg").textContent="";
+  $("#pf").hidden=false;setTimeout(()=>$("#pfName").focus(),50)}
+function closePF(){$("#pf").hidden=true}
+$("#pfForm").addEventListener("submit",e=>{e.preventDefault();useName($("#pfName").value)});
+$("#pfClose").addEventListener("click",closePF);
+$("#pfDelete").addEventListener("click",()=>{if($("#pfDelete").dataset.sure!=="1"){$("#pfDelete").dataset.sure="1";$("#pfDelete").textContent="Click again to remove "+P.current+"'s progress here";return}
+  try{localStorage.removeItem(SK)}catch(e){}P.names=P.names.filter(n=>n!==P.current);P.current="";savePK();location.reload()});
+$("#pfCopy").addEventListener("click",async()=>{const code="B323E3:"+btoa(unescape(encodeURIComponent(JSON.stringify({n:P.current,s:S}))));
+  try{await navigator.clipboard.writeText(code);$("#pfCopyMsg").textContent="Copied. Paste it on your other device."}catch(e){$("#pfCode").value=code;$("#pfCode").select();$("#pfCopyMsg").textContent="Copy the code from the box below."}});
+$("#pfLoad").addEventListener("click",()=>{try{const raw=$("#pfCode").value.trim();if(!raw.startsWith("B323E3:"))throw 0;
+  const d=JSON.parse(decodeURIComponent(escape(atob(raw.slice(7)))));const n=(d.n||$("#pfName").value||"Me").trim();
+  localStorage.setItem(skey(n),JSON.stringify(d.s));if(!P.names.some(x=>x.toLowerCase()===n.toLowerCase()))P.names.push(n);P.current=P.names.find(x=>x.toLowerCase()===n.toLowerCase());savePK();location.reload()}
+  catch(e){$("#pfLoadMsg").textContent="That code didn't work. Copy it again."}});
+$("#whoBtn").innerHTML=P.current?`<span class="muted">Studying as</span> <b>${esc1(P.current)}</b> <span class="sw">Switch</span>`:`<b>Add your name</b> <span class="sw">to save progress</span>`;
+$("#whoBtn").addEventListener("click",()=>openPF(false));
 
 function unitStat(id){const s=S.stats[id];return s?{c:s.c,n:s.n,p:pct(s.c,s.n)}:{c:0,n:0,p:null}}
 function isWeak(id){const s=unitStat(id);return (s.n>=4&&s.p<70)||S.conf[id]==1}
@@ -1699,6 +1759,7 @@ function renderResources(){
 
 // ---------- boot ----------
 initPlanControls();renderCountdown();
+if(!P.current)openPF(true);
 const h=(location.hash||"").slice(1);
 if(UMAP[h]){S.unit=h;show("units",false)}else if(TABS.includes(h))show(h,false);else show(S.tab||"plan",false);
 })();
