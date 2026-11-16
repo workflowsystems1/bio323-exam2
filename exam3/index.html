@@ -358,6 +358,24 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 .pf-move{display:grid;gap:10px}.pf-move summary{cursor:pointer;font-weight:700}
 .pf-move[open]{display:grid;gap:10px}
 @media (max-width:700px){.topright{align-items:stretch}}
+
+/* guided lessons */
+.lesson{display:grid;gap:16px;border-left:5px solid var(--accent)}
+.big-idea{background:var(--accent-soft);border-radius:10px;padding:12px 14px;line-height:1.55}
+.ls-steps{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.ls-step{display:grid;gap:12px;padding-top:6px;border-top:1px solid var(--line)}
+.ls-step h4{display:flex;gap:10px;align-items:center;font-size:1.12rem;margin:8px 0 0}
+.ls-n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:.9rem}
+.ls-body{line-height:1.65;display:grid;gap:10px}.ls-body p,.ls-body ul,.ls-body ol{margin:0}.ls-body li{margin:4px 0}
+.ls-fig{border:1px solid var(--line);border-radius:10px;background:#fff;padding:6px;cursor:zoom-in;display:grid;gap:4px;max-width:560px;justify-self:start}
+.ls-fig img{width:100%;height:auto;border-radius:6px;display:block}.ls-fig span{font-size:.78rem;color:#555;text-align:left}
+.ls-check{background:var(--surface-2);border-radius:10px;padding:14px;display:grid;gap:10px}
+.ls-check p{margin:0}.ls-check .opt{font:inherit;color:var(--ink)}.ls-opts{display:grid;gap:8px}
+.ls-fb{margin:0;padding:10px 12px;border-radius:8px;line-height:1.5}.ls-fb.ok{background:rgba(46,160,90,.14)}.ls-fb.no{background:rgba(214,70,90,.14)}
+.ls-next{justify-self:start}
+.ls-end{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:14px}.ls-end h4{margin:6px 0 0}
+.ls-ta{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--ink);width:100%;box-sizing:border-box}
+.lessontable{border-collapse:collapse;width:100%;font-size:.95rem}.lessontable td,.lessontable th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 </style>
 </head>
 <body>
@@ -1227,6 +1245,427 @@ const UNITS = [
  ]
 }
 ];
+// Guided lessons: explanations that build understanding step by step, each followed by a check.
+const LESSONS = {
+u1:{
+ big:"DNA is two strands of nucleotides that run in opposite directions, held together in the middle by base pairing. Almost everything later in the course (replication, transcription, why things go 5′→3′) comes from this structure.",
+ steps:[
+  {h:"Start with one nucleotide",
+   body:`<p>Think of a nucleotide as a <b>Lego brick with three parts</b>: a <b>sugar</b> in the middle, a <b>phosphate</b> on one side, and a <b>base</b> on the other.</p>
+   <p>The sugar is a ring of 5 carbons, and biologists number them with primes: 1′, 2′, 3′, 4′, 5′. You only need to know three of them:</p>
+   <ul><li><b>1′</b>: where the base attaches.</li><li><b>3′</b>: has an –OH group sticking off it. This is the \"plug\" where the next brick connects.</li><li><b>5′</b>: sticks up off the ring and carries the phosphate.</li></ul>
+   <p>The <b>2′</b> carbon is the only difference between DNA and RNA: DNA has just an H there (<b>deoxy</b>ribose = \"missing an oxygen\"), RNA has an OH.</p>`,
+   fig:"L20_s4",
+   check:{q:"A nucleotide's phosphate group is attached to which carbon?",o:["1′","3′","5′","2′"],a:2,w:"The 5′ carbon carries the phosphate. The 3′ carbon has the –OH, and the base sits on the 1′ carbon."}},
+  {h:"Snap nucleotides into a strand",
+   body:`<p>To build a strand, the <b>phosphate of a new nucleotide bonds to the 3′ –OH of the last one</b>. That covalent link is a <b>phosphodiester bond</b>, and it repeats over and over to make the sugar-phosphate <b>backbone</b>.</p>
+   <p>Because every nucleotide snaps on the same way, the whole strand has a direction, like a train where every car faces forward:</p>
+   <ul><li>One end has a free phosphate on a 5′ carbon: the <b>5′ end</b>.</li><li>The other end has a free –OH on a 3′ carbon: the <b>3′ end</b>.</li></ul>
+   <p>New nucleotides can only be added at the <b>3′ end</b> (where the open –OH is), so strands always <b>grow 5′→3′</b>. Hold onto that: it explains leading vs lagging strands later.</p>
+   <p>Each phosphate carries a negative charge, so the backbone (and DNA overall) is <b>negative</b>. That's why positive histones grab onto it.</p>`,
+   fig:"L19_s7",
+   check:{q:"A strand reads 5′-ATG-3′. Where can the next nucleotide be added?",o:["After the G, at the 3′ end","Before the A, at the 5′ end","Either end","In the middle"],a:0,w:"New nucleotides join the free 3′ –OH, which is at the G end. That's why strands grow 5′→3′."}},
+  {h:"Pair two strands into a double helix",
+   body:`<p>Two strands line up with their bases facing each other in the middle, like the rungs of a ladder. The backbones are the ladder's sides.</p>
+   <p>The bases pair by <b>hydrogen bonds</b>: <b>A–T with 2</b> H bonds, <b>G–C with 3</b>. (Memory trick: \"<b>G</b>ood <b>C</b>ouples share <b>3</b>,\" or just picture the straight lines in A and T and the curves in G and C.)</p>
+   <p>This pairing is why <b>Chargaff's rule</b> works: every A has a T partner, so %A = %T, and %G = %C. If DNA is 30% A, it's 30% T, leaving 40% for G + C, so 20% G and 20% C.</p>
+   <p>Two kinds of bonds, two jobs: <b>covalent</b> phosphodiester bonds hold each strand together (strong), <b>H bonds</b> hold the two strands to each other (weak individually, so the strands can be unzipped for copying).</p>`,
+   fig:"L19_s10",
+   check:{q:"DNA from a bacterium is 18% G. What % is A?",o:["18%","32%","36%","64%"],a:1,w:"G = C = 18% (36% total). That leaves 64% for A + T, so A = 32%."}},
+  {h:"Why the strands run antiparallel",
+   body:`<p>The two strands point in <b>opposite directions</b>: one runs 5′→3′ top to bottom, the other 3′→5′. That's <b>antiparallel</b>.</p>
+   <p>Picture two lanes of a highway: same road, traffic going opposite ways. If you write one strand left to right as 5′→3′, its partner reads 3′→5′ in that same direction.</p>
+   <p>The helix twists to the right (clockwise), and the twist leaves two uneven grooves, the <b>major groove</b> and the <b>minor groove</b>. In the grooves the edges of the bases are exposed, so proteins like transcription factors can \"read\" the sequence without unzipping the DNA. You'll use this in Lecture 25.</p>
+   <p><b>Try it:</b> if one strand is 5′-AGGC-3′, the partner is 3′-TCCG-5′, which you'd usually rewrite 5′→3′ as 5′-GCCT-3′.</p>`,
+   fig:"L19_s9",
+   check:{q:"One strand is 5′-CATG-3′. What is the partner strand written 5′→3′?",o:["5′-GTAC-3′","5′-CATG-3′","3′-CATG-5′","5′-GUAC-3′"],a:1,w:"Pair each base: C–G, A–T, T–A, G–C gives 3′-GTAC-5′. Flip it to read 5′→3′: 5′-CATG-3′. (It happens to be palindromic!)"}}
+ ],
+ traps:[
+  "Mixing up which bond is where: H bonds are <b>between</b> the strands (base pairs); covalent phosphodiester bonds are <b>within</b> a strand (backbone).",
+  "Saying strands grow 3′→5′. New nucleotides add to the 3′ end, so growth is <b>5′→3′</b>.",
+  "Chargaff math: A = T and G = C, not A = G.",
+  "Thinking DNA is positive. The phosphates make it <b>negative</b>."
+ ],
+ teach:["Explain to a friend why DNA has a 5′ end and a 3′ end.","Each nucleotide's phosphate is on its 5′ carbon and it attaches to the 3′ –OH of the previous one. Since all nucleotides link the same way, one end of the strand is left with a free 5′ phosphate and the other with a free 3′ –OH."]
+},
+u2:{
+ big:"Your cells fit about 2 meters of DNA into a nucleus a few micrometers wide by wrapping it around histone spools and folding it. How tightly it's packed decides whether genes can be read.",
+ steps:[
+  {h:"Genes, genomes, chromosomes: the vocabulary",
+   body:`<p>Think of the genome as a <b>cookbook</b>. Each <b>gene</b> is a recipe: a stretch of DNA that encodes one functional product, a <b>protein or an RNA</b>. The <b>genome</b> is the whole cookbook, all the genetic information.</p>
+   <p>A <b>chromosome</b> is one continuous DNA molecule plus the proteins that package it, like one volume of the cookbook. Humans have 46 volumes in most cells: 23 pairs. The two copies in a pair are <b>homologous chromosomes</b> (one from each parent). Two sets = <b>diploid (2n)</b>; one set, like in sperm and eggs = <b>haploid (n)</b>.</p>
+   <p>Eukaryotic chromosomes are <b>linear</b>, with special ends called <b>telomeres</b> and a <b>centromere</b> where the spindle grabs during mitosis. Bacterial chromosomes are <b>circular</b>, so they have no ends to protect.</p>`,
+   fig:"L19_s15",
+   check:{q:"Why do eukaryotic chromosomes need telomeres but bacterial chromosomes don't?",o:["Bacteria don't replicate DNA","Eukaryotic chromosomes are linear and have ends to protect; bacterial ones are circular","Telomeres hold the centromere","Bacteria have histones instead"],a:1,w:"A circle has no ends. Linear chromosomes have ends that would be degraded or shortened without telomeres."}},
+  {h:"The spool: nucleosomes",
+   body:`<p>DNA first wraps around protein spools called <b>histones</b>. Eight histones (2 each of H2A, H2B, H3, H4) form a core, the <b>histone octamer</b>, and DNA wraps around it about twice. Octamer + its DNA = a <b>nucleosome</b>. Under a microscope, a string of them looks like <b>beads on a string</b>.</p>
+   <p><b>Why does DNA stick to histones?</b> Opposites attract. DNA's backbone is negative (phosphates); histones are packed with <b>positive</b> amino acids (lysine and arginine). That electrostatic attraction holds the DNA on the spool.</p>
+   <p>Then <b>linker histone H1</b> pulls neighboring nucleosomes closer, and the fiber loops and folds further. During mitosis, <b>condensin</b> (using ATP) loops the chromosome so tightly it becomes about 10,000× shorter.</p>`,
+   fig:"L19_s28",
+   check:{q:"What would happen if histones were made negatively charged?",o:["DNA would wrap more tightly","DNA would be repelled and not wrap well","Nothing would change","DNA would become positive"],a:1,w:"Negative repels negative. The positive charge is what holds DNA on the histones."}},
+  {h:"Loosening and tightening: the charge switch",
+   body:`<p>Each histone has a floppy <b>tail</b> that sticks out of the nucleosome and helps grip DNA and neighboring nucleosomes. Cells add chemical tags to these tails to change how tight things are.</p>
+   <p>The key example: <b>acetylation</b>. Adding an acetyl group to a lysine <b>removes its positive charge</b>. Less positive tail → weaker grip on negative DNA → <b>looser chromatin</b> → the DNA is easier to reach and transcribe.</p>
+   <p>Logic chain to memorize: <b>acetyl → charge neutralized → DNA held less tightly → more open → more transcription.</b></p>
+   <p>Cells can also slide the spools themselves. <b>Chromatin-remodeling complexes</b> use <b>ATP</b> to push nucleosomes along the DNA, exposing or hiding a stretch (like sliding beads on a necklace).</p>`,
+   fig:"L19_s35",
+   check:{q:"A drug blocks histone acetylation. What happens to the genes that need acetylation to be turned on?",o:["They're transcribed more","They stay tightly packed and are transcribed less","Their DNA sequence changes","They move to the cytosol"],a:1,w:"Without acetylation, lysines stay positive and hold DNA tightly, so those genes are harder to access."}},
+  {h:"Euchromatin vs heterochromatin",
+   body:`<p>Packing isn't uniform. Loose, accessible regions are <b>euchromatin</b> (\"eu\" = good/true): genes there can be transcribed. Tightly packed regions are <b>heterochromatin</b>: mostly silent.</p>
+   <p>Two flavors of heterochromatin:</p>
+   <ul><li><b>Constitutive</b> = <b>c</b>onstantly condensed, in <b>every</b> cell. Example: the repetitive DNA at centromeres and telomeres.</li><li><b>Facultative</b> = condensed only in <b>some</b> cell types or at some times (think \"optional\"). The same gene might be packed away in a skin cell but open in a liver cell.</li></ul>
+   <p>This is the big payoff: every cell has the same DNA, but <b>which parts are open</b> differs, so different cells use different genes. Lecture 25 builds on this.</p>
+   <p>Also know: in <b>interphase</b>, chromosomes are decondensed and spread out, each in its own territory of the nucleus; in <b>mitosis</b>, they're condensed into the X shapes you see in pictures.</p>`,
+   fig:"L19_s38",
+   check:{q:"A region is tightly packed in neurons but open in muscle cells. It's:",o:["Euchromatin everywhere","Constitutive heterochromatin","Facultative heterochromatin","A telomere"],a:2,w:"Condensed only in some cell types = facultative."}}
+ ],
+ traps:[
+  "Nucleosome vs histone: the <b>histone</b> is the protein; the <b>nucleosome</b> is histone octamer + DNA wrapped around it.",
+  "Acetylation <b>loosens</b> chromatin (removes + charge). Don't flip it.",
+  "Constitutive = always condensed in all cells; facultative = only some cells/times.",
+  "Interphase chromosomes are <b>decondensed</b>; only mitotic chromosomes are condensed."
+ ],
+ teach:["Explain why adding an acetyl group to histone tails turns genes on.","Histones are positive and grip negative DNA. Acetylating lysines neutralizes their positive charge, so the tails hold DNA less tightly. The chromatin loosens, and transcription machinery can reach the genes."]
+},
+u3:{
+ big:"Replication unzips DNA and uses each old strand as a template for a new one. Because DNA polymerase can only build 5′→3′, one strand gets made smoothly and the other in pieces.",
+ steps:[
+  {h:"The plan: copy each strand",
+   body:`<p>Since A always pairs with T and G with C, each strand contains all the information needed to rebuild the other. So the cell <b>unzips the helix and uses each strand as a template</b>.</p>
+   <p>Result: each new DNA molecule has <b>one old (parental) strand and one new (daughter) strand</b>. That's called <b>semi-conservative</b> replication: half of the original is \"conserved\" in each copy.</p>
+   <p>Analogy: you photocopy a two-page document by separating the pages and making a new partner page for each. Each stapled set ends up with one original page and one copy.</p>`,
+   fig:"L20_s9",
+   check:{q:"After one round of replication, a DNA molecule contains:",o:["Two new strands","Two old strands","One old and one new strand","A random mix of old and new pieces"],a:2,w:"Semi-conservative: each strand served as a template for one new strand."}},
+  {h:"Opening the DNA: the origin and the forks",
+   body:`<p>Replication starts at an <b>origin of replication</b>. Bacteria have <b>one</b>; eukaryotes have <b>many</b> (their chromosomes are huge, and copying from one spot would take forever).</p>
+   <p>The bacterial origin is <b>AT-rich</b>. Why? A–T pairs have only 2 H bonds vs 3 for G–C, so they're easier to pry apart. DnaA proteins bind there, bend the DNA and break the H bonds.</p>
+   <p>Then the crew moves in, each with one job:</p>
+   <ul><li><b>Helicase</b>: unzips (breaks H bonds). One on each strand, moving in opposite directions → <b>two replication forks</b> moving <b>away from the origin</b>.</li><li><b>Single-strand binding proteins</b>: keep the separated strands from snapping back together.</li><li><b>Topoisomerase</b>: unwinding a twisted rope makes it overtwist ahead of you. Topoisomerase relieves that strain by <b>nicking</b> one strand, letting it spin, and resealing it.</li></ul>`,
+   fig:"L20_s17",
+   check:{q:"As helicase unwinds DNA, the DNA ahead of the fork gets overwound. Which enzyme fixes this?",o:["Primase","Ligase","Topoisomerase","DNA pol I"],a:2,w:"Topoisomerase makes temporary single-strand nicks to relieve the twisting."}},
+  {h:"Building the new strand: primer, then polymerase",
+   body:`<p><b>DNA polymerase III</b> builds the new strand, but it has two rules:</p>
+   <ol><li><b>It can't start from scratch.</b> It can only add to an existing 3′ end. So <b>primase</b> first lays down a short <b>RNA primer</b> to give it a starting point.</li><li><b>It only builds 5′→3′.</b> It adds each nucleotide to the 3′ –OH of the growing strand.</li></ol>
+   <p><b>Why only 5′→3′?</b> Each incoming nucleotide arrives as a triphosphate (dATP, dTTP...). Snapping off two phosphates releases the energy to make the bond. Because the energy rides in on the <b>new</b> nucleotide, polymerase can <b>remove a wrong nucleotide</b> (proofreading) and still have energy for the next one. That gets the error rate to about <b>1 in a million</b>.</p>
+   <p>The new strand is antiparallel to its template, so polymerase reads the template 3′→5′ while building 5′→3′.</p>`,
+   fig:"L20_s23",
+   check:{q:"Why does DNA replication need primase?",o:["To unwind DNA","Because DNA polymerase can only add onto an existing 3′ end","To seal Okazaki fragments","To proofread"],a:1,w:"Polymerase can't start a chain; the RNA primer gives it a 3′ –OH to extend."}},
+  {h:"Leading vs lagging: the core puzzle",
+   body:`<p>Here's the problem. At each fork, the two template strands run in opposite directions, but polymerase only builds 5′→3′.</p>
+   <ul><li>On one template, building 5′→3′ means moving <b>toward the fork</b>, following the unzipping. Polymerase just keeps going: the <b>leading strand</b>, made <b>continuously</b>.</li><li>On the other template, 5′→3′ points <b>away from the fork</b>. Polymerase has to wait for a stretch to open, build backward a short distance, then jump forward and repeat. These pieces are <b>Okazaki fragments</b>, and that's the <b>lagging strand</b>.</li></ul>
+   <p>Analogy: painting a fence while someone ahead of you is putting up new boards, but you're only allowed to paint left to right. If the builder moves right, you follow along forever (leading). If the builder moves left, you paint a short section, walk ahead, paint another section... (lagging).</p>
+   <p><b>How to figure it out on the exam:</b> (1) find the 5′/3′ ends of the template; (2) the new strand is antiparallel, so it grows toward the template's 5′ end; (3) if that's toward the fork, it's leading.</p>`,
+   fig:"L20_s32",
+   check:{q:"A template strand runs 3′→5′ in the same direction the fork is moving. The new strand on it is:",o:["Leading, made continuously","Lagging, made in fragments","Not made at all","Made 3′→5′"],a:0,w:"The new strand is antiparallel (5′→3′ in that same direction), so it grows toward the fork: leading."}},
+  {h:"Cleaning up: primers out, gaps sealed",
+   body:`<p>After replication, the lagging strand is a patchwork: DNA pieces, each starting with a bit of RNA primer. Two cleanup steps:</p>
+   <ol><li><b>Remove the RNA primers and fill in DNA.</b> Bacteria: <b>DNA polymerase I</b>. Eukaryotes: <b>flap endonuclease</b> removes the primer and a DNA polymerase fills the gap.</li><li><b>Seal the nicks.</b> <b>DNA ligase</b> forms the last phosphodiester bond between fragments (\"ligate\" = tie together).</li></ol>
+   <p>Mnemonic for the whole crew, in order of action: <b>H</b>elicase <b>T</b>opoisomerase <b>P</b>rimase <b>P</b>ol III <b>P</b>ol I <b>L</b>igase: \"<b>H</b>ungry <b>T</b>eens <b>P</b>refer <b>P</b>izza, <b>P</b>op, <b>L</b>emonade.\"</p>`,
+   fig:"L20_s33",
+   check:{q:"Okazaki fragments have been made and their primers replaced with DNA, but there are nicks in the backbone. Which enzyme acts next?",o:["Helicase","Primase","DNA ligase","Telomerase"],a:2,w:"Ligase seals the sugar-phosphate backbone between fragments."}},
+  {h:"The end-replication problem and telomerase",
+   body:`<p>Linear chromosomes have a problem at their tips. On the lagging strand, the very last RNA primer sits at the end of the chromosome. When it's removed, there's <b>no DNA upstream with a 3′ end</b> for polymerase to extend into the gap. So that bit can't be filled in, and every round the chromosome would get a little shorter.</p>
+   <p>The fix is <b>telomeres</b> plus <b>telomerase</b>:</p>
+   <ul><li>Telomeres are repetitive, non-coding DNA at the ends, so losing a little doesn't delete genes. They end in a <b>3′ overhang</b>.</li><li><b>Telomerase</b> carries its <b>own RNA template</b>. It base-pairs that RNA to the overhang and extends the 3′ end with more repeats.</li><li>Now there's extra template sticking out, so primase can lay one more primer and the lagging strand can be filled in.</li></ul>
+   <p>Bacteria don't have this problem: circular DNA has no ends.</p>`,
+   fig:"L20_s39",
+   check:{q:"What makes telomerase unusual compared to other DNA polymerases?",o:["It builds 3′→5′","It carries its own RNA template","It doesn't use nucleotides","It works only on the leading strand"],a:1,w:"Its built-in RNA template lets it extend the 3′ end without a DNA template."}}
+ ],
+ traps:[
+  "Saying polymerase \"adds to the 5′ end.\" It adds to the <b>3′ end</b>, so synthesis runs 5′→3′.",
+  "Mixing up pol I and pol III: <b>III</b> builds the strand; <b>I</b> replaces primers.",
+  "The lagging strand isn't made 3′→5′. Both strands are made 5′→3′; the lagging one is just made in pieces.",
+  "Topoisomerase (relieves twisting) vs helicase (unzips): different jobs."
+ ],
+ teach:["Explain why one strand is made in Okazaki fragments.","DNA polymerase only builds 5′→3′. At each fork the two templates run in opposite directions, so on one template 5′→3′ synthesis follows the fork (leading, continuous), but on the other it points away from the fork. That strand has to be made in short backward pieces, each from a new primer, as more template is exposed."]
+},
+u4:{
+ big:"DNA gets damaged all the time. How well the cell can fix damage depends on one question: is there an undamaged copy to use as a template?",
+ steps:[
+  {h:"Damage happens constantly",
+   body:`<p>Every day each cell's DNA takes thousands of hits: bases fall off (<b>depurination</b>), C turns into U (<b>deamination</b>), and UV light fuses neighboring T's together (<b>thymine dimers</b>). Replication also makes rare mistakes that proofreading misses.</p>
+   <p>Damage becomes a permanent <b>mutation</b> if the DNA is <b>replicated before it's fixed</b>: the copy machinery reads the damaged spot wrong, and now both strands of the daughter DNA carry the change.</p>
+   <p>So the cell's strategy is to repair fast, and the method depends on what's broken.</p>`,
+   fig:"L20_s42",
+   check:{q:"When does DNA damage become a permanent mutation?",o:["Immediately when it happens","When the damaged DNA is replicated before being repaired","Only in mitochondria","Only during transcription"],a:1,w:"Once it's copied, the change is in both strands and there's no 'correct' version left to repair from."}},
+  {h:"The easy case: one strand damaged (mismatch repair)",
+   body:`<p>If only <b>one strand</b> is wrong, the other strand is still correct, a built-in backup copy. <b>Mismatch repair</b> uses it:</p>
+   <ol><li>Proteins recognize the mismatch.</li><li><b>Nucleases</b> cut out a stretch of the bad strand.</li><li>A repair DNA polymerase fills the gap (5′→3′, as always), using the good strand as the template.</li><li><b>Ligase</b> seals the backbone.</li></ol>
+   <p>Analogy: a typo on one page of a two-page document when you still have the other page to check against.</p>
+   <p>This bumps the accuracy of replication <b>100-fold</b>, from 1 in a million (proofreading alone) to <b>1 in 100 million</b>.</p>`,
+   fig:"L20_s45",
+   check:{q:"Mismatch repair is accurate because:",o:["It uses the intact opposite strand as a template","It glues ends together","It uses RNA","It skips replication"],a:0,w:"The undamaged partner strand tells the polymerase what the correct base is."}},
+  {h:"The hard case: both strands cut",
+   body:`<p>A <b>double-strand break</b> snaps the DNA completely, so there's no partner strand to copy. Two options, depending on whether a backup exists:</p>
+   <ul><li><b>Homologous repair</b>: if the cell has already replicated (S/G2), there's an <b>identical sister DNA molecule</b> right next door. The broken ends are trimmed, one strand invades the sister, copies the missing sequence, and the break is sealed. <b>Accurate.</b></li><li><b>Non-homologous end joining</b>: no copy available (e.g., in G1). The cell just trims the ends and <b>glues them back together</b> with ligase. It saves the chromosome but usually <b>loses a few nucleotides</b>, and sometimes joins the wrong pieces (translocations).</li></ul>
+   <p>So the <b>ranking</b> (easiest → hardest to fix without mutation): <b>mismatch</b> (partner strand right there) → <b>double-strand break with a sister copy</b> → <b>double-strand break with no copy</b>.</p>`,
+   fig:"L20_s49",
+   check:{q:"A double-strand break happens in a cell that just finished S phase. Which repair is most likely, and is it accurate?",o:["Non-homologous end joining; inaccurate","Homologous repair using the sister DNA; accurate","Mismatch repair; accurate","No repair is possible"],a:1,w:"After S phase there's an identical sister copy, so homologous repair can restore the exact sequence."}},
+  {h:"CRISPR: hijacking the repair machinery",
+   body:`<p>CRISPR-Cas9 is a pair of molecular scissors. A <b>guide RNA</b> base-pairs with the target gene and leads <b>Cas9</b> there, which <b>cuts both strands</b>. Cas9 doesn't do the editing itself: the cell's own repair systems do, and scientists choose which outcome they want:</p>
+   <ul><li><b>Knock a gene out</b>: let non-homologous end joining fix the cut. It usually adds or deletes a few bases. If that's not a multiple of 3, it causes a <b>frameshift</b>: every codon after it is read wrong.</li><li><b>Replace a gene</b>: supply an engineered DNA template. Homologous repair copies it into the break, and the gene now has the new sequence.</li></ul>
+   <p><b>Frameshift example from lecture:</b> AUG CCC GGA GGC ACC = Met-Pro-Gly-Gly-Thr. Delete one C: AUG CCG GAG GCA CC... = Met-Pro-Glu-Ala-Pro. One missing letter changes everything after it, like \"THE CAT ATE\" → \"THE ATA TE...\"</p>`,
+   fig:"L21_s28",
+   check:{q:"A researcher wants to disable a gene using CRISPR, without supplying any template. Which repair pathway causes the disabling mutation?",o:["Mismatch repair","Homologous repair","Non-homologous end joining","Proofreading"],a:2,w:"Sloppy end joining causes small insertions/deletions → frameshift → nonfunctional protein."}}
+ ],
+ traps:[
+  "Homologous repair is the <b>accurate</b> one; non-homologous is error-prone.",
+  "Homologous repair needs a sister copy, so it happens <b>during/after replication</b>.",
+  "Cas9 cuts; the <b>cell's repair machinery</b> makes the edit.",
+  "A deletion of 3 bases removes one amino acid; deleting 1 or 2 causes a frameshift."
+ ],
+ teach:["Rank the three types of DNA damage by how hard they are to fix, and explain why.","Mismatch is easiest because the partner strand is intact and serves as a template. A double-strand break with a sister copy is harder but can be fixed accurately by homologous repair. A double-strand break with no copy is hardest: the ends are just glued back (non-homologous end joining), usually losing nucleotides."]
+},
+u5:{
+ big:"The cell cycle is run by kinase 'switches' (cyclin-Cdks) that turn on each stage in order, plus checkpoints that hit the brakes if something isn't ready.",
+ steps:[
+  {h:"The four stages and why order matters",
+   body:`<p>A dividing cell goes <b>G1 → S → G2 → M</b>, then back to G1.</p>
+   <ul><li><b>G1</b>: grow and decide whether to divide.</li><li><b>S</b>: <b>S</b>ynthesize DNA (replication).</li><li><b>G2</b>: grow more and get ready for mitosis.</li><li><b>M</b>: mitosis + cytokinesis, splitting into two cells.</li></ul>
+   <p>G1, S and G2 together = <b>interphase</b>. The order is critical: dividing before DNA is fully copied would give a daughter cell missing chromosomes. Copying DNA twice would give extra. So the cell needs a control system that makes each stage happen <b>once, in order, only when ready</b>.</p>`,
+   fig:"L21_s31",
+   check:{q:"In which stage is DNA replicated?",o:["G1","S","G2","M"],a:1,w:"S = synthesis of DNA."}},
+  {h:"The switches: cyclins + Cdks",
+   body:`<p>A <b>Cdk</b> (cyclin-dependent kinase) is an enzyme that <b>adds phosphate groups</b> to other proteins (that's what a kinase does). Adding a phosphate changes a protein's shape and turns it on or off.</p>
+   <p>But a Cdk is <b>inactive alone</b>. It needs a partner, a <b>cyclin</b>. Think of the Cdk as a car and the cyclin as the key.</p>
+   <p>The trick: Cdk levels stay constant, but <b>cyclin levels rise and fall</b> (that's why they're called cyclins). The cell makes a specific cyclin, it builds up, binds its Cdk, the complex phosphorylates the proteins that launch that stage, and then the cyclin is <b>destroyed</b>.</p>
+   <ul><li><b>G1/S-cyclin + Cdk</b> → commits the cell; causes replication proteins to be made.</li><li><b>S-cyclin + Cdk</b> → fires the replication origins.</li><li><b>M-cyclin + Cdk</b> → launches mitosis.</li></ul>`,
+   fig:"L22_s5",
+   check:{q:"Cdk protein levels stay roughly constant through the cell cycle, yet Cdk activity rises and falls. Why?",o:["Cdks are degraded every cycle","Cyclin levels rise and fall, and Cdks are only active when bound to cyclin","Cdks move in and out of the nucleus","Kinases are always on"],a:1,w:"The cyclin is the rising-and-falling part; it switches its Cdk on."}},
+  {h:"Fine-tuning the switches",
+   body:`<p>Besides cyclin levels, the cell has extra controls so it can stop instantly if needed:</p>
+   <ul><li><b>Inhibitory phosphates:</b> <b>Wee1</b> kinase puts \"brake\" phosphates on the Cdk. <b>Cdc25</b> phosphatase takes them off to release the brake.</li><li><b>Cdk inhibitor proteins</b> (<b>p27, p21</b>) physically bind the cyclin-Cdk and block it.</li><li><b>Destroying cyclins:</b> the <b>APC/C</b> tags M-cyclin (and securin) for destruction to end mitosis.</li></ul>
+   <p>M-Cdk has a clever <b>positive feedback</b> loop: once a little M-Cdk is active, it activates more Cdc25, which activates more M-Cdk... so the cell flips into mitosis all at once, like a light switch instead of a dimmer.</p>`,
+   fig:"L22_s7",
+   check:{q:"Which enzyme REMOVES the inhibitory phosphates from M-Cdk, activating it?",o:["Wee1","Cdc25","p27","APC/C"],a:1,w:"Wee1 adds the brake; Cdc25 releases it. Phosphatases remove phosphates."}},
+  {h:"Checkpoints: three questions before moving on",
+   body:`<p>Checkpoints are like a pilot's pre-flight checklist. At three points, the cell asks a question and stops if the answer is no:</p>
+   <table class="lessontable"><tr><th>Checkpoint</th><th>When</th><th>Question</th></tr>
+   <tr><td><b>G1</b></td><td>End of G1</td><td>Is the <b>environment</b> favorable to divide?</td></tr>
+   <tr><td><b>G2</b></td><td>G2 → M</td><td>Is <b>DNA fully replicated</b> and <b>undamaged</b>?</td></tr>
+   <tr><td><b>M</b></td><td>Metaphase → anaphase</td><td>Are <b>all chromosomes attached</b> to the spindle?</td></tr></table>
+   <p>Memory trick: the checkpoints check what <b>just</b> happened or what's <b>about</b> to matter. Before copying DNA: are conditions good? Before dividing: is the copy done right? Before pulling chromosomes apart: is every one hooked up?</p>
+   <p>If checkpoints fail, cells divide with damaged DNA or wrong chromosome numbers. That's a path to <b>cancer</b>.</p>`,
+   fig:"L22_s8",
+   check:{q:"A cell has a chromosome that isn't attached to the spindle. Which checkpoint stops it?",o:["G1","G2","M (metaphase-to-anaphase)","S"],a:2,w:"The M checkpoint blocks APC/C until every chromosome is attached."}},
+  {h:"How a checkpoint actually stops the cycle",
+   body:`<p>Two examples to know:</p>
+   <p><b>DNA damage in G1 (the p53 pathway):</b> damage activates kinases that phosphorylate <b>p53</b>, which stabilizes it (normally p53 is degraded quickly). p53 is a transcription factor: it turns on the gene for <b>p21</b>. p21 protein binds and <b>blocks G1/S-Cdk and S-Cdk</b>, so the cell can't enter S phase until the DNA is fixed. (Mutated p53 is found in about half of human cancers.)</p>
+   <p><b>Unattached chromosome at metaphase:</b> the M checkpoint keeps <b>APC/C off</b>. When everything is attached, APC/C tags <b>securin</b> for destruction. Securin was holding back <b>separase</b>, and separase now cuts the <b>cohesin</b> rings holding sister chromatids together → anaphase begins.</p>
+   <p>Chain to memorize: <b>APC/C → securin destroyed → separase freed → cohesin cut → sisters separate.</b></p>`,
+   fig:"L22_s30",
+   check:{q:"What directly holds sister chromatids together until anaphase?",o:["Securin","Separase","Cohesin","p21"],a:2,w:"Cohesin rings hold them; separase cuts cohesin once securin is destroyed."}}
+ ],
+ traps:[
+  "Kinase <b>adds</b> phosphates; phosphatase <b>removes</b> them.",
+  "Wee1 = inhibits (adds brake phosphate); Cdc25 = activates (removes it).",
+  "G1 checkpoint = environment; G2 = DNA replicated/undamaged; M = spindle attachment. Don't swap G2 and M.",
+  "Separase cuts cohesin; securin is the inhibitor that gets destroyed."
+ ],
+ teach:["Explain how a cyclin-Cdk complex moves the cell into the next stage.","When a cyclin builds up it binds and activates its Cdk. The active kinase phosphorylates target proteins that carry out the next stage (e.g., making replication proteins, firing origins, starting mitosis). Then the cyclin is destroyed, turning the Cdk off."]
+},
+u6:{
+ big:"Mitosis is a carefully staged move: pack the duplicated chromosomes, hook each one to both sides of a microtubule spindle, line them up, then pull the copies apart and split the cell.",
+ steps:[
+  {h:"Getting ready (interphase)",
+   body:`<p>Before M phase, three things must be done:</p>
+   <ol><li>The cell has <b>grown</b> (G1 and G2), so each daughter gets enough stuff.</li><li>Every chromosome's DNA has been <b>replicated</b> (S). Each chromosome is now two identical <b>sister chromatids</b> held together by cohesin.</li><li>The <b>centrosome has duplicated</b> (S). Centrosomes are where microtubules grow from, so two centrosomes = two poles for the spindle.</li></ol>
+   <p>The G2 checkpoint confirms the DNA part before letting the cell in.</p>
+   <p>Remember: <b>mitosis</b> = dividing the <b>nucleus</b> (chromosomes). <b>Cytokinesis</b> = dividing the <b>cytoplasm</b> (the cell itself). Together they're M phase.</p>`,
+   fig:"L22_s19",
+   check:{q:"What is built out from the centrosome?",o:["Actin filaments","Microtubules","Intermediate filaments","Cohesin"],a:1,w:"Centrosomes nucleate microtubules, including the mitotic spindle."}},
+  {h:"Prophase and prometaphase: pack up and hook up",
+   body:`<p><b>Prophase</b> = <b>p</b>repare. Chromosomes <b>condense</b> into compact X shapes (easier to move than spaghetti). The two centrosomes move apart and the <b>spindle</b> starts growing between them. The nuclear envelope is <b>still intact</b>.</p>
+   <p><b>Prometaphase</b> starts abruptly when the <b>nuclear envelope breaks down</b>. Now microtubules can reach the chromosomes. Each sister chromatid has a <b>kinetochore</b>, a protein complex built on the centromere, that acts like a hook.</p>
+   <p>Microtubules grab kinetochores, and the goal is for the two sisters to be hooked to <b>opposite poles</b>. That way, when they separate, one goes each way.</p>`,
+   fig:"L22_s24",
+   check:{q:"Which event marks the start of prometaphase?",o:["Chromosomes condense","Nuclear envelope breaks down","Sisters separate","Contractile ring forms"],a:1,w:"Once the envelope is gone, spindle microtubules can reach the kinetochores."}},
+  {h:"Three kinds of spindle microtubules",
+   body:`<p>The spindle has three types of microtubules, each with its own job:</p>
+   <ul><li><b>Kinetochore microtubules</b>: attach to chromosomes at the kinetochores. They <b>pull</b> chromosomes.</li><li><b>Non-kinetochore</b> (overlap) microtubules: reach toward the middle from each pole and overlap. Motor proteins slide them apart to <b>push the poles apart</b>.</li><li><b>Astral microtubules</b>: radiate out from the poles toward the cell edge like starbursts (\"astral\" = star). They <b>position the spindle</b> and can pull the poles outward.</li></ul>
+   <p>Analogy: a tug-of-war team (kinetochore MTs) pulling the chromosomes, two people pushing their backs against each other in the middle (non-kinetochore MTs), and ropes tied to the walls (astral MTs).</p>`,
+   fig:"L22_s28",
+   check:{q:"Which microtubules push the spindle poles apart by sliding past each other in the middle?",o:["Kinetochore","Non-kinetochore (overlap)","Astral","Cortical actin"],a:1,w:"Overlap microtubules from opposite poles are slid apart by motor proteins."}},
+  {h:"Metaphase and anaphase: line up, then split",
+   body:`<p><b>Metaphase</b> = <b>m</b>iddle. Every chromosome lines up at the <b>equator</b>, halfway between the poles, with its sisters hooked to opposite poles. The <b>M checkpoint</b> waits here until <b>all</b> chromosomes are attached.</p>
+   <p><b>Anaphase</b> = <b>a</b>part. APC/C triggers separase to cut cohesin, and the sisters <b>separate</b> and move to opposite poles. Two parts:</p>
+   <ul><li><b>Anaphase A</b>: kinetochore microtubules <b>shorten</b>, pulling chromosomes toward the poles.</li><li><b>Anaphase B</b>: the <b>poles move apart</b> (overlap MTs push, astral MTs pull), stretching the cell.</li></ul>`,
+   fig:"L22_s32",
+   check:{q:"In anaphase A, what moves the chromosomes toward the poles?",o:["Astral microtubules pulling on the cortex","Kinetochore microtubules shortening","Actin-myosin contraction","The nuclear envelope"],a:1,w:"Anaphase A = chromosomes pulled poleward; anaphase B = poles pushed/pulled apart."}},
+  {h:"Telophase and cytokinesis: rebuild and divide",
+   body:`<p><b>Telophase</b> = <b>t</b>wo nuclei. Chromosomes arrive at the poles and start to decondense. A <b>new nuclear envelope reassembles</b> around each set. It's basically prophase/prometaphase in reverse.</p>
+   <p><b>Cytokinesis</b> splits the cell. A <b>contractile ring of actin and myosin</b> forms around the middle and tightens like a drawstring on a bag, pinching the cell in two (the cleavage furrow). Plant cells have rigid walls and can't pinch, so they build a new wall down the middle using the <b>phragmoplast</b>, which guides vesicles to the center.</p>
+   <p>Cytoskeleton summary: <b>microtubules</b> separate the chromosomes; <b>actin + myosin</b> divide the cell.</p>
+   <p><b>Stage order mnemonic:</b> \"<b>P</b>lease <b>P</b>ass <b>M</b>e <b>A</b> <b>T</b>aco\": Prophase, Prometaphase, Metaphase, Anaphase, Telophase.</p>`,
+   fig:"L22_s35",
+   check:{q:"What forms the ring that pinches an animal cell in two?",o:["Microtubules and dynein","Actin and myosin","Kinetochores","Cohesin"],a:1,w:"The contractile ring is actin + myosin."}}
+ ],
+ traps:[
+  "The nuclear envelope breaks down in <b>prometaphase</b> (not prophase) and reforms in <b>telophase</b>.",
+  "Mitosis divides the nucleus; cytokinesis divides the cytoplasm.",
+  "Microtubules = spindle; actin/myosin = contractile ring. Don't swap them.",
+  "Centrosomes duplicate in <b>S phase</b>, not in prophase."
+ ],
+ teach:["Walk through what happens to the nuclear envelope from prophase to telophase.","Prophase: still intact while chromosomes condense and the spindle forms. Prometaphase: breaks down so microtubules can attach to kinetochores. Metaphase and anaphase: absent. Telophase: reassembles around each set of chromosomes, making two nuclei."]
+},
+u7:{
+ big:"Transcription copies one gene's DNA into RNA. In eukaryotes it takes a team of proteins to start, and the RNA has to be edited (capped, spliced, tailed) before it can leave the nucleus.",
+ steps:[
+  {h:"Why make RNA at all?",
+   body:`<p>DNA is the master cookbook locked in the library (nucleus). You don't take the master copy into the kitchen; you photocopy the one recipe you need. That photocopy is <b>mRNA</b>, and making it is <b>transcription</b>.</p>
+   <p>RNA differs from DNA in three ways: <b>ribose</b> sugar (OH on the 2′ carbon), <b>U instead of T</b>, and it's usually <b>single-stranded</b>, which lets it fold into shapes (that's how tRNA and rRNA do their jobs).</p>
+   <p><b>Gene expression</b> = making the product a gene encodes. Transcription is step one, and controlling it is the main way cells decide how much of each protein to make.</p>`,
+   fig:"L23_s5",
+   check:{q:"Which is NOT a difference between RNA and DNA?",o:["RNA has ribose","RNA uses U instead of T","RNA is usually single-stranded","RNA has no phosphate backbone"],a:3,w:"RNA has a sugar-phosphate backbone just like DNA."}},
+  {h:"Template strand vs coding strand",
+   body:`<p>RNA polymerase reads only <b>one</b> strand of a gene: the <b>template strand</b>. The RNA it makes is complementary to that strand.</p>
+   <p>So the RNA ends up looking just like the <b>other</b> strand, the <b>coding strand</b>, except with U wherever the coding strand has T. That's why it's called the coding strand: it reads like the message.</p>
+   <p><b>Worked example:</b><br>Template: 3′-TAC GGA-5′<br>mRNA: 5′-AUG CCU-3′<br>Coding: 5′-ATG CCT-3′ (same as mRNA, T for U)</p>
+   <p>RNA polymerase builds 5′→3′, just like DNA polymerase, reading the template 3′→5′. Differences from DNA polymerase: it uses <b>ribonucleotides</b>, it <b>doesn't need a primer</b>, and it <b>doesn't proofread</b> (errors in RNA matter less because each RNA is temporary and many copies are made).</p>`,
+   fig:"L23_s19",
+   check:{q:"The coding strand reads 5′-ATGTTC-3′. What is the mRNA?",o:["5′-UACAAG-3′","5′-AUGUUC-3′","3′-AUGUUC-5′","5′-ATGTTC-3′"],a:1,w:"mRNA = coding strand with U for T."}},
+  {h:"Bacteria: the simple version",
+   body:`<p>In bacteria, transcription has three phases:</p>
+   <ol><li><b>Initiation</b>: the <b>sigma factor</b>, a detachable part of RNA polymerase, recognizes the <b>promoter</b> sequence (\"start here\") and lets polymerase bind. Polymerase opens the DNA, starts building RNA, then <b>lets sigma go</b>.</li><li><b>Elongation</b>: polymerase slides along, unzipping DNA ahead and letting it rezip behind, building RNA 5′→3′.</li><li><b>Termination</b>: at the <b>terminator</b> sequence, polymerase <b>falls off the DNA</b> and <b>releases the RNA</b>. Sigma rejoins polymerase for the next round.</li></ol>
+   <p>The promoter's direction sets which strand is the template. That's why neighboring genes can be on different strands, pointing opposite ways.</p>
+   <p>Bacterial mRNA can be translated <b>immediately</b>, no editing needed.</p>`,
+   fig:"L23_s22",
+   check:{q:"What does sigma factor do?",o:["Terminates transcription","Recognizes the promoter so RNA polymerase can bind","Adds the poly-A tail","Splices introns"],a:1,w:"Sigma is the bacterial 'find the start' subunit; it's released after initiation."}},
+  {h:"Eukaryotes: it takes a team to start",
+   body:`<p>Eukaryotic RNA polymerase II can't find promoters on its own. It needs <b>general transcription factors (GTFs)</b>. Here's the gene layout, reading toward the gene:</p>
+   <p><b>enhancer</b> (regulation, ~−100 to −50) → <b>core promoter</b> (contains the <b>TATA box</b> at ~−25 and the <b>start site, +1</b>) → coding sequence.</p>
+   <p>Assembly happens in order, like building a stage before the band comes on:</p>
+   <ol><li><b>TFIID</b> (its TBP subunit) binds the <b>TATA box</b>, the <b>initial recognition site</b>, and bends the DNA.</li><li><b>TFIIB</b> joins, then the other GTFs and <b>RNA pol II</b>. This full group = the <b>pre-initiation complex</b>.</li><li><b>TFIIH</b> pries the DNA open (using ATP) and <b>phosphorylates RNA pol II's tail</b>. That phosphorylation releases polymerase from the GTFs so it can start <b>elongating</b>.</li></ol>
+   <p>Why so complicated? More complex cells need more proteins and multicellular organisms need to control <b>which cells</b> make which proteins (differentiation).</p>`,
+   fig:"L23_s34",
+   check:{q:"What releases RNA polymerase II from the pre-initiation complex to begin elongation?",o:["Sigma factor leaving","Phosphorylation of its tail by TFIIH","Splicing","Binding the poly-A tail"],a:1,w:"TFIIH phosphorylates pol II's tail, freeing it to elongate."}},
+  {h:"Editing the message: cap, splice, tail",
+   body:`<p>Before eukaryotic mRNA can leave the nucleus it gets three modifications:</p>
+   <ol><li><b>5′ cap</b>: a modified G (7-methylguanosine) on the front. It protects the mRNA and helps ribosomes find it.</li><li><b>Splicing</b>: genes contain <b>exons</b> (kept, \"<b>ex</b>pressed\") interrupted by <b>introns</b> (removed, \"<b>in</b> the way\"). The <b>spliceosome</b>, made of snRNPs (small RNAs + proteins), cuts out each intron and joins the exons.</li><li><b>3′ poly-A tail</b>: a long string of A's on the end, also protective.</li></ol>
+   <p>Only mRNAs marked as finished (cap-binding and poly-A-binding proteins attached) are exported through nuclear pores.</p>
+   <p><b>How does the spliceosome know where introns are?</b> Every intron has the same signals: a <b>GU at its start</b>, a <b>branch-point A</b> in the middle, and an <b>AG at its end</b>. Because the signals are universal, one machine splices almost all pre-mRNAs.</p>`,
+   fig:"L23_s45",
+   check:{q:"Which part of a pre-mRNA is removed by the spliceosome?",o:["Exons","Introns","The 5′ cap","The poly-A tail"],a:1,w:"Introns are 'in the way'; exons are 'expressed'."}},
+  {h:"Alternative splicing: one gene, many proteins",
+   body:`<p>Here's why introns are actually useful: the cell can choose <b>which exons to keep</b>. A gene with exons 1-2-3-4 might be spliced into 1-2-3-4 in one cell, 1-2-4 in another, 1-3-4 or 1-4 in others. Each version makes a <b>different protein</b>.</p>
+   <p>Analogy: a playlist. Same songs (exons) available, but different playlists (mRNAs) for different moods (cell types).</p>
+   <p>This is how humans make far more kinds of proteins than they have genes, and it gives the cell another place to <b>regulate</b> gene expression.</p>`,
+   fig:"L23_s42",
+   check:{q:"What is the main benefit of alternative splicing?",o:["Faster transcription","One gene can produce several different proteins","It removes mutations","It replaces the promoter"],a:1,w:"Different exon combinations → different proteins from one gene."}}
+ ],
+ traps:[
+  "The mRNA matches the <b>coding</b> strand (T→U) and is complementary to the <b>template</b> strand.",
+  "RNA pol needs <b>no primer</b> and does <b>not proofread</b>.",
+  "Sigma = bacteria; GTFs/TATA box = eukaryotes.",
+  "<b>Ex</b>ons are <b>ex</b>pressed (kept); <b>in</b>trons are removed."
+ ],
+ teach:["Explain the 3 things that happen to a eukaryotic mRNA before it leaves the nucleus, and why splicing is useful.","It gets a 5′ cap, its introns are spliced out by the spliceosome, and a 3′ poly-A tail is added. Splicing is useful because alternative splicing lets one gene make several different proteins by keeping different exons."]
+},
+u8:{
+ big:"Translation reads mRNA three letters at a time. tRNAs are the translators, bringing the right amino acid for each codon, and the ribosome is the workbench that links them into a protein.",
+ steps:[
+  {h:"The code: reading in threes",
+   body:`<p>DNA and RNA have 4 letters; proteins have 20 amino acids. One letter per amino acid would give only 4 options; two letters, 16. <b>Three letters (a codon)</b> gives 64, more than enough.</p>
+   <p>Because there are 64 codons for 20 amino acids, most amino acids have several codons. That's what <b>degenerate</b> means (codons for the same amino acid = <b>synonymous</b>). It's a safety feature: many single-letter mutations still give the same amino acid.</p>
+   <p>Key codons: <b>AUG = start</b> (methionine). <b>UAA, UAG, UGA = stop</b>. (Memory: \"<b>U A</b>re <b>A</b>way, <b>U A</b>re <b>G</b>one, <b>U G</b>o <b>A</b>way.\")</p>
+   <p><b>Reading frame</b> matters: \"THE CAT ATE\" read starting one letter off becomes \"HEC ATA TE\". That's why the ribosome must start exactly at AUG.</p>`,
+   fig:"L24_s14",
+   check:{q:"Why is the genetic code called 'degenerate'?",o:["It mutates often","Most amino acids are coded by more than one codon","Codons overlap","Some codons code for two amino acids"],a:1,w:"64 codons for 20 amino acids, so many codons are synonymous."}},
+  {h:"tRNA: the translator",
+   body:`<p>A <b>tRNA</b> is an adaptor with two ends that speak two languages:</p>
+   <ul><li>One end has the <b>anticodon</b>, three bases that pair with an mRNA codon (the RNA language).</li><li>The other end, the <b>3′ end</b>, carries the matching <b>amino acid</b> (the protein language).</li></ul>
+   <p>It's drawn as a cloverleaf but folds into an L shape.</p>
+   <p>Who puts the right amino acid on each tRNA? <b>Aminoacyl-tRNA synthetases</b>, about one for each amino acid. They check the tRNA's anticodon and 3′ end to make sure it's a match, then attach the amino acid (using ATP). This step is where the code is really \"enforced\": if a synthetase attaches the wrong amino acid, the ribosome can't tell.</p>`,
+   fig:"L24_s15",
+   check:{q:"An mRNA codon is 5′-GCA-3′. The tRNA anticodon that pairs with it is:",o:["5′-GCA-3′","5′-UGC-3′","5′-CGU-3′","5′-TGC-3′"],a:1,w:"Anticodon is complementary and antiparallel: 3′-CGU-5′, which reads 5′-UGC-3′."}},
+  {h:"The ribosome: the workbench",
+   body:`<p>A ribosome has two subunits made of <b>rRNA + about 50+ proteins</b>:</p>
+   <ul><li><b>Small subunit</b>: holds the mRNA and checks that each tRNA's anticodon matches the codon.</li><li><b>Large subunit</b>: makes the <b>peptide bonds</b>.</li></ul>
+   <p>Surprise: the catalyst is the <b>rRNA, not the proteins</b>. An RNA that acts as an enzyme is a <b>ribozyme</b>, and the peptide-bond-forming activity (<b>peptidyl transferase</b>) is rRNA.</p>
+   <p>It has three slots for tRNAs, in order of where a tRNA goes: <b>A</b> (<b>a</b>rrival, the aminoacyl site, where a new charged tRNA enters), <b>P</b> (<b>p</b>olypeptide, holds the growing chain), <b>E</b> (<b>e</b>xit). In the order a tRNA visits them: <b>A → P → E</b>.</p>`,
+   fig:"L24_s20",
+   check:{q:"Where does a new amino acid-carrying tRNA first enter the ribosome?",o:["E site","P site","A site","Small subunit's cap site"],a:2,w:"A = arrival. tRNAs move A → P → E."}},
+  {h:"Initiation: finding the start",
+   body:`<p>The ribosome has to start at exactly the right AUG or the whole protein will be read in the wrong frame.</p>
+   <ol><li>The <b>small subunit</b> loads up with the <b>initiator tRNA</b> (carrying Met) and <b>initiation factors</b>.</li><li>It binds the mRNA at the <b>5′ cap</b> and <b>scans</b> 5′→3′, like reading a line with your finger.</li><li>When the initiator tRNA's anticodon pairs with the first <b>AUG</b>, scanning stops.</li><li>Initiation factors fall off, and the <b>large subunit joins</b>, enclosing the mRNA. The initiator tRNA sits in the <b>P site</b>, and the A site is empty, ready for the next codon.</li></ol>
+   <p>So the trigger for assembling the full ribosome = <b>initiator tRNA recognizing AUG</b>.</p>`,
+   fig:"L24_s22",
+   check:{q:"What triggers the large subunit to join the small subunit?",o:["Reaching the poly-A tail","The initiator tRNA base-pairing with the start codon","A release factor","Peptide bond formation"],a:1,w:"AUG recognition → initiation factors leave → large subunit binds."}},
+  {h:"Elongation: the 4-step loop",
+   body:`<p>Then the ribosome runs a loop, once per codon:</p>
+   <ol><li><b>Arrive</b>: a charged tRNA whose anticodon matches the codon binds the empty <b>A site</b>.</li><li><b>Bond</b>: peptidyl transferase (rRNA, large subunit) moves the growing chain from the P-site tRNA onto the amino acid of the A-site tRNA, forming a peptide bond (COOH of the chain to NH₂ of the new amino acid).</li><li><b>Shift</b>: the large subunit shifts, so the tRNAs now sit in the P and E sites.</li><li><b>Step</b>: the small subunit moves <b>3 nucleotides</b> along the mRNA. That empties the <b>A site</b> for the next tRNA and ejects the empty tRNA from the <b>E site</b>.</li></ol>
+   <p>The protein grows from its <b>N-terminus to its C-terminus</b> while the mRNA is read 5′→3′.</p>
+   <p>Many ribosomes can work on one mRNA at once (<b>polyribosomes</b>), making lots of protein quickly from a single message.</p>`,
+   fig:"L24_s28",
+   check:{q:"How does the A site become empty again after a peptide bond forms?",o:["The A-site tRNA is destroyed","The ribosome moves 3 nucleotides, shifting tRNAs to the P and E sites","The mRNA slides backward","A release factor removes the tRNA"],a:1,w:"Translocation: large subunit shift, then the small subunit steps 3 nt."}},
+  {h:"Termination: stop codon",
+   body:`<p>When a <b>stop codon</b> (UAA, UAG or UGA) reaches the A site, <b>no tRNA matches it</b>. Instead, a <b>release factor</b> (a protein) binds.</p>
+   <p>The release factor causes peptidyl transferase to add <b>water</b> instead of an amino acid. That breaks the bond holding the chain to the tRNA, and the finished protein is released from its <b>C-terminus</b>. The mRNA lets go and the two subunits separate, ready to be reused.</p>
+   <p><b>Practice:</b> 5′-AUG GCU UUC UGA-3′ → Met-Ala-Phe, then stop. A 3-amino-acid protein.</p>`,
+   fig:"L24_s30",
+   check:{q:"What binds a stop codon in the A site?",o:["A tRNA carrying no amino acid","A release factor","The initiator tRNA","Sigma factor"],a:1,w:"No tRNA matches stop codons; a release factor binds instead."}}
+ ],
+ traps:[
+  "The amino acid is on the tRNA's <b>3′ end</b>, not at the anticodon.",
+  "rRNA (not ribosomal proteins) makes the peptide bond: the ribosome is a <b>ribozyme</b>.",
+  "Order of sites a tRNA visits: <b>A → P → E</b>.",
+  "Stop codons bind <b>release factors</b>, not tRNAs."
+ ],
+ teach:["Walk through one round of elongation, naming the sites.","A charged tRNA enters the A site and pairs with the codon. Peptidyl transferase moves the growing chain from the P-site tRNA onto the A-site amino acid. The ribosome shifts so the tRNAs sit in P and E, then moves 3 nucleotides; the empty tRNA leaves from E and the A site is open for the next one."]
+},
+u9:{
+ big:"Every cell has the same genome. Cells become different by controlling which genes get transcribed, using transcription factors that bind DNA and by opening or closing the chromatin around genes.",
+ steps:[
+  {h:"Why control gene expression?",
+   body:`<p>Your neurons and liver cells carry the <b>exact same DNA</b>, yet they look and work completely differently. The difference is <b>which genes each cell expresses</b>.</p>
+   <p>Eukaryotes control expression at many levels: transcription, RNA processing, RNA export, mRNA lifespan, translation, and protein stability/activity. Why so many? Multiple levels let cells (1) build <b>different cell types</b> from one genome and (2) <b>respond quickly</b> to changes and signals.</p>
+   <p>Lecture 25 focuses on the first and most important level: <b>transcription</b>.</p>`,
+   fig:"L25_s4",
+   check:{q:"A neuron and a skin cell from the same person mostly differ in:",o:["Their DNA sequence","Which genes they express","Their number of chromosomes","Their genetic code"],a:1,w:"Same genome, different gene expression."}},
+  {h:"The baseline: basal transcription",
+   body:`<p>Recall from Lecture 23: general transcription factors + RNA pol II assemble at the <b>core promoter</b>. With <b>only</b> that machinery and nothing else helping or hindering, a gene gets transcribed at a <b>low level</b>. That's <b>basal transcription</b>.</p>
+   <p>Think of it as a car idling. To speed up or slow down, you need extra controls. Every regulation trick in this lecture works by making GTFs + RNA pol <b>more or less likely to bind the core promoter</b>. There are two families of tricks:</p>
+   <ol><li><b>Regulatory transcription factors (RTFs)</b> that bind DNA near the gene.</li><li><b>Changing chromatin</b> so the DNA is easier or harder to reach.</li></ol>`,
+   fig:"L25_s5",
+   check:{q:"Basal transcription means:",o:["No transcription","A low level of transcription from GTFs + RNA pol at the core promoter alone","Maximum transcription","Transcription only in bacteria"],a:1,w:"It's the 'idle' level, with no activators or repressors acting."}},
+  {h:"Regulatory transcription factors: reading the DNA",
+   body:`<p>RTFs bind short, specific DNA sequences called <b>motifs</b>, usually in the <b>enhancer</b> region upstream of the gene.</p>
+   <p>How does a protein \"read\" DNA without unzipping it? The RTF has a <b>DNA-binding domain</b>, a region of the protein that folds on its own (that's what a <b>domain</b> is). Part of it, often an α helix, fits into the <b>major groove</b>, where the edges of the bases are exposed. Specific amino acids form hydrogen bonds with specific bases, like a key that only fits one lock.</p>
+   <p>Two kinds:</p>
+   <ul><li><b>Activators</b> turn genes <b>up</b>: they <b>recruit the pre-initiation complex</b> (often through a bridge called Mediator) and recruit enzymes that open chromatin.</li><li><b>Repressors</b> turn genes <b>down</b>: they <b>block access</b>, e.g., sitting on a site an activator needs.</li></ul>
+   <p>One RTF can control hundreds or thousands of genes that share its motif, and each enhancer has sites for several RTFs, so genes are controlled by a \"committee.\"</p>`,
+   fig:"L25_s11",
+   check:{q:"What part of a regulatory transcription factor recognizes its DNA motif?",o:["Its DNA-binding domain","Its poly-A tail","A histone tail","Its anticodon"],a:0,w:"Amino acids in the DNA-binding domain H-bond with bases, usually in the major groove."}},
+  {h:"Chromatin: open the book before you read it",
+   body:`<p>Even if the right RTF is present, it usually <b>can't bind DNA that's wrapped around a nucleosome</b>. So cells control access:</p>
+   <ul><li><b>Chromatin-remodeling complexes</b> use ATP to slide nucleosomes off (or onto) the enhancer and core promoter, exposing or hiding the TATA box.</li><li><b>Histone acetylation</b> (from Lecture 19!) neutralizes positive lysines, so DNA is held loosely. Acetyl marks also attract activating proteins.</li></ul>
+   <p>Activators often recruit both of these, so they open the chromatin and bring in the transcription machinery.</p>
+   <p>Big picture: <b>euchromatin</b> (open) = can be transcribed; <b>heterochromatin</b> (closed) = silent.</p>`,
+   fig:"L25_s21",
+   check:{q:"A gene's TATA box is wrapped in a nucleosome. What could make the gene transcribable?",o:["DNA methylation","A chromatin-remodeling complex sliding the nucleosome away","Adding more histone H1","A repressor binding"],a:1,w:"Remodelers use ATP to reposition nucleosomes and expose the core promoter."}},
+  {h:"DNA methylation: locking genes off, and remembering it",
+   body:`<p><b>DNA methyltransferase</b> adds a methyl group (–CH₃) to <b>cytosine</b>, usually where C is followed by G. The methyl sticks out into the groove and <b>blocks transcription factors</b>, so the gene is <b>silenced</b>.</p>
+   <p><b>Does it survive replication?</b> After DNA is copied, each new double helix has one old strand (methylated) and one new strand (not). <b>Maintenance methyltransferase</b> recognizes these half-methylated sites and methylates the new strand to match.</p>
+   <p><b>Why that matters:</b> daughter cells inherit the same pattern of silenced genes. A liver cell divides into two liver cells, not into random cells. It's cell \"memory\" passed on without changing the DNA sequence (that's <b>epigenetic</b>).</p>`,
+   fig:"L25_s26",
+   check:{q:"Why is it useful to maintain methylation patterns after replication?",o:["It speeds up replication","Daughter cells keep the same genes silenced, so they stay the same cell type","It repairs mutations","It adds new genes"],a:1,w:"It preserves cell identity across divisions."}},
+  {h:"Putting it together: making different cell types",
+   body:`<p>How does an embryo make hundreds of cell types from one genome? <b>Regulatory transcription factors</b> start it.</p>
+   <ul><li><b>Combinations</b>: a handful of RTFs used in different combinations can specify many cell types, the same way a few letters spell many words.</li><li><b>Positive feedback</b>: a master regulator can activate <b>its own gene</b>. Once a brief signal turns it on, it keeps itself on, and the cell stays committed even after the signal is gone.</li><li><b>Locking it in</b>: chromatin changes and DNA methylation silence the genes for other cell types, and that pattern is inherited.</li></ul>
+   <p>Full story in one line: <b>signals → RTFs → open/close chromatin and recruit (or block) transcription machinery → different genes on → different cell type, remembered by methylation.</b></p>`,
+   fig:"L25_s31",
+   check:{q:"A master regulator protein activates transcription of its own gene. What's the effect?",o:["The gene shuts off immediately","Expression stays on even after the original signal is gone","The DNA is methylated","The cell dies"],a:1,w:"Positive feedback keeps the regulator, and the cell's identity, switched on."}}
+ ],
+ traps:[
+  "GTFs bind the <b>core promoter</b>; RTFs bind <b>enhancers</b>.",
+  "DNA methylation <b>silences</b> genes. Histone acetylation <b>activates</b>. Don't swap them.",
+  "Methylation is on <b>DNA (cytosine)</b>; acetylation (in this course) is on <b>histones</b>.",
+  "Repressors block access; they don't destroy RNA polymerase."
+ ],
+ teach:["Explain how two cells with the same genome become different cell types.","Different regulatory transcription factors are active in each cell. They bind enhancer motifs and either recruit transcription machinery and open chromatin (activators) or block access (repressors), so each cell expresses a different set of genes. DNA methylation silences genes, and maintenance methyltransferase copies that pattern so daughter cells keep the same identity."]
+}
+};
+
 // Labeling drills and comparison tables shown on topic pages.
 const DRILLS = {
  u1:[{id:"dNuc",title:"Label the nucleotide",svg:NUC_SVG,key:NUC_KEY,marks:["1","2","3","4","5","6","7"],ans:[0,1,2,3,4,5,6],note:"Simplified drawing. Practice finding the 5′ and 3′ carbons on the real structures in the figures below."}],
@@ -1484,7 +1923,7 @@ function buildPlan(){
   const plan=days.map(d=>({date:d,tasks:[],kind:"learn"}));
   const loads=units.map(u=>Math.round(u.mins*W[S.conf[u.id]]/5)*5);
   const learnTasks=(u,i)=>[
-    {id:"learn-"+u.id,txt:`Learn ${u.n}. ${u.title}: read the key points, study the figures, answer the lecture questions`,min:loads[i],act:["unit",u.id],u:u.id},
+    {id:"learn-"+u.id,txt:`Learn ${u.n}. ${u.title}: work through the guided lesson, then the lecture questions`,min:loads[i],act:["unit",u.id],u:u.id},
     {id:"quiz-"+u.id,txt:`Quiz yourself on ${u.short} (${Math.min(10,u.quiz.length)} questions)`,min:10,act:["quiz",u.id],u:u.id},
     {id:"cards-"+u.id,txt:`Flashcards: ${u.short}`,min:10,act:["cards",u.id],u:u.id}
   ];
@@ -1572,7 +2011,8 @@ function renderUnit(){
   $("#unitContent").innerHTML=`
   <div class="section-head"><div style="display:grid;gap:6px"><span class="eyebrow">Topic ${u.n} of ${UNITS.length} · ${u.lec}</span><h2>${u.title}</h2></div>
    <div class="row">${s.n?`<span class="pill ${s.p>=80?"good":s.p<70?"weak":"warn"}">quiz ${s.c}/${s.n} · ${s.p}%</span>`:""}<button class="btn small primary" type="button" data-go="quiz">Quiz this topic</button><button class="btn small" type="button" data-go="cards">Flashcards</button></div></div>
-  <div class="card"><h3 style="margin-bottom:12px">Key points</h3><ul class="points">${u.points.map(p=>`<li>${p}</li>`).join("")}</ul></div>
+  ${lessonHTML(u)}
+  <div class="card"><h3 style="margin-bottom:4px">Quick review: key points</h3><p class="muted" style="margin-bottom:12px">The facts to memorize once you understand the lesson above.</p><ul class="points">${u.points.map(p=>`<li>${p}</li>`).join("")}</ul></div>
   ${(DRILLS[u.id]||[]).map(drill).join("")}
   ${tablesFor(u.id)}
   ${(()=>{const its=GUIDE.flatMap((s,si)=>s.items.map((it,ii)=>({it,k:gkey(si,ii),ch:s.h.split(":")[0]}))).filter(x=>x.it[2]===u.id);if(!its.length)return "";const dn=its.filter(x=>S.guide[x.k]).length;
@@ -1584,6 +2024,7 @@ function renderUnit(){
   <div class="card res"><h3>Need another explanation?</h3><ul>${resItems(r)}</ul></div>
   <div class="row" style="justify-content:space-between">${u.n>1?`<button class="btn" type="button" data-nav="${UNITS[u.n-2].id}">← ${UNITS[u.n-2].short}</button>`:"<span></span>"}${u.n<UNITS.length?`<button class="btn" type="button" data-nav="${UNITS[u.n].id}">${UNITS[u.n].short} →</button>`:""}</div>`;
   $$("#unitContent [data-ug]").forEach(c=>{c.addEventListener("change",()=>{S.guide[c.dataset.ug]=c.checked;save();const all=$$("#unitContent [data-ug]");const n=all.filter(x=>x.checked).length;const p=$("#ugCount");p.textContent=`${n}/${all.length} checked`;p.classList.toggle("good",n===all.length)})});
+  wireLesson(u);
   $$("#unitContent [data-img]").forEach(b=>b.addEventListener("click",()=>openLB(b.dataset.img,b.dataset.cap)));
   $$("#unitContent [data-nav]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.nav)));
   $$("#unitContent [data-go]").forEach(b=>b.addEventListener("click",()=>b.dataset.go==="quiz"?(show("quiz"),startQuiz([u.id],u.quiz.length)):(fc.unit=u.id,fc.reset=true,show("cards"))));
@@ -1591,6 +2032,35 @@ function renderUnit(){
     box.querySelectorAll("select").forEach(s=>{n++;const m=s.parentElement.querySelector(".mark");if(s.value===s.dataset.ans){ok++;m.textContent="✓";m.className="mark ok"}else{m.textContent="✗";m.className="mark no"}});
     box.querySelector(`[data-res="${b.dataset.check}"]`).textContent=`${ok}/${n} correct`}));
   $$("#unitContent [data-reveal]").forEach(b=>b.addEventListener("click",()=>{const box=$("#"+b.dataset.reveal);box.querySelectorAll("select").forEach(s=>{s.value=s.dataset.ans;const m=s.parentElement.querySelector(".mark");m.textContent="";})}));
+}
+function lessonHTML(u){const L=LESSONS[u.id];if(!L)return "";
+ const n=L.steps.length,done=Math.min(((S.lesson||{})[u.id])||0,n);
+ return `<div class="card lesson" id="lesson"><div class="section-head"><div style="display:grid;gap:4px"><span class="eyebrow">Guided lesson · ${n} steps · about ${n*4} min</span><h3>Learn it step by step</h3></div><span class="pill ${done>=n?"good":""}" id="lsProg">${done}/${n} steps</span></div>
+ <p class="big-idea"><b>The big idea:</b> ${L.big}</p>
+ <ol class="ls-steps">${L.steps.map((st,i)=>`<li class="ls-step" data-i="${i}" ${i>done?"hidden":""}>
+   <h4><span class="ls-n">${i+1}</span><span>${st.h}</span></h4>
+   <div class="ls-body">${st.body}</div>
+   ${st.fig?`<button type="button" class="ls-fig" data-img="${st.fig}" data-cap="${esc1(st.h)}"><img loading="lazy" src="img/${st.fig}.jpg" alt="Slide figure: ${esc1(st.h)}"><span>From your slides · tap to enlarge</span></button>`:""}
+   <div class="ls-check"><p><b>Check yourself:</b> ${st.check.q}</p><div class="ls-opts">${st.check.o.map((o,j)=>`<button type="button" class="opt" data-ls="${i}" data-j="${j}"><span class="k">${"ABCD"[j]}</span><span>${o}</span></button>`).join("")}</div><p class="ls-fb" hidden></p>
+   <button class="btn small primary ls-next" type="button" data-next="${i}" hidden>${i<n-1?"Next step →":"Finish lesson →"}</button></div></li>`).join("")}</ol>
+ <div class="ls-end" ${done>=n?"":"hidden"}>
+   <h4>Exam traps</h4><ul class="points">${L.traps.map(t=>`<li>${t}</li>`).join("")}</ul>
+   <h4>Explain it back</h4><p>${L.teach[0]} Say it out loud or type it here first, then compare. If you can explain it, you know it.</p>
+   <textarea rows="3" class="ls-ta" aria-label="Your explanation" placeholder="Your explanation..."></textarea>
+   <details class="q"><summary>Compare with a model answer</summary><div class="a">${L.teach[1]}</div></details>
+   <div class="row"><button class="btn small primary" type="button" data-go="quiz">Quiz this topic</button><button class="btn small" type="button" id="lsRestart">Restart lesson</button></div>
+ </div>
+ ${done<n?`<div class="row"><button class="linkbtn" type="button" id="lsAll">Skip ahead: show all steps</button></div>`:""}</div>`}
+function wireLesson(u){const L=LESSONS[u.id];if(!L)return;S.lesson=S.lesson||{};const n=L.steps.length;const box=$("#lesson");
+ box.querySelectorAll("[data-ls]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.ls,j=+b.dataset.j,c=L.steps[i].check;const li=b.closest(".ls-step");
+   li.querySelectorAll("[data-ls]").forEach(x=>{x.disabled=true;const k=+x.dataset.j;if(k===c.a)x.classList.add("right");else if(k===j)x.classList.add("wrong")});
+   const fb=li.querySelector(".ls-fb");fb.hidden=false;fb.className="ls-fb "+(j===c.a?"ok":"no");fb.innerHTML=(j===c.a?"<b>Right.</b> ":"<b>Not quite.</b> ")+c.w;
+   const nb=li.querySelector(".ls-next");if(i>=(S.lesson[u.id]||0))nb.hidden=false}));
+ box.querySelectorAll("[data-next]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.next;S.lesson[u.id]=Math.max(S.lesson[u.id]||0,i+1);save();b.hidden=true;
+   const nx=box.querySelector(`.ls-step[data-i="${i+1}"]`)||box.querySelector(".ls-end");nx.hidden=false;nx.scrollIntoView({behavior:"smooth",block:"start"});
+   const d=Math.min(S.lesson[u.id],n);const p=$("#lsProg");p.textContent=`${d}/${n} steps`;if(d>=n){p.classList.add("good");const a=$("#lsAll");if(a)a.hidden=true}}));
+ const a=$("#lsAll");if(a)a.addEventListener("click",()=>{box.querySelectorAll(".ls-step,.ls-end").forEach(x=>x.hidden=false);a.hidden=true});
+ const r=$("#lsRestart");if(r)r.addEventListener("click",()=>{S.lesson[u.id]=0;save();renderUnit();setTimeout(()=>{const l=$("#lesson");if(l)l.scrollIntoView({block:"start"})},50)});
 }
 function resItems(r){return r.v.map(([t,q])=>`<li><a href="${YT(q)}" target="_blank" rel="noopener"><span class="ic v">VIDEO</span><span>${t}</span></a></li>`).join("")+r.r.map(([t,url])=>`<li><a href="${url}" target="_blank" rel="noopener"><span class="ic r">READ</span><span>${t}</span></a></li>`).join("")}
 
