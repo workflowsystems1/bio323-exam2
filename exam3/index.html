@@ -376,6 +376,17 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 .ls-end{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:14px}.ls-end h4{margin:6px 0 0}
 .ls-ta{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--ink);width:100%;box-sizing:border-box}
 .lessontable{border-collapse:collapse;width:100%;font-size:.95rem}.lessontable td,.lessontable th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+
+/* review session */
+.rv{display:grid;gap:12px}.rv.done{border-color:var(--good)}
+.rv-head{display:flex;justify-content:space-between;gap:12px;align-items:start}.rv-head h3{margin:4px 0 0}
+.rv-chk{display:flex;gap:6px;align-items:center;font-size:.9rem;white-space:nowrap;cursor:pointer}
+.rvbox{border-left:5px solid var(--pink)}
+.a-lead{stroke:#2a9d5c;stroke-width:5;fill:none;stroke-linecap:round}.a-lag{stroke:var(--pink);stroke-width:5;fill:none;stroke-linecap:round}
+.a-lt{fill:#2a9d5c;font-weight:700}.a-gt{fill:var(--pink);font-weight:700}
+.r-large{fill:#b9e3a6;stroke:var(--ink);stroke-width:2}.r-small{fill:#7cc47f;stroke:var(--ink);stroke-width:2}
+.r-site{fill:var(--surface);stroke:var(--ink);stroke-width:1.5}.r-mrna{stroke:#3b82c4;stroke-width:6}
+.px-item.sa .px-fig{margin:6px 0}
 </style>
 </head>
 <body>
@@ -396,6 +407,7 @@ tr:last-child td,tr:last-child th{border-bottom:0}
   <div class="wrap" role="tablist">
     <button role="tab" data-tab="plan">Study plan</button>
     <button role="tab" data-tab="units">Topics</button>
+    <button role="tab" data-tab="review">Review session</button>
     <button role="tab" data-tab="guide">Study guide</button>
     <button role="tab" data-tab="quiz">Practice quiz</button>
     <button role="tab" data-tab="exam">Practice exam</button>
@@ -450,6 +462,17 @@ tr:last-child td,tr:last-child th{border-bottom:0}
     <div id="guideList" class="view"></div>
   </section>
 
+  <!-- REVIEW SESSION -->
+  <section class="view" id="v-review" hidden>
+    <div class="card" style="display:grid;gap:10px">
+      <span class="eyebrow">Exam 3 review · Mon Nov 16</span>
+      <h2>Every review question, answered</h2>
+      <p class="muted">These are the slides from Monday's review, which show what your professor expects you to know. Answer each one out loud or on paper before you open the answer. Check off the ones you get right.</p>
+      <div class="summary-bar"><span class="mono" id="rvCount"></span><div class="meter"><i id="rvMeter"></i></div><button class="btn small" id="rvAll" type="button">Show all answers</button></div>
+    </div>
+    <div id="rvList" class="view"></div>
+  </section>
+
   <!-- QUIZ -->
   <section class="view" id="v-quiz" hidden>
     <div id="quizArea"></div>
@@ -458,10 +481,10 @@ tr:last-child td,tr:last-child th{border-bottom:0}
   <!-- PRACTICE EXAM -->
   <section class="view" id="v-exam" hidden>
     <div class="card" style="display:grid;gap:10px">
-      <span class="eyebrow">Same format as Exam 2 · written from your study guides</span>
+      <span class="eyebrow">Same question breakdown as the real Exam 3 · from the review session</span>
       <h2>Practice exam</h2>
-      <p class="muted">Matching, labeling, short answer, multiple choice and true/false, like Exam 2. No notes, since there's no notecard this time. Answer everything, then check. Wrong answers show the right one and why.</p>
-      <nav class="px-break" aria-label="Exam sections"><a href="#px-sec-match">Matching</a><a href="#px-sec-label">Labeling</a><a href="#px-sec-sa">Short answer</a><a href="#px-sec-mc">Multiple choice</a><a href="#px-sec-tf">True/false</a></nav>
+      <p class="muted">Built to the breakdown from Monday's review: 26 matching, 16 labeling, 9 true/false, 8 fill-in/free response, 6 multiple choice, 5 drawing, plus 3 extra credit. No notes, since there's no notecard. Answer everything, then check. Wrong answers show the right one and why; you grade your own drawings and written answers against the key.</p>
+      <nav class="px-break" aria-label="Exam sections"><a href="#px-sec-match">Matching 26</a><a href="#px-sec-label">Labeling 16</a><a href="#px-sec-draw">Drawing 5</a><a href="#px-sec-sa">Fill-in 8</a><a href="#px-sec-mc">MC 6</a><a href="#px-sec-tf">T/F 9</a><a href="#px-sec-ec">Extra credit 3</a></nav>
     </div>
     <div class="card px-summary" id="pxSummary" hidden></div>
     <div id="pxExam" class="view"></div>
@@ -763,7 +786,7 @@ const UNITS = [
   "Eukaryotes: in G1, ORC + Cdc6 load helicase onto origins (\"origin loaded\"); in S phase <b>S-Cdk</b> activates helicase and the origin fires. That way each origin fires only once per cycle.",
   "<b>Topoisomerase</b>: unwinding creates torsional stress (supercoils) that would cause double-strand breaks; topoisomerase relieves it by making and resealing <b>single-strand nicks</b>.",
   "<b>Primase</b> makes short <b>RNA primers</b>. DNA polymerase can only add onto an existing 3′ end, so it can't start a strand from nothing.",
-  "<b>DNA polymerase III</b> builds the daughter strand by matching each template base. New nucleotides are added to the <b>3′ –OH</b> end, so strands grow <b>5′→3′</b>. Energy comes from breaking 2 phosphates (pyrophosphate) off the incoming <b>d</b>NTP (dATP, dTTP, dGTP, dCTP).<span class=\"flag\">Your slide says pol III \"can only attach nucleotides at 5′ end.\" The figure on the same slide shows the new nucleotide's 5′ phosphate joining the chain's <b>3′</b> end. On the exam, say the strand grows 5′→3′ by adding to the 3′ end.</span>",
+  "<b>DNA polymerase III</b> builds the daughter strand by matching each template base. New nucleotides are added to the <b>3′ –OH</b> end, so strands grow <b>5′→3′</b>. Energy comes from breaking 2 phosphates (pyrophosphate) off the incoming <b>d</b>NTP (dATP, dTTP, dGTP, dCTP).<span class=\"flag\">Your professor phrases this from the <b>new nucleotide's</b> point of view: nucleotides are \"added on at their 5′ end\" (review slide 5). That's the same thing as saying they join the chain's 3′ end. Either way, the strand grows 5′→3′.</span>",
   "<b>Why 5′→3′?</b> The energy for each new bond comes from the triphosphate on the <b>incoming</b> nucleotide. If the chain grew 3′→5′, the energy would sit on the chain's end, so proofreading off a wrong nucleotide would leave no energy to keep going. 5′→3′ lets pol III <b>proofread</b>.",
   "<b>Proofreading</b>: pol III has an editing site; it removes a mispaired nucleotide and tries again. Error rate ~<b>1 in 1 million</b>.",
   "<b>Leading strand</b>: made in the <b>same direction</b> the fork moves, continuously, 5′→3′ away from the origin. <b>Lagging strand</b>: its template runs the wrong way (3′→5′ away from origin, opposite the fork), so it's made in chunks: <b>Okazaki fragments</b>, each starting with an RNA primer. The lagging template loops so pol III can travel with the fork, finish a fragment, release, get a new primer, reloop and repeat.",
@@ -1346,7 +1369,7 @@ u3:{
   {h:"Building the new strand: primer, then polymerase",
    body:`<p><b>DNA polymerase III</b> builds the new strand, but it has two rules:</p>
    <ol><li><b>It can't start from scratch.</b> It can only add to an existing 3′ end. So <b>primase</b> first lays down a short <b>RNA primer</b> to give it a starting point.</li><li><b>It only builds 5′→3′.</b> It adds each nucleotide to the 3′ –OH of the growing strand.</li></ol>
-   <p><b>Why only 5′→3′?</b> Each incoming nucleotide arrives as a triphosphate (dATP, dTTP...). Snapping off two phosphates releases the energy to make the bond. Because the energy rides in on the <b>new</b> nucleotide, polymerase can <b>remove a wrong nucleotide</b> (proofreading) and still have energy for the next one. That gets the error rate to about <b>1 in a million</b>.</p>
+   <p><b>Why only 5′→3′?</b> (Review slide 5 asks it as \"why can we only add nucleotides on at their 5′ end?\") Each incoming nucleotide arrives with a triphosphate on its <b>5′ carbon</b> (dATP, dTTP...). Snapping off two phosphates releases the energy to bond its 5′ phosphate to the chain's 3′ –OH. So nucleotides join <b>by their 5′ end</b>, and the strand grows 5′→3′. Because the energy rides in on the <b>new</b> nucleotide, polymerase can <b>remove a wrong nucleotide</b> (proofreading) and still have energy for the next one. That gets the error rate to about <b>1 in a million</b>.</p>
    <p>The new strand is antiparallel to its template, so polymerase reads the template 3′→5′ while building 5′→3′.</p>`,
    fig:"L20_s23",
    check:{q:"Why does DNA replication need primase?",o:["To unwind DNA","Because DNA polymerase can only add onto an existing 3′ end","To seal Okazaki fragments","To proofread"],a:1,w:"Polymerase can't start a chain; the RNA primer gives it a 3′ –OH to extend."}},
@@ -1666,6 +1689,70 @@ u9:{
 }
 };
 
+// ---------- Exam 3 review session (Mon Nov 16) ----------
+const FORK_ANS=`<svg viewBox="0 0 640 300" role="img" aria-label="Answer: leading strands top-left and bottom-right, lagging strands with Okazaki fragments top-right and bottom-left">
+<path class="f-par" d="M30 70 H170 C210 70 220 40 260 40 H380 C420 40 430 70 470 70 H610"/>
+<path class="f-par" d="M30 230 H170 C210 230 220 260 260 260 H380 C420 260 430 230 470 230 H610"/>
+<text class="svg-t" x="14" y="66">5′</text><text class="svg-t" x="614" y="66">3′</text>
+<text class="svg-t" x="14" y="244">3′</text><text class="svg-t" x="614" y="244">5′</text>
+<rect class="f-ori" x="304" y="32" width="32" height="16" rx="3"/><rect class="f-ori" x="304" y="252" width="32" height="16" rx="3"/>
+<path class="a-lead" d="M318 92 H200"/><path class="a-lead" d="M206 86 L198 92 L206 98"/>
+<path class="a-lead" d="M322 208 H440"/><path class="a-lead" d="M434 202 L442 208 L434 214"/>
+<path class="a-lag" d="M440 92 H408"/><path class="a-lag" d="M414 86 L406 92 L414 98"/><path class="a-lag" d="M398 92 H366"/><path class="a-lag" d="M372 86 L364 92 L372 98"/><path class="a-lag" d="M356 92 H330"/><path class="a-lag" d="M336 86 L328 92 L336 98"/>
+<path class="a-lag" d="M200 208 H232"/><path class="a-lag" d="M226 202 L234 208 L226 214"/><path class="a-lag" d="M242 208 H274"/><path class="a-lag" d="M268 202 L276 208 L268 214"/><path class="a-lag" d="M284 208 H310"/><path class="a-lag" d="M304 202 L312 208 L304 214"/>
+<text class="svg-tm a-lt" x="200" y="118">leading (continuous) ←</text>
+<text class="svg-tm a-gt" x="345" y="118">lagging: Okazaki fragments</text>
+<text class="svg-tm a-gt" x="170" y="192">lagging: Okazaki fragments</text>
+<text class="svg-tm a-lt" x="340" y="192">→ leading (continuous)</text>
+<path class="leader" d="M150 150 H60 M70 144 L60 150 L70 156"/><text class="svg-tm" x="60" y="140">fork ←</text>
+<path class="leader" d="M490 150 H580 M570 144 L580 150 L570 156"/><text class="svg-tm" x="530" y="140">fork →</text>
+</svg>`;
+const RIBO_SVG=`<svg viewBox="0 0 520 300" role="img" aria-label="Ribosome with numbered parts">
+<path class="r-large" d="M110 170 C100 80 170 40 260 40 C350 40 420 80 410 170 Z"/>
+<rect class="r-small" x="100" y="170" width="320" height="56" rx="26"/>
+<rect class="r-site" x="170" y="96" width="50" height="86" rx="18"/><rect class="r-site" x="235" y="96" width="50" height="86" rx="18"/><rect class="r-site" x="300" y="96" width="50" height="86" rx="18"/>
+<line class="r-mrna" x1="60" y1="198" x2="470" y2="198"/><text class="svg-t" x="40" y="203">5′</text><text class="svg-t" x="474" y="203">3′</text>
+${_lab(1,470,60)}${_ln(458,66,400,100)}
+${_lab(2,470,260)}${_ln(458,254,410,222)}
+${_lab(3,195,272)}${_ln(195,259,195,184)}
+${_lab(4,260,272)}${_ln(260,259,260,184)}
+${_lab(5,325,272)}${_ln(325,259,325,184)}
+</svg>`;
+const RIBO_KEY=["Large ribosomal subunit","Small ribosomal subunit","E site","P site","A site"];
+
+const REVIEW=[
+ {s:2,h:"How the exam is set up",qs:[["What's on the exam?",`<div class="tablewrap"><table><thead><tr><th>Type</th><th>Questions</th></tr></thead><tbody>
+  <tr><td>Matching (1 answer per question)</td><td><b>26</b></td></tr><tr><td>Labeling</td><td><b>16</b></td></tr><tr><td>True/false</td><td>9</td></tr><tr><td>Fill in the blank / free response</td><td>8</td></tr><tr><td>Multiple choice</td><td>6</td></tr><tr><td>Drawing</td><td>5</td></tr><tr><td>Extra credit (free response)</td><td>3</td></tr></tbody></table></div>
+  <p>Matching and labeling are 42 of the 70 regular questions, so know your terms and diagrams cold: the enzyme list, the cell cycle circle, the gene region, the ribosome sites. The Practice exam tab now uses this exact breakdown.</p>`]]},
+ {s:3,h:"Leading and lagging strands",qs:[["Draw the leading and lagging strands at each fork and label some Okazaki fragments.",`${FORK_ANS}<p>Top strand runs 5′→3′ left to right, so its new partner grows <b>leftward</b> (toward its template's 5′ end). At the <b>left fork</b> that's toward the fork = <b>leading</b>; at the <b>right fork</b> it's away from the fork = <b>lagging</b>. The bottom strand is the mirror image: its new strand grows rightward, so it's <b>leading at the right fork</b> and <b>lagging at the left fork</b>.</p><p>Leading strands point toward their fork; Okazaki fragments point back toward the origin. Draw arrows with the arrowhead at each new strand's 3′ end.</p>`]],unit:"u3"},
+ {s:4,h:"Ends and backbone of a strand",qs:[["Where is the 5′ end of this strand? The 3′ end?","<b>5′ end = top</b>: the G nucleotide's phosphate is attached to its CH₂ (5′ carbon) and isn't connected to anything above. <b>3′ end = bottom</b>: the C nucleotide's 3′ carbon (bottom of its sugar ring) ends with an O/OH that nothing is attached to."],["What type of bonds hold the backbone together?","<b>Covalent phosphodiester bonds</b> (the highlighted phosphate links the 3′ carbon of one sugar to the 5′ carbon of the next). The H bonds are between base pairs, not in the backbone."]],unit:"u1"},
+ {s:5,h:"Why nucleotides are added by their 5′ end",qs:[["Why can we only add nucleotides on at their 5′ end?","Each incoming nucleotide carries its energy as a <b>triphosphate on its 5′ carbon</b>. DNA polymerase breaks off 2 of those phosphates and uses the energy to bond the remaining 5′ phosphate to the <b>3′ –OH</b> of the growing strand. So a new nucleotide always joins by its 5′ end, onto the chain's 3′ end, and the strand grows <b>5′→3′</b>. Keeping the energy on the incoming nucleotide is also what lets polymerase proofread: it can clip off a mistake and the next nucleotide still brings its own energy."]],unit:"u3"},
+ {s:6,h:"H bonds per base",qs:[["How many H bonds would each nucleotide (G, A, T, C) form with its base pair?","<b>G: 3</b> (with C), <b>A: 2</b> (with T), <b>T: 2</b> (with A), <b>C: 3</b> (with G)."]],unit:"u1"},
+ {s:7,h:"Turning on a Cdk",qs:[["What needs to happen for a Cdk to phosphorylate its targets and move the cell into the next stage?","The Cdk has to be <b>bound to its cyclin</b>, so that cyclin has to be made and build up. Also, any <b>inhibitory phosphates must be removed</b> (Cdc25 removes the ones Wee1 adds), and <b>no Cdk inhibitor protein</b> (p21, p27) can be blocking it. Then the active cyclin-Cdk phosphorylates the target proteins that carry out the next stage. (If a checkpoint fails, these brakes stay on.)"]],unit:"u5"},
+ {s:8,h:"Where the ribosome binds mRNA",qs:[["Where does the ribosome bind mRNA?","The <b>small subunit</b> binds the mRNA (it has the mRNA-binding site). In initiation it attaches at the <b>5′ cap</b> along with the initiator tRNA and initiation factors, then scans 5′→3′ to the first <b>AUG</b>, where the large subunit joins."]],unit:"u8"},
+ {s:9,h:"Reading a double strand",qs:[["What word describes one strand running 5′→3′ and the other 3′→5′?","<b>Antiparallel.</b>"],["Where is the start codon (AUG) for this protein? Which strand is the template?",`<p>Look for ATG on each strand <b>read 5′→3′</b>. The top strand (5′-CTCTACGCACGCATTA-3′) has none. The bottom strand read 5′→3′ (<b>right to left</b>) is 5′-TA<b>ATG</b>CGTGCG<b>TAG</b>AG-3′. Its ATG sits under the top strand's <b>C-A-T</b>, the 12th–14th bases from the left.</p><p>So the <b>bottom strand is the coding strand</b> and the <b>top strand is the template</b> that RNA polymerase reads. mRNA: 5′-UA<b>AUG</b> CGU GCG <b>UAG</b> AG-3′ → <b>Met-Arg-Ala</b>, then stop.</p>`]],unit:"u7"},
+ {s:10,h:"Where strands separate most easily",qs:[["Where would it be easiest to break these strands apart?","At the <b>AT-rich stretch on the right end</b> (A-T, T-A, T-A, A-T in a row). A–T pairs have only 2 H bonds vs 3 for G–C. That's also why origins of replication are AT-rich."]],unit:"u3"},
+ {s:11,h:"Replication enzymes (matching)",qs:[["Match each enzyme to its job.","1. Single-strand nicks to remove torsional stress → <b>DNA topoisomerase</b><br>2. Adds RNA primers → <b>Primase</b><br>3. Takes off RNA primers, replaces with DNA → <b>DNA pol I</b><br>4. Seals backbone of fragments → <b>DNA ligase</b><br>5. Unwinds DNA → <b>DNA helicase</b><br>6. Synthesizes the new strand → <b>DNA pol III</b><br>7. Helps make the 3′ ends of eukaryotic chromosomes → <b>Telomerase</b>"]],unit:"u3"},
+ {s:12,h:"Interphase stages",qs:[["Label the 3 stages of interphase (M is given).","Going clockwise from M: <b>G1</b> (the big segment right after M), then <b>S</b>, then <b>G2</b> (right before M)."]],unit:"u5"},
+ {s:13,h:"Cell cycle checkpoints",qs:[["What happens at each checkpoint? (Boxes on the diagram)","<b>Bottom box, end of G1 → G1 checkpoint:</b> Is the environment favorable to divide?<br><b>Top-left box, G2→M boundary → G2 checkpoint:</b> Is all the DNA replicated? Is it damaged?<br><b>Top-right box, inside M → M checkpoint (metaphase → anaphase):</b> Are all chromosomes attached to the spindle?<br>If the answer is no, Cdks are kept off (or APC/C stays off at the M checkpoint) and the cycle pauses."]],unit:"u5"},
+ {s:14,h:"Mitosis stage by stage",qs:[["For every stage: what is the spindle doing? The nucleus/chromosomes?",`<div class="tablewrap"><table><thead><tr><th>Stage</th><th>Spindle</th><th>Nucleus / chromosomes</th></tr></thead><tbody>
+  <tr><th>Prophase</th><td>Starts forming between the two centrosomes as they move apart</td><td>Chromosomes condense; nuclear envelope still intact</td></tr>
+  <tr><th>Prometaphase</th><td>Kinetochore microtubules attach to chromosomes</td><td>Nuclear envelope breaks down; chromosomes start moving</td></tr>
+  <tr><th>Metaphase</th><td>Fully formed; kinetochore MTs from both poles attached to each pair of sisters</td><td>Chromosomes lined up at the equator</td></tr>
+  <tr><th>Anaphase</th><td>Kinetochore MTs shorten (pull); poles pushed apart</td><td>Sister chromatids separate and move to opposite poles</td></tr>
+  <tr><th>Telophase</th><td>Breaks down</td><td>Chromosomes decondense; nuclear envelope reforms around each set (2 nuclei)</td></tr>
+  </tbody></table></div>`]],unit:"u6"},
+ {s:15,h:"Ribosome sites",qs:[["What 2 sites will be full when a new tRNA comes in?","The <b>P site</b> (holding the tRNA attached to the growing chain) and the <b>A site</b> (where the new charged tRNA binds). The E site is empty or its tRNA is leaving."]],unit:"u8"},
+ {s:16,h:"Elongation: what happens next",qs:[["Step 1: the new charged tRNA is in the A site. What happens next?","<b>Step 2: peptide bond formation.</b> Peptidyl transferase (rRNA in the large subunit) transfers the growing chain off the P-site tRNA and bonds it to the amino acid on the A-site tRNA. Now the whole chain hangs from the A-site tRNA."]],unit:"u8"},
+ {s:17,h:"Elongation: after the bond",qs:[["We added the amino acid to the chain, now what?","<b>Step 3: the large subunit translocates</b>, shifting the tRNAs into the E and P sites. <b>Step 4: the small subunit translocates</b> 3 nucleotides along the mRNA, which <b>ejects the empty tRNA from the E site</b> and leaves the <b>A site empty</b> for the next charged tRNA. Then the cycle repeats."]],unit:"u8"},
+ {s:19,h:"Ending translation",qs:[["How do we terminate translation?","A <b>stop codon</b> (UAA, UAG or UGA) enters the A site. No tRNA matches it, so a <b>release factor</b> binds instead. Peptidyl transferase adds <b>water</b> to the end of the chain, releasing the protein. The mRNA is released and the ribosomal subunits separate."]],unit:"u8"},
+ {s:20,h:"Gene regions",qs:[["What are the two ? regions called?","Purple (~−100 to −50) = <b>enhancer region</b>. Orange bracket over the TATA box and start site = <b>core promoter</b>."]],unit:"u7"},
+ {s:21,h:"Who binds where",qs:[["Where do regulatory transcription factors bind?","The <b>enhancer region</b>, at specific motifs."],["Where does the transcription pre-initiation complex (general TFs + RNA pol) bind?","The <b>core promoter</b>: TFIID recognizes the TATA box first, then the rest assemble around the start site."]],unit:"u9"},
+ {s:22,h:"Blocking an activator",qs:[["How can we block an activating transcription factor from binding?","(1) A <b>repressor</b> binds the enhancer motif and blocks access. (2) <b>Chromatin</b>: a remodeling complex wraps the enhancer around a nucleosome (most RTFs can't bind nucleosomal DNA), or the region is packed into heterochromatin. (3) <b>DNA methylation</b> of cytosines in the enhancer blocks TF binding."]],unit:"u9"},
+ {s:23,h:"Types of heterochromatin",qs:[["Chromatin that is always tightly packed and transcriptionally inactive?","<b>Constitutive heterochromatin.</b>"],["Chromatin that is sometimes tightly packed, depending on cell type?","<b>Facultative heterochromatin.</b>"],["Who signals for this cell-type-specific regulation of gene expression?","<b>Regulatory transcription factors.</b>"]],unit:"u9"},
+ {s:24,h:"Double-strand breaks",qs:[["Are all double-stranded DNA breaks equally harmful? Why or why not?","<b>No.</b> It depends on whether there's an undamaged copy to repair from. After replication (S/G2), the identical <b>sister DNA</b> is right there, so <b>homologous repair</b> fixes the break accurately. Without a template (e.g., in G1), the cell uses <b>non-homologous end joining</b>, which glues the ends back and usually deletes nucleotides or can join the wrong chromosomes (translocations). That's much more likely to cause a harmful mutation, especially inside a gene."]],unit:"u4"}
+];
+
 // Labeling drills and comparison tables shown on topic pages.
 const DRILLS = {
  u1:[{id:"dNuc",title:"Label the nucleotide",svg:NUC_SVG,key:NUC_KEY,marks:["1","2","3","4","5","6","7"],ans:[0,1,2,3,4,5,6],note:"Simplified drawing. Practice finding the 5′ and 3′ carbons on the real structures in the figures below."}],
@@ -1861,7 +1948,7 @@ function unitStat(id){const s=S.stats[id];return s?{c:s.c,n:s.n,p:pct(s.c,s.n)}:
 function isWeak(id){const s=unitStat(id);return (s.n>=4&&s.p<70)||S.conf[id]==1}
 
 // ---------- tabs ----------
-const TABS=["plan","units","guide","quiz","exam","cards","resources"];
+const TABS=["plan","units","review","guide","quiz","exam","cards","resources"];
 function show(tab,push){
   if(!TABS.includes(tab))tab="plan";
   S.tab=tab;save();
@@ -1870,6 +1957,7 @@ function show(tab,push){
   if(tab==="plan")renderPlan();
   if(tab==="units")renderUnit();
   if(tab==="guide")renderGuide();
+  if(tab==="review")renderReview();
   if(tab==="quiz"&&!quiz.active)renderQuizSetup();
   if(tab==="cards")renderCards();
   if(tab==="resources")renderResources();
@@ -1946,10 +2034,11 @@ function buildPlan(){
     {id:"mixed-25",txt:"Mixed quiz: 25 questions across all topics",min:25,act:["quiz","mixed25"]},
     {id:"weak-cards",txt:"Flashcards: anything still in your \"still learning\" pile",min:15,act:["cards","all"]});}
   if(R>=1){const d=plan[N-1];d.kind="final";d.tasks.push(
+    {id:"review-tab",txt:"Review session tab: answer every review slide question before opening it",min:35,act:["review"]},
     {id:"exam-40",txt:"Practice exam: 40 mixed questions, no notes",min:40,act:["quiz","exam40"]},
     {id:"review-missed",txt:"Reread the topics behind every question you missed",min:25,act:["units"]},
     {id:"px-full",txt:"Practice exam tab: the full written exam, no notes (no notecard on the real one)",min:35,act:["exam"]});}
-  if(R===0){plan[N-1].tasks.push({id:"px-full",txt:"Practice exam tab: the full written exam, no notes",min:30,act:["exam"]})}
+  if(R===0){plan[N-1].tasks.push({id:"review-tab",txt:"Review session tab: answer every review slide question",min:30,act:["review"]},{id:"px-full",txt:"Practice exam tab: the full written exam, no notes",min:30,act:["exam"]})}
   plan.push({date:exam,kind:"exam",tasks:[
     {id:"exam-warm",txt:"10-minute warm-up: flip through flashcards for your shakiest topic",min:10,act:["cards","all"]},
     {id:"exam-bring",txt:"Bring a pencil and ID (no notecard this time)",min:0}]});
@@ -2015,6 +2104,7 @@ function renderUnit(){
   <div class="card"><h3 style="margin-bottom:4px">Quick review: key points</h3><p class="muted" style="margin-bottom:12px">The facts to memorize once you understand the lesson above.</p><ul class="points">${u.points.map(p=>`<li>${p}</li>`).join("")}</ul></div>
   ${(DRILLS[u.id]||[]).map(drill).join("")}
   ${tablesFor(u.id)}
+  ${(()=>{const rs=REVIEW.filter(r=>r.unit===u.id);if(!rs.length)return "";return `<div class="card rvbox" style="display:grid;gap:10px"><div><span class="eyebrow">From Monday's review session</span><h3>Your professor asked these</h3><p class="muted">High priority: answer each before opening it.</p></div><div class="qs">${rs.flatMap(r=>r.qs.map(([q,a])=>`<details class="q"><summary>${q} <span class="muted" style="font-weight:400">(slide ${r.s})</span></summary><div class="a">${a}</div></details>`)).join("")}</div><button class="linkbtn" type="button" data-go2="review" style="justify-self:start">See the slides in the Review session tab →</button></div>`})()}
   ${(()=>{const its=GUIDE.flatMap((s,si)=>s.items.map((it,ii)=>({it,k:gkey(si,ii),ch:s.h.split(":")[0]}))).filter(x=>x.it[2]===u.id);if(!its.length)return "";const dn=its.filter(x=>S.guide[x.k]).length;
     return `<div style="display:grid;gap:10px"><div class="section-head"><div><h3>Your study guide asks</h3><p class="muted">Straight from your ${[...new Set(its.map(x=>x.ch))].join(" and ")} study guide. Check off each one you can explain.</p></div><span class="pill ${dn===its.length?"good":""}" id="ugCount">${dn}/${its.length} checked</span></div>
     <div class="qs">${its.map(x=>`<div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start"><input type="checkbox" data-ug="${x.k}" ${S.guide[x.k]?"checked":""} aria-label="I can answer: ${x.it[0].replace(/"/g,"")}" style="width:18px;height:18px;margin-top:14px;accent-color:var(--good)"><details class="q"><summary>${x.it[0]}</summary><div class="ans">${x.it[1]}</div></details></div>`).join("")}</div></div>`})()}
@@ -2025,6 +2115,7 @@ function renderUnit(){
   <div class="row" style="justify-content:space-between">${u.n>1?`<button class="btn" type="button" data-nav="${UNITS[u.n-2].id}">← ${UNITS[u.n-2].short}</button>`:"<span></span>"}${u.n<UNITS.length?`<button class="btn" type="button" data-nav="${UNITS[u.n].id}">${UNITS[u.n].short} →</button>`:""}</div>`;
   $$("#unitContent [data-ug]").forEach(c=>{c.addEventListener("change",()=>{S.guide[c.dataset.ug]=c.checked;save();const all=$$("#unitContent [data-ug]");const n=all.filter(x=>x.checked).length;const p=$("#ugCount");p.textContent=`${n}/${all.length} checked`;p.classList.toggle("good",n===all.length)})});
   wireLesson(u);
+  $$("#unitContent [data-go2]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.go2)));
   $$("#unitContent [data-img]").forEach(b=>b.addEventListener("click",()=>openLB(b.dataset.img,b.dataset.cap)));
   $$("#unitContent [data-nav]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.nav)));
   $$("#unitContent [data-go]").forEach(b=>b.addEventListener("click",()=>b.dataset.go==="quiz"?(show("quiz"),startQuiz([u.id],u.quiz.length)):(fc.unit=u.id,fc.reset=true,show("cards"))));
@@ -2063,6 +2154,24 @@ function wireLesson(u){const L=LESSONS[u.id];if(!L)return;S.lesson=S.lesson||{};
  const r=$("#lsRestart");if(r)r.addEventListener("click",()=>{S.lesson[u.id]=0;save();renderUnit();setTimeout(()=>{const l=$("#lesson");if(l)l.scrollIntoView({block:"start"})},50)});
 }
 function resItems(r){return r.v.map(([t,q])=>`<li><a href="${YT(q)}" target="_blank" rel="noopener"><span class="ic v">VIDEO</span><span>${t}</span></a></li>`).join("")+r.r.map(([t,url])=>`<li><a href="${url}" target="_blank" rel="noopener"><span class="ic r">READ</span><span>${t}</span></a></li>`).join("")}
+
+// ---------- review session ----------
+let rvOpenAll=false;
+function rvItem(r,i){const done=(S.rv||{})[r.s];
+  return `<article class="card rv ${done?"done":""}" id="rv-${r.s}"><div class="rv-head"><div><span class="eyebrow">Review slide ${r.s}${r.unit?` · ${UMAP[r.unit].short}`:""}</span><h3>${r.h}</h3></div>
+   <label class="rv-chk"><input type="checkbox" data-rv="${r.s}" ${done?"checked":""}> Got it</label></div>
+   ${r.s>2?`<button type="button" class="ls-fig" data-img="L99_s${r.s}" data-cap="${esc1(r.h)} (review slide ${r.s})"><img loading="lazy" src="img/L99_s${r.s}.jpg" alt="Review slide ${r.s}: ${esc1(r.h)}"><span>Review slide · tap to enlarge</span></button>`:""}
+   <div class="qs">${r.qs.map(([q,a])=>`<details class="q" ${rvOpenAll||r.s===2?"open":""}><summary>${q}</summary><div class="a">${a}</div></details>`).join("")}</div>
+   ${r.unit?`<div class="row"><button class="linkbtn" type="button" data-nav="${r.unit}">Go to the ${UMAP[r.unit].short} topic →</button></div>`:""}</article>`}
+function renderReview(){S.rv=S.rv||{};const qn=REVIEW.filter(r=>r.s>2);const d=qn.filter(r=>S.rv[r.s]).length;
+  $("#rvCount").textContent=`${d}/${qn.length} review slides checked off`;$("#rvMeter").style.width=(100*d/qn.length)+"%";
+  $("#rvAll").textContent=rvOpenAll?"Hide answers":"Show all answers";
+  $("#rvList").innerHTML=REVIEW.map(rvItem).join("");
+  $$("#rvList [data-rv]").forEach(c=>c.addEventListener("change",()=>{S.rv[c.dataset.rv]=c.checked;save();c.closest(".rv").classList.toggle("done",c.checked);const d=qn.filter(r=>S.rv[r.s]).length;$("#rvCount").textContent=`${d}/${qn.length} review slides checked off`;$("#rvMeter").style.width=(100*d/qn.length)+"%"}));
+  $$("#rvList [data-img]").forEach(b=>b.addEventListener("click",()=>openLB(b.dataset.img,b.dataset.cap)));
+  $$("#rvList [data-nav]").forEach(b=>b.addEventListener("click",()=>openUnit(b.dataset.nav)));
+}
+$("#rvAll").addEventListener("click",()=>{rvOpenAll=!rvOpenAll;renderReview()});
 
 // ---------- lightbox ----------
 function openLB(id,cap){$("#lbImg").src="img/"+id+".jpg";$("#lbImg").alt=cap;$("#lbCap").textContent=cap;$("#lb").hidden=false;$("#lbClose").focus()}
@@ -2243,14 +2352,14 @@ const EXPR=["Sigma factor","TATA box","TFIIH","Spliceosome (snRNPs)","Aminoacyl-
 const NUCLEO=`<img src="img/L25_s17c.jpg" alt="Chromatin drawing with 1 (bracket under one bead), 2 (yellow core) and 3 (red strand) labeled" style="max-width:100%;height:auto;background:#fff;border-radius:8px">`;
 
 const SECTIONS=[
- {id:'match',title:'Matching',real:'',intro:'Pick the best match. Choices can be used more than once.',groups:[
-  {heading:'Which enzyme does this? (Lecture 21 warm-up)',kind:'select',options:ENZ,items:[
+ {id:'match',title:'Matching',intro:'26 questions, like the real exam. One answer per question; in each group every choice is used once.',groups:[
+  {heading:'Which enzyme does this? (from the review session)',kind:'select',options:ENZ,items:[
    {q:'Makes single-strand nicks to remove torsional stress',ans:'DNA topoisomerase'},
    {q:'Adds RNA primers during replication',ans:'Primase'},
-   {q:'Takes off the RNA primers and replaces them with DNA (bacteria)',ans:'DNA polymerase I'},
+   {q:'Takes off the RNA primers and replaces them with DNA',ans:'DNA polymerase I'},
    {q:'Seals the backbone of DNA fragments in a strand together',ans:'DNA ligase'},
    {q:'Unwinds DNA',ans:'DNA helicase'},
-   {q:'Synthesizes the new DNA strand and proofreads',ans:'DNA polymerase III'},
+   {q:'Synthesizes the new DNA strand',ans:'DNA polymerase III'},
    {q:'Helps synthesize the 3′ ends of eukaryotic chromosomes',ans:'Telomerase',why:'Uses its own RNA template to extend the 3′ overhang.'}]},
   {heading:'When does it happen?',kind:'select',options:PHASE,items:[
    {q:'DNA is replicated and the centrosome duplicates',ans:'S phase'},
@@ -2274,69 +2383,61 @@ const SECTIONS=[
    {q:'Adds –CH₃ to cytosine',ans:'DNA methyltransferase'},
    {q:'Uses ATP to slide nucleosomes along DNA',ans:'Chromatin-remodeling complex'}]}
  ]},
- {id:'label',title:'Labeling',real:'',intro:'Your study guides say \"be able to label\" for these.',groups:[
-  {heading:'Label the nucleotide',figure:NUC_SVG,kind:'select',lbl:true,options:NUC_KEY,items:[
-   {q:'1',ans:NUC_KEY[0]},{q:'2',ans:NUC_KEY[1]},{q:'3',ans:NUC_KEY[2]},{q:'4',ans:NUC_KEY[3],why:'The 5′ carbon sticks up off the ring and carries the phosphate.'},{q:'5',ans:NUC_KEY[4],why:'The next nucleotide attaches to this –OH.'},{q:'6',ans:NUC_KEY[5]},{q:'7',ans:NUC_KEY[6]}]},
-  {heading:'Label the cell cycle (numbers = phases, letters = checkpoints)',figure:CC_SVG,kind:'select',lbl:true,options:CC_KEY,items:[
-   {q:'1',ans:'M phase'},{q:'2',ans:'G1',why:'The longest phase, right after M.'},{q:'3',ans:'S phase'},{q:'4',ans:'G2'},
-   {q:'X',ans:'G1 checkpoint',why:'End of G1: is the environment favorable?'},{q:'Y',ans:'G2 checkpoint',why:'G2→M: is DNA fully replicated and undamaged?'},{q:'Z',ans:'M checkpoint',why:'Metaphase→anaphase: are all chromosomes attached to the spindle?'}]},
-  {heading:'Label the protein-coding gene region',figure:GENE_SVG,kind:'select',lbl:true,options:GENE_KEY,items:[
+ {id:'label',title:'Labeling',intro:'16 labels, like the real exam. These are the diagrams from the review session.',groups:[
+  {heading:'Cell cycle: label the 3 interphase stages and the 3 checkpoints (1 = M phase, given)',figure:CC_SVG,kind:'select',lbl:true,options:CC_KEY,items:[
+   {q:'2',ans:'G1',why:'The long segment right after M (going clockwise).'},{q:'3',ans:'S phase'},{q:'4',ans:'G2',why:'Right before M.'},
+   {q:'X',ans:'G1 checkpoint',why:'End of G1: is the environment favorable?'},{q:'Y',ans:'G2 checkpoint',why:'G2→M: is DNA fully replicated and undamaged?'},{q:'Z',ans:'M checkpoint',why:'Inside M, metaphase→anaphase: are all chromosomes attached to the spindle?'}]},
+  {heading:'Protein-coding gene region',figure:GENE_SVG,kind:'select',lbl:true,options:GENE_KEY,items:[
    {q:'1',ans:'Enhancer region',why:'Where regulatory transcription factors bind.'},{q:'2',ans:'TATA box',why:'~−25; the initial recognition site.'},{q:'3',ans:'Core promoter',why:'Where GTFs + RNA pol II assemble.'},{q:'4',ans:'Transcription start site (+1)'},{q:'5',ans:'Protein-coding sequence'}]},
-  {heading:'Leading or lagging?',figure:FORK_SVG,kind:'select',lbl:true,options:FORK_KEY,items:[
-   {q:'A',ans:FORK_KEY[0],why:'Template top strand runs 5′→3′ left to right, so the new strand grows leftward, toward the left fork.'},
-   {q:'B',ans:FORK_KEY[1],why:'Same template, but this fork moves right while the new strand grows left: made in fragments.'},
-   {q:'C',ans:FORK_KEY[1],why:'Bottom template runs 3′→5′ left to right, so new strands grow rightward, away from the left fork.'},
-   {q:'D',ans:FORK_KEY[0],why:'Grows rightward, the same direction as the right fork.'}]},
-  {heading:'Match histone, nucleosome and DNA (Lecture 25)',figure:NUCLEO,kind:'select',lbl:true,options:["Histone","Nucleosome","DNA"],items:[
-   {q:'1',ans:'Nucleosome',why:'The bracket spans one whole bead: DNA wrapped around a histone core.'},{q:'2',ans:'Histone',why:'The yellow core is the histone octamer.'},{q:'3',ans:'DNA'}]}
+  {heading:'Ribosome',figure:RIBO_SVG,kind:'select',lbl:true,options:RIBO_KEY,items:[
+   {q:'1',ans:'Large ribosomal subunit',why:'Makes the peptide bonds.'},{q:'2',ans:'Small ribosomal subunit',why:'Binds the mRNA and matches tRNAs to codons.'},
+   {q:'3',ans:'E site',why:'Sites run E-P-A from the 5′ end; tRNAs move A → P → E.'},{q:'4',ans:'P site'},{q:'5',ans:'A site',why:'Closest to the mRNA\'s 3′ end: where new charged tRNAs enter.'}]}
  ]},
- {id:'sa',title:'Short answer',real:'',intro:'Write your answer, then check and grade yourself against the key.',groups:[
+ {id:'draw',title:'Drawing',intro:'5 drawings, like the real exam. Draw on paper (or type a description), then check against the key and give yourself points.',groups:[
   {kind:'sa',items:[
-   {q:'Why does DNA polymerase need a primer, and why are origins AT-rich?',pts:2,model:'Polymerase can only add nucleotides onto an existing 3′ –OH, so primase lays down an RNA primer to start each strand/fragment (1 pt). A–T pairs have 2 H bonds vs 3 for G–C, so AT-rich DNA is easier to pull apart to open the origin (1 pt).'},
-   {q:'Explain why linear chromosomes would shorten every round of replication, and how telomerase prevents it.',pts:2,model:'When the last RNA primer at the end of the lagging strand is removed, there is no upstream 3′ end for polymerase to fill the gap, so the 3′ end of the strand is lost (1 pt). Telomerase uses its RNA template to extend the 3′ overhang with telomere repeats, making room for one more primer so the lagging strand can be finished (1 pt).'},
-   {q:'A cell suffers a double-strand break in G1, and another cell suffers one in G2. Which is more likely to repair it without a mutation, and why?',pts:2,model:'The G2 cell (1 pt): after S phase it has an identical sister DNA molecule nearby, so it can use homologous repair, which is accurate. The G1 cell has no sister copy and must use non-homologous end joining, which usually deletes nucleotides (1 pt).'},
-   {q:'A cell\'s DNA is damaged by X-rays in G1. Walk through how it stops the cell cycle.',pts:2,model:'Kinases activated by the damage phosphorylate p53, stabilizing it (1 pt). p53 turns on the p21 gene; p21 protein binds and inactivates G1/S-Cdk and S-Cdk, so the cell can\'t enter S phase until the DNA is repaired (1 pt).'},
-   {q:'What is the difference between mitosis and cytokinesis, and which cytoskeleton protein drives each?',pts:2,model:'Mitosis divides the nucleus/chromosomes, driven by microtubules of the spindle (1 pt). Cytokinesis divides the cytoplasm, driven by an actin + myosin contractile ring (1 pt).'},
-   {q:'Give two similarities and two differences between RNA polymerase and DNA polymerase.',pts:2,model:'Similar: both base-pair to a DNA template; both add nucleotides 5′→3′. Different (any two): RNA pol uses ribonucleotides, doesn\'t proofread, doesn\'t need a primer, transcribes one strand of one gene.'},
-   {q:'What 3 things must happen to a eukaryotic pre-mRNA before it leaves the nucleus, and what is the benefit of splicing?',pts:2,model:'5′ cap, splicing out introns, 3′ poly-A tail (1 pt). Alternative splicing lets one gene produce several different proteins (1 pt).'},
-   {q:'Describe what happens in one round of translation elongation, naming the ribosome sites.',pts:3,model:'A charged tRNA base-pairs with the codon in the A site (1 pt). Peptidyl transferase (rRNA in the large subunit) bonds the growing chain\'s COOH to the new amino acid\'s NH₂ (1 pt). The large subunit shifts tRNAs to the P and E sites and the small subunit moves 3 nt, emptying the A site and ejecting the E-site tRNA (1 pt).'},
-   {q:'A liver cell and a skin cell have the same genome. Explain how they can be different cell types, including the role of DNA methylation.',pts:3,model:'They express different genes (1 pt), controlled by different regulatory transcription factors and chromatin states (1 pt). DNA methylation of cytosines silences genes by blocking TF binding, and maintenance methyltransferase copies the pattern after replication, so daughter cells keep the same identity (1 pt).'},
-   {q:'Predict the effect of a drug that blocks histone acetyltransferases on a gene that needs an activator to be expressed.',pts:2,model:'Histones near the gene stay less acetylated, so their lysines stay positive and hold DNA tightly (1 pt). The chromatin stays condensed, the activator/GTFs have trouble accessing the DNA, and transcription drops toward basal or below (1 pt).'}]}
+   {q:'Draw the leading and lagging strands at each replication fork of this bubble, with arrows for direction. Label some Okazaki fragments.',fig:FORK_SVG.replace(/<circle class="lab-c"[^>]*\/><text class="lab-t"[^>]*>[A-D]<\/text>/g,'').replace(/<path class="f-new"[^>]*\/>/g,''),pts:2,model:'',modelHtml:FORK_ANS+'<p>Top-left and bottom-right are leading (continuous, toward the fork). Top-right and bottom-left are lagging (Okazaki fragments pointing back toward the origin).</p>'},
+   {q:'Draw the strand complementary to 5′-ATGCCGTA-3′ and label both of its ends.',pts:1,model:'',modelHtml:'<span class="mono">5′-ATGCCGTA-3′<br>3′-TACGGCAT-5′</span><br>Complementary bases, antiparallel: the new strand\'s 3′ end sits under the top strand\'s 5′ end.'},
+   {q:'A template strand reads 3′-TACAAAGGCATT-5′. Draw the mRNA made from it (with 5′/3′ ends), circle the start codon, and write the protein.',pts:2,model:'',modelHtml:'<span class="mono">mRNA 5′-<b>AUG</b> UUU CCG UAA-3′</span><br>Start codon AUG at the 5′ end. Protein: <b>Met-Phe-Pro</b>, then stop (UAA).'},
+   {q:'Draw a ribosome at the moment a new charged tRNA arrives. Label the large and small subunits, the E, P and A sites, the mRNA 5′/3′ ends, and the growing chain.',pts:2,model:'',modelHtml:'Large subunit on top, small subunit on the bottom holding the mRNA (5′ on the left, 3′ on the right). Sites left to right: <b>E, P, A</b>. The <b>P site</b> holds a tRNA attached to the growing polypeptide (N-terminus sticking out); the <b>new charged tRNA</b> is entering the <b>A site</b>, base-pairing with its codon. The E site is empty (or its tRNA is leaving).'},
+   {q:'Draw a short DNA strand of 2 nucleotides. Label a phosphate, a sugar, a base, the phosphodiester bond, and the 5′ and 3′ ends.',pts:2,model:'',modelHtml:'Each nucleotide: phosphate on the sugar\'s 5′ carbon, base on the 1′ carbon. The bottom nucleotide\'s phosphate links to the 3′ carbon of the top one: that phosphate–sugar link is the <b>phosphodiester bond</b> (covalent). The free phosphate at the top is the <b>5′ end</b>; the free –OH at the bottom is the <b>3′ end</b>.'}]}
  ]},
- {id:'mc',title:'Multiple choice',real:'',groups:[
-  {kind:'multi',items:[
-   {q:'Which are required before a eukaryotic mRNA can be exported from the nucleus?',options:['5′ cap','Splicing','Poly-A tail','Attached methionine','Sigma factor'],ans:[0,1,2],why:'Methionine is carried by tRNA; sigma factor is bacterial.'},
-   {q:'Which would make DNA LESS accessible to transcription machinery?',options:['Histone acetylation','DNA methylation','Linker histone H1 pulling nucleosomes together','Heterochromatin formation','Activator binding'],ans:[1,2,3],why:'Acetylation and activators open chromatin.'},
-   {q:'Which are true of the lagging strand?',options:['Made in Okazaki fragments','Synthesized in the same direction as fork movement','Needs multiple RNA primers','Its fragments are joined by DNA ligase','Made 3′→5′ by DNA polymerase'],ans:[0,2,3],why:'Polymerase always works 5′→3′; the lagging strand goes opposite the fork.'},
-   {q:'Which are ways cyclin-Cdk activity is turned OFF?',options:['Cyclin degradation','Wee1 inhibitory phosphorylation','Cdk inhibitor proteins (p21, p27)','Cdc25 removing inhibitory phosphates','Rising cyclin levels'],ans:[0,1,2],why:'Cdc25 and rising cyclin levels activate.'}]},
+ {id:'sa',title:'Fill in the blank / free response',intro:'8 questions, like the real exam. Most are straight from the review session.',groups:[
+  {kind:'sa',items:[
+   {q:'What needs to happen for a Cdk to phosphorylate its protein targets and move the cell into the next stage of the cell cycle?',pts:2,model:'It must bind its cyclin (cyclin levels have to rise) (1 pt). Its inhibitory phosphates must be removed (e.g., by Cdc25) and no Cdk inhibitor protein like p21/p27 can be bound (1 pt).'},
+   {q:'Where does the ribosome bind mRNA?',pts:1,model:'The small subunit binds the mRNA at the 5′ cap, then scans to the first AUG.'},
+   {q:'Why can nucleotides only be added on at their 5′ end?',pts:2,model:'The incoming nucleotide carries a triphosphate on its 5′ carbon; breaking off 2 phosphates gives the energy to bond its 5′ phosphate to the chain\'s 3′ –OH (1 pt). So strands grow 5′→3′, which also lets polymerase proofread (1 pt).'},
+   {q:'The two strands of DNA run in opposite directions, described as ______. The backbone is held together by ______ bonds.',pts:1,model:'Antiparallel; covalent phosphodiester bonds.'},
+   {q:'Where would two DNA strands be easiest to pull apart, and why?',pts:1,model:'In AT-rich regions: A–T pairs have only 2 H bonds vs 3 for G–C.'},
+   {q:'How can a cell block an activating transcription factor from binding its enhancer?',pts:2,model:'Any two: a repressor occupies/blocks the enhancer site; chromatin remodeling wraps the enhancer onto a nucleosome or packs it into heterochromatin; DNA methylation blocks TF binding.'},
+   {q:'How is translation terminated?',pts:2,model:'A stop codon in the A site is bound by a release factor instead of a tRNA (1 pt). Water is added to release the polypeptide, and the mRNA and subunits separate (1 pt).'},
+   {q:'Are all double-stranded DNA breaks equally harmful to a cell? Why or why not?',pts:2,model:'No (1 pt). If a sister copy is present (after replication), homologous repair fixes it accurately; without a template, non-homologous end joining loses nucleotides or causes translocations, so the break is more likely to cause a harmful mutation (1 pt).'}]}
+ ]},
+ {id:'mc',title:'Multiple choice',intro:'6 questions, one answer each, like the real exam.',groups:[
   {kind:'mc',items:[
+   {q:'When a new charged tRNA comes into the ribosome, which two sites are full?',options:['E and P','P and A','E and A','All three'],ans:1,why:'P holds the chain; the new tRNA is in A.'},
    {q:'A DNA sample is 22% thymine. What percent is cytosine?',options:['22%','28%','44%','56%'],ans:1,why:'T = A = 22% (44% total); G + C = 56%, so C = 28%.'},
-   {q:'Which bond holds complementary bases together across the helix?',options:['Phosphodiester','Hydrogen','Peptide','Ionic between phosphates'],ans:1},
-   {q:'Which is the template for each new strand in DNA replication?',options:['An RNA copy','Each parental strand','Only the leading strand','The coding strand'],ans:1},
-   {q:'Mismatch repair improves replication accuracy to about:',options:['1 in 10⁴','1 in 10⁶','1 in 10⁸','1 in 10¹²'],ans:2},
-   {q:'Which checkpoint asks whether all chromosomes are attached to the spindle?',options:['G1','G2','M','S'],ans:2},
-   {q:'Template strand 3′-TAC AAA CCG ATT-5′ is transcribed. The protein is:',options:['Met-Phe-Gly-stop (3 amino acids)','Tyr-Lys-Pro-stop','Met-Lys-Gly-Leu','Met-Phe-Gly-Asn'],ans:0,why:'mRNA 5′-AUG UUU GGC UAA-3′ = Met-Phe-Gly, then stop.'},
-   {q:'In eukaryotes, the small ribosomal subunit first binds the mRNA at the:',options:['AUG','5′ cap','Poly-A tail','Stop codon'],ans:1},
-   {q:'Peptide bonds are formed by:',options:['Ribosomal proteins','rRNA (the ribosome is a ribozyme)','Aminoacyl-tRNA synthetase','Release factor'],ans:1},
-   {q:'Without any regulatory transcription factors, a gene with a core promoter is transcribed:',options:['Not at all','At a low, basal level','At its maximum rate','Only in bacteria'],ans:1},
-   {q:'What makes M-Cdk activation an all-or-none switch?',options:['p53','Positive feedback through Cdc25','Cohesin','The G1 checkpoint'],ans:1}]}
+   {q:'Template strand 3′-TAC AAA CCG ATT-5′ is transcribed. The protein is:',options:['Met-Phe-Gly, then stop','Tyr-Lys-Pro, then stop','Met-Lys-Gly-Leu','Met-Phe-Gly-Asn'],ans:0,why:'mRNA 5′-AUG UUU GGC UAA-3′ = Met-Phe-Gly, then stop.'},
+   {q:'Chromatin that is condensed only in certain cell types is called:',options:['Euchromatin','Constitutive heterochromatin','Facultative heterochromatin','A nucleosome'],ans:2},
+   {q:'Which would most likely INCREASE transcription of a gene?',options:['Methylating cytosines in its enhancer','Acetylating histones near its promoter','Packing it into heterochromatin','A repressor binding its enhancer'],ans:1,why:'Acetylation loosens chromatin.'},
+   {q:'Which enzyme activity makes the peptide bond during translation?',options:['Aminoacyl-tRNA synthetase','Peptidyl transferase (rRNA in the large subunit)','Release factor','RNA polymerase'],ans:1}]}
  ]},
- {id:'tf',title:'True/false',real:'',groups:[
+ {id:'tf',title:'True/false',intro:'9 questions, like the real exam.',groups:[
   {kind:'tf',items:[
-   {q:'DNA polymerase adds new nucleotides to the 3′ end of the growing strand.',ans:true,why:'So strands grow 5′→3′.'},
-   {q:'RNA polymerase needs an RNA primer to begin transcription.',ans:false,why:'It starts on its own; only DNA polymerase needs a primer.'},
+   {q:'DNA polymerase adds each new nucleotide to the 3′ end of the growing strand.',ans:true,why:'The new nucleotide joins by its 5′ end onto the chain\'s 3′ –OH.'},
+   {q:'RNA polymerase needs an RNA primer to begin transcription.',ans:false,why:'Only DNA polymerase needs a primer.'},
    {q:'Histones are negatively charged, like DNA.',ans:false,why:'They are positive, which is why they bind DNA.'},
-   {q:'Euchromatin is more transcriptionally active than heterochromatin.',ans:true},
    {q:'Non-homologous end joining is more accurate than homologous repair.',ans:false,why:'It usually deletes nucleotides; homologous repair is accurate.'},
-   {q:'Prokaryotes have a single origin of replication, while eukaryotes have many.',ans:true},
-   {q:'Cyclin-Cdk complexes trigger cell-cycle events by phosphorylating target proteins.',ans:true},
+   {q:'Regulatory transcription factors bind the core promoter.',ans:false,why:'They bind the enhancer; the pre-initiation complex binds the core promoter.'},
    {q:'The nuclear envelope breaks down in telophase.',ans:false,why:'It breaks down in prometaphase and reassembles in telophase.'},
-   {q:'The coding strand has the same sequence as the mRNA, except T instead of U.',ans:true},
-   {q:'Introns are kept in the mature mRNA and exons are removed.',ans:false,why:'Exons are kept; introns are removed.'},
-   {q:'The genetic code is degenerate: more than one codon can code for the same amino acid.',ans:true},
-   {q:'DNA methylation patterns are erased every time DNA replicates.',ans:false,why:'Maintenance methyltransferase copies them onto the new strand.'},
-   {q:'Telomerase carries its own RNA template.',ans:true},
-   {q:'A tRNA\'s amino acid is attached at its anticodon.',ans:false,why:'It is attached at the 3′ end; the anticodon pairs with the codon.'}]}
+   {q:'Cyclin-Cdk complexes trigger cell-cycle events by phosphorylating target proteins.',ans:true},
+   {q:'The small ribosomal subunit binds the mRNA at its 5′ cap.',ans:true},
+   {q:'DNA methylation patterns are erased every time DNA replicates.',ans:false,why:'Maintenance methyltransferase copies them onto the new strand.'}]}
+ ]},
+ {id:'ec',title:'Extra credit',ec:true,intro:'3 free-response questions. Points here add to your score but not to the total.',groups:[
+  {kind:'sa',items:[
+   {q:'Review slide 9: the top strand is 5′-CTCTACGCACGCATTA-3′. Which strand is the template, where is the start codon, and what protein is made?',pts:1,model:'Bottom strand read 5′→3′ (right to left) is 5′-TAATGCGTGCGTAGAG-3′, which contains ATG, so the bottom is the coding strand and the top is the template. mRNA 5′-UAAUGCGUGCGUAGAG-3′ → Met-Arg-Ala, then stop (UAG).'},
+   {q:'Explain why linear chromosomes would get shorter every round of replication without telomerase, and how telomerase fixes it.',pts:1,model:'The last RNA primer at the end of the lagging strand can\'t be replaced with DNA because there\'s no upstream 3′ end to extend from. Telomerase uses its own RNA template to extend the 3′ overhang, making room for one more primer.'},
+   {q:'Explain how a liver cell\'s daughter cells stay liver cells, using DNA methylation.',pts:1,model:'Methylated cytosines silence non-liver genes by blocking TF binding. After replication, maintenance methyltransferase recognizes half-methylated sites and methylates the new strand, so daughter cells inherit the same silenced genes.'}]}
  ]}
 ];
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
@@ -2355,12 +2456,12 @@ function renderItem(it){
  if(it.kind==='tf'){
   return `<li class="px-item tf" id="${id}"><p class="px-q">${esc(it.q)}</p><div class="px-opts"><label class="px-opt" for="${id}-t"><input type="radio" name="${id}" id="${id}-t" value="true"><span>True</span></label><label class="px-opt" for="${id}-f"><input type="radio" name="${id}" id="${id}-f" value="false"><span>False</span></label></div><div class="px-why" hidden></div></li>`;
  }
- return `<li class="px-item sa" id="${id}"><label class="px-q" for="${id}-in">${esc(it.q)}<span class="px-tag">${it.pts} pt${it.pts>1?'s':''}</span></label><textarea id="${id}-in" rows="3" placeholder="Your answer"></textarea><div class="px-why" hidden></div><div class="px-self" hidden></div></li>`;
+ return `<li class="px-item sa" id="${id}"><label class="px-q" for="${id}-in">${esc(it.q)}<span class="px-tag">${it.pts} pt${it.pts>1?'s':''}</span></label>${it.fig?`<figure class="px-fig">${it.fig}</figure>`:''}<textarea id="${id}-in" rows="3" placeholder="Your answer"></textarea><div class="px-why" hidden></div><div class="px-self" hidden></div></li>`;
 }
 function render(){
  let h='';
  SECTIONS.forEach(sec=>{
-  h+=`<section class="card px-sec" id="px-sec-${sec.id}"><header class="px-sec-head"><h2>${sec.title}</h2><span class="px-pts">${sec.groups.reduce((a,g)=>a+g.items.length,0)} items</span></header>`;
+  h+=`<section class="card px-sec" id="px-sec-${sec.id}"><header class="px-sec-head"><h2>${sec.title}</h2><span class="px-pts">${sec.groups.reduce((a,g)=>a+g.items.length,0)} ${sec.ec?'bonus ':''}questions</span></header>`;
   if(sec.intro)h+=`<p class="px-intro">${sec.intro}</p>`;
   sec.groups.forEach(g=>{
    h+='<div class="px-group">';
@@ -2386,7 +2487,7 @@ function check(){
  items.forEach(it=>{
   const li=$id(it.id),why=li.querySelector('.px-why');
   if(it.kind==='sa'){
-   why.innerHTML=`<b>Key:</b> ${esc(it.model)}`;why.hidden=false;
+   why.innerHTML=`<b>Key:</b> ${it.modelHtml||esc(it.model)}`;why.hidden=false;
    const self=li.querySelector('.px-self');
    let b='<span>Your points:</span>';for(let k=0;k<=it.pts;k++)b+=`<button type="button" data-k="${k}" aria-pressed="${it.self===k}">${k}</button>`;
    self.innerHTML=b;self.hidden=false;
@@ -2414,7 +2515,7 @@ function totals(){
   items.filter(i=>i.sec===sec.id).forEach(i=>{
    if(i.kind==='sa'){m+=i.pts;if(i.self===null)pending++;else g+=i.self}else{m+=1;if(i.ok)g+=1}
   });
-  got+=g;max+=m;
+  if(sec.ec){got+=g}else{got+=g;max+=m}
   const el=$id('px-score-'+sec.id);el.textContent=`Section score: ${g} / ${m}`;el.hidden=false;
   rows+=`<div>${sec.title}<b>${g} / ${m}</b></div>`;
  });
